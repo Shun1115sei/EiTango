@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEFL Physics Flashcards</title>
+    <style>
+        :root {
+            --primary-color: #5d6d7e;
+            --success-color: #27ae60;
+            --warning-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --card-width: 350px;
+            --card-height: 500px;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #2c3e50;
+        }
+
+        #header {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .progress-info {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+
+        .card-container {
+            width: var(--card-width);
+            height: var(--card-height);
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .card.is-flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 35px;
+            box-sizing: border-box;
+            background: white;
+            border: 1px solid #eee;
+        }
+
+        .card-front {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .word {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+
+        .phonetic {
+            font-family: 'Lucida Sans Unicode', sans-serif;
+            font-size: 1.1rem;
+            color: #95a5a6;
+            margin-bottom: 30px;
+        }
+
+        .audio-btn {
+            background: #f8f9fa;
+            border: 2px solid #eee;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .audio-btn:hover {
+            background: #e9ecef;
+            transform: scale(1.05);
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .translation {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            border-bottom: 3px solid #f1c40f;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .meaning-box {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #34495e;
+            text-align: left;
+        }
+
+        .controls {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            width: 100%;
+            max-width: var(--card-width);
+        }
+
+        button.action-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 14px 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        button.action-btn:active {
+            transform: translateY(2px);
+            box-shadow: none;
+        }
+
+        .btn-learned { background-color: var(--success-color); }
+        .btn-retry { background-color: var(--warning-color); }
+
+        #complete-screen {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .restart-btn {
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+
+        .restart-btn:hover { background: #2980b9; }
+
+        @media (max-width: 400px) {
+            :root {
+                --card-width: 90vw;
+                --card-height: 75vh;
+            }
+            .word { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="game-container">
+        <div id="header">
+            <h1 style="margin:0; font-size: 1.6rem; color: #2c3e50;">Physics Flashcards</h1>
+            <div class="progress-info" id="progress-info">読み込み中...</div>
+        </div>
+
+        <div class="card-container" onclick="flipCard()">
+            <div class="card" id="card">
+                <div class="card-face card-front">
+                    <div class="word" id="word-display">Word</div>
+                    <div class="phonetic" id="phonetic-display">[phonetic]</div>
+                    <button class="audio-btn" onclick="playAudio(event)">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#2c3e50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                    </button>
+                </div>
+                <div class="card-face card-back">
+                    <div class="translation" id="translation-display">日本語訳</div>
+                    <div class="meaning-box" id="meaning-display"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="controls" id="controls">
+            <button class="action-btn btn-retry" onclick="markAsRetry()">
+                🔄 苦手 / まだ
+            </button>
+            <button class="action-btn btn-learned" onclick="markAsLearned()">
+                ✅ 覚えた
+            </button>
+        </div>
+    </div>
+
+    <div id="complete-screen">
+        <div style="font-size: 4rem;">🚀</div>
+        <h2>Physics Mastered!</h2>
+        <p>物理学の基本語彙をすべて完了しました。</p>
+        <button class="restart-btn" onclick="restart()">最初からやり直す</button>
+    </div>
+
+    <script>
+        const wordData = [
+            // 画像1枚目 (01-13)
+            { "Word": "mass", "Phonetic": "[mæs]", "Translation": "質量", "Meaning": "その物が「どれくらい詰まっているか」を表す量。<br>地球でも月でも変わらない、物質そのものの重さの正体です。" },
+            { "Word": "acceleration", "Phonetic": "[æksèlərèiʃən]", "Translation": "加速度", "Meaning": "スピードがどれくらいの勢いで上がっているか（または下がっているか）の変化率のこと。" },
+            { "Word": "friction", "Phonetic": "[fríkʃən]", "Translation": "摩擦", "Meaning": "物と物がこすれる時に、動こうとする力をジャマする「ブレーキ」のような力。" },
+            { "Word": "velocity", "Phonetic": "[vəláisəti]", "Translation": "速さ", "Meaning": "単なるスピードだけでなく、「どの方向に」進んでいるかという情報もセットになった速度のこと。" },
+            { "Word": "momentum", "Phonetic": "[mouméntəm]", "Translation": "運動量", "Meaning": "「重さ × スピード」で決まる、動いている物の「勢い」のこと。" },
+            { "Word": "resistance", "Phonetic": "[rizístəns]", "Translation": "抵抗", "Meaning": "電気が流れるのをジャマする「通せんぼ」の力。これがあるから熱が発生したりします。" },
+            { "Word": "ohm", "Phonetic": "[oum]", "Translation": "オーム", "Meaning": "電気の通りにくさ（抵抗）を表す単位。記号は Ω です。" },
+            { "Word": "electric current", "Phonetic": "[---]", "Translation": "電流", "Meaning": "回路の中を流れる電気の「川」のような流れそのもの。" },
+            { "Word": "in series", "Phonetic": "[---]", "Translation": "直列で", "Meaning": "電球などを一列に、数珠つなぎにすること。一本道なので、一つ切れると全部消えます。" },
+            { "Word": "in parallel", "Phonetic": "[---]", "Translation": "並列で", "Meaning": "回路を枝分かれさせてつなぐこと。家の中のコンセントなどはこの形です。" },
+            { "Word": "inertia", "Phonetic": "[inə́ːrʃə]", "Translation": "慣性", "Meaning": "「今の状態を続けたい！」という性質。動いている物は動き続け、止まっている物は止まり続けようとします。" },
+            { "Word": "locomotion", "Phonetic": "[lòukəmóuʃən]", "Translation": "移動（力）", "Meaning": "ある場所から別の場所へ移動すること、またはそのための推進力。" },
+            { "Word": "convection", "Phonetic": "[kənvékʃən]", "Translation": "対流", "Meaning": "空気や水が温まって軽くなり、ぐるぐる回ることで熱が伝わる現象。" },
+            
+            // 画像2枚目 (14-30)
+            { "Word": "trajectory", "Phonetic": "[trədʒéktəri]", "Translation": "軌道、弾道", "Meaning": "投げたボールやロケットが空中に描く「通り道」のこと。" },
+            { "Word": "horizontal", "Phonetic": "[hɔ̀ːrəzántl]", "Translation": "水平の", "Meaning": "地面と平行な、真横の方向。地平線（horizon）のイメージ。" },
+            { "Word": "vertical", "Phonetic": "[və́ːrtikəl]", "Translation": "垂直の", "Meaning": "地面に対してまっすぐ立った、上下の方向。" },
+            { "Word": "wave", "Phonetic": "[weiv]", "Translation": "波動", "Meaning": "プルプルした揺れが、次から次へと伝わっていく現象。光や音もこれの一種。" },
+            { "Word": "wavelength", "Phonetic": "[wéivlèŋkθ]", "Translation": "波長", "Meaning": "波の山から次の山までの「一歩分」の長さ。これで色や音の高さが決まります。" },
+            { "Word": "frequency", "Phonetic": "[fríːkwənsi]", "Translation": "周波数", "Meaning": "1秒間に何回プルプル揺れるかという回数。" },
+            { "Word": "electromagnetic", "Phonetic": "[ilèktroumæɡnétik]", "Translation": "電磁の", "Meaning": "電気と磁石の力が組み合わさった性質。電波や光などの正体です。" },
+            { "Word": "solar radiation", "Phonetic": "[---]", "Translation": "太陽放射", "Meaning": "太陽から光や熱のエネルギーが、波として地球に飛んでくること。" },
+            { "Word": "spectrum", "Phonetic": "[spéktrəm]", "Translation": "スペクトル", "Meaning": "光を虹のように、波長（色の順番）ごとに並べたもの。" },
+            { "Word": "ultraviolet", "Phonetic": "[ʌ̀ltrəváiəlit]", "Translation": "紫外線の", "Meaning": "紫色の外側にある、目には見えないけれど日焼けの原因になる強い光。" },
+            { "Word": "infrared", "Phonetic": "[ìnfrəréd]", "Translation": "赤外線の", "Meaning": "赤色の外側にある、目には見えないけれど温かさを感じる光。リモコンなどに使われます。" },
+            { "Word": "sound wave", "Phonetic": "[---]", "Translation": "音波", "Meaning": "空気が震えて、その震えが耳に届くことで聞こえる波。" },
+            { "Word": "radio wave", "Phonetic": "[---]", "Translation": "電波", "Meaning": "情報を運ぶために使われる目に見えない波。スマホやテレビに使われます。" },
+            { "Word": "light wave", "Phonetic": "[---]", "Translation": "光波", "Meaning": "光が波として伝わっている状態のこと。" },
+            { "Word": "white noise", "Phonetic": "[---]", "Translation": "ホワイトノイズ", "Meaning": "すべての高さの音が混ざった「シャー」という砂嵐のような音。" },
+            { "Word": "universal gravitation", "Phonetic": "[---]", "Translation": "万有引力", "Meaning": "宇宙にあるすべての物体が、お互いを「おいで」と引き合っている力。" },
+            { "Word": "law of conservation of momentum", "Phonetic": "[---]", "Translation": "運動量保存の法則", "Meaning": "物がぶつかっても、全体の勢い（運動量）の合計は変わらないという宇宙の決まり。" }
+        ];
+
+        let activeWords = [...wordData];
+        let currentIndex = 0;
+
+        const cardEl = document.getElementById('card');
+        const wordEl = document.getElementById('word-display');
+        const phoneticEl = document.getElementById('phonetic-display');
+        const translationEl = document.getElementById('translation-display');
+        const meaningEl = document.getElementById('meaning-display');
+        const progressEl = document.getElementById('progress-info');
+        const gameContainer = document.getElementById('game-container');
+        const completeScreen = document.getElementById('complete-screen');
+
+        let synth = window.speechSynthesis;
+        let voices = [];
+
+        function loadVoices() {
+            voices = synth.getVoices();
+        }
+        loadVoices();
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = loadVoices;
+        }
+
+        function updateCard() {
+            if (activeWords.length === 0) {
+                showComplete();
+                return;
+            }
+            const current = activeWords[currentIndex];
+            wordEl.textContent = current.Word;
+            phoneticEl.textContent = current.Phonetic;
+            translationEl.textContent = current.Translation;
+            meaningEl.innerHTML = current.Meaning;
+            
+            cardEl.classList.remove('is-flipped');
+            progressEl.textContent = `残り: ${activeWords.length} 枚 / 全 ${wordData.length} 枚`;
+        }
+
+        function flipCard() {
+            cardEl.classList.toggle('is-flipped');
+        }
+
+        function playAudio(event) {
+            event.stopPropagation();
+            const text = activeWords[currentIndex].Word;
+            const utter = new SpeechSynthesisUtterance(text);
+            const preferredVoices = ["Google US English", "Samantha", "Alex", "Microsoft Zira"];
+            const voice = voices.find(v => preferredVoices.some(p => v.name.includes(p))) || voices.find(v => v.lang.startsWith('en'));
+            if (voice) utter.voice = voice;
+            utter.lang = 'en-US';
+            utter.rate = 0.85; // 物理用語は難しいので少しゆっくりめに
+            synth.speak(utter);
+        }
+
+        function markAsLearned() {
+            activeWords.splice(currentIndex, 1);
+            if (currentIndex >= activeWords.length) currentIndex = 0;
+            updateCard();
+        }
+
+        function markAsRetry() {
+            // 現在の単語を末尾に回して次へ
+            currentIndex = (currentIndex + 1) % activeWords.length;
+            updateCard();
+        }
+
+        function showComplete() {
+            gameContainer.style.display = 'none';
+            completeScreen.style.display = 'block';
+        }
+
+        function restart() {
+            activeWords = [...wordData];
+            currentIndex = 0;
+            gameContainer.style.display = 'block';
+            completeScreen.style.display = 'none';
+            updateCard();
+        }
+
+        window.onload = updateCard;
+    </script>
+</body>
+</html>
