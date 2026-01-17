@@ -614,17 +614,188 @@ button {
 }
 
 @media (max-width: 480px) {
+
+  /* Strict Flexible Layout to fit 100dvh */
+  body {
+    height: 100dvh;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 0 5px;
+    /* Minimal padding */
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Force no scroll */
+  }
+
+  header {
+    flex: 0 0 auto;
+    /* Don't grow or shrink */
+    margin-bottom: 5px;
+    padding: 5px 10px 0;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+  }
+
+  .status-bar {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    margin-bottom: 2px;
+  }
+
+  .card-container {
+    flex: 1 1 auto;
+    /* Grow and shrink to fill space */
+    width: 90%;
+    height: auto !important;
+    /* Override fixed height */
+    min-height: 0;
+    /* Allow shrinking */
+    margin: 5px 0;
+    display: flex;
+    /* Fixes 3D context in some browsers */
+  }
+
+  .card {
+    height: 100%;
+    /* Fill container */
+  }
+
+  .card-face {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .word {
+    font-size: 1.6rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .phonetic {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    padding: 2px 8px;
+  }
+
+  .btn-audio {
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    margin-top: 5px;
+  }
+
+  .click-hint {
+    bottom: 5px;
+    font-size: 0.7rem;
+  }
+
+  /* Back Face Compact */
+  .card-back {
+    justify-content: flex-start;
+    padding-top: 15px;
+  }
+
+  .translation {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    padding-bottom: 5px;
+  }
+
+  .meaning {
+    font-size: 0.85rem;
+    padding: 10px;
+    line-height: 1.35;
+    max-height: 60%;
+    /* Limit meaning height */
+    overflow-y: auto;
+    /* Scroll meaning if needed */
+  }
+
+  /* Controls Section */
+  .controls-container {
+    flex: 0 0 auto;
+    /* Don't grow or shrink */
+    width: 90%;
+    gap: 8px;
+    margin-bottom: 5px;
+    padding-bottom: env(safe-area-inset-bottom);
+    /* Handle iPhone notches */
+  }
+
+  .grading-group {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .btn-grade {
+    padding: 10px;
+    font-size: 0.9rem;
+    flex: 1;
+    border-radius: 10px;
+  }
+
+  .btn-grade span {
+    display: none;
+  }
+
+  .nav-group {
+    gap: 8px;
+    margin-top: 0;
+  }
+
+  .nav-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Integrate Home link into layout cleanly */
+  .controls-container>div:last-child {
+    margin-top: 4px !important;
+  }
+
+  .controls-container a.nav-btn {
+    padding: 4px;
+    font-size: 0.75rem;
+    background: transparent;
+    color: #95a5a6;
+    text-decoration: underline;
+  }
+
+  /* Home Screen Fixes */
+  body.home-body {
+    display: block;
+    /* Restore block for home */
+    height: auto;
+    min-height: 100vh;
+    overflow-y: auto;
+  }
+
   .hero-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
   .hero-section {
-    padding: 40px 20px;
-    border-radius: 0 0 20px 20px;
+    padding: 20px 15px;
+    border-radius: 0 0 15px 15px;
+    margin-bottom: 20px;
   }
 
   .deck-grid {
     grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .deck-card {
+    padding: 15px;
   }
 }
 
