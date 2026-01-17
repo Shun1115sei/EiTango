@@ -1,0 +1,362 @@
+[
+    {
+        "word": "mammal",
+        "phonetic": "/ˈmæm.əl/",
+        "translation": "哺乳類",
+        "meaning": "お母さんのお乳を飲んで育つ動物。<br>（人間、犬、猫など）"
+    },
+    {
+        "word": "cetacean",
+        "phonetic": "/sɪˈteɪ.ʃən/",
+        "translation": "クジラ目の動物",
+        "meaning": "海に住む哺乳類。<br>（クジラやイルカの仲間）"
+    },
+    {
+        "word": "ruminant",
+        "phonetic": "/ˈruː.mə.nənt/",
+        "translation": "反芻（はんすう）動物",
+        "meaning": "食べた草を胃から口に戻して、もう一度噛む動物。<br>（ウシ、ヒツジ、キリンなど）"
+    },
+    {
+        "word": "tusk",
+        "phonetic": "/tʌsk/",
+        "translation": "牙（きば）",
+        "meaning": "口から突き出した長い歯。<br>（ゾウやイノシシなど）"
+    },
+    {
+        "word": "avian",
+        "phonetic": "/ˈeɪ.vi.ən/",
+        "translation": "鳥類の",
+        "meaning": "「バード(Bird)」の学術用語。<br>鳥に関すること。"
+    },
+    {
+        "word": "plumage",
+        "phonetic": "/ˈpluː.mɪdʒ/",
+        "translation": "（鳥の）羽、羽毛",
+        "meaning": "鳥の体を覆っている羽の全体のこと。"
+    },
+    {
+        "word": "reptile",
+        "phonetic": "/ˈrep.taɪl/",
+        "translation": "爬虫類",
+        "meaning": "ウロコがあり、卵を産む変温動物。<br>（ヘビ、トカゲ、ワニなど）"
+    },
+    {
+        "word": "venom",
+        "phonetic": "/ˈven.əm/",
+        "translation": "（ヘビなどの）毒",
+        "meaning": "噛み付いて相手に注入するタイプの毒。"
+    },
+    {
+        "word": "amphibian",
+        "phonetic": "/æmˈfɪb.i.ən/",
+        "translation": "両生類",
+        "meaning": "子供は水の中、大人は陸で暮らす動物。<br>（カエル、イモリなど）"
+    },
+    {
+        "word": "gill",
+        "phonetic": "/ɡɪl/",
+        "translation": "（魚の）えら",
+        "meaning": "水の中で呼吸するための器官。"
+    },
+    {
+        "word": "fin",
+        "phonetic": "/fɪn/",
+        "translation": "（魚の）ひれ",
+        "meaning": "泳ぐときに使う、魚の手足のような部分。"
+    },
+    {
+        "word": "rodent",
+        "phonetic": "/ˈroʊ.dənt/",
+        "translation": "齧歯類（げっしるい）",
+        "meaning": "前歯で物をかじるのが得意な動物。<br>（ネズミ、リス、ビーバーなど）"
+    },
+    {
+        "word": "invertebrate",
+        "phonetic": "/ɪnˈvɝː.t̬ə.brət/",
+        "translation": "無脊椎動物",
+        "meaning": "背骨がない動物。<br>（虫、タコ、カニ、貝など）"
+    },
+    {
+        "word": "arthropod",
+        "phonetic": "/ˈɑːr.θrə.pɑːd/",
+        "translation": "節足動物",
+        "meaning": "体が殻で覆われていて、足に関節がある動物。<br>（昆虫、クモ、エビ、カニ）"
+    },
+    {
+        "word": "mollusk",
+        "phonetic": "/ˈmɑː.ləsk/",
+        "translation": "軟体動物",
+        "meaning": "体が柔らかい動物。<br>（タコ、イカ、貝、カタツムリ）"
+    },
+    {
+        "word": "bivalve",
+        "phonetic": "/ˈbaɪ.vælv/",
+        "translation": "二枚貝",
+        "meaning": "2枚の殻で挟まっている貝。<br>（アサリ、ホタテ、カキなど）"
+    },
+    {
+        "word": "mate",
+        "phonetic": "/meɪt/",
+        "translation": "（動物の）つがい",
+        "meaning": "繁殖のためのパートナー（夫や妻）。"
+    },
+    {
+        "word": "courtship",
+        "phonetic": "/ˈkɔːrt.ʃɪp/",
+        "translation": "求愛行動",
+        "meaning": "オスがメスに「好きです」とアピールする行動。<br>（ダンスや鳴き声など）"
+    },
+    {
+        "word": "breed",
+        "phonetic": "/briːd/",
+        "translation": "繁殖する",
+        "meaning": "子供を作って増えること。<br>（名詞だと「犬種」などの品種）"
+    },
+    {
+        "word": "fertilization",
+        "phonetic": "/ˌfɝː.t̬əl.əˈzeɪ.ʃən/",
+        "translation": "受精",
+        "meaning": "卵子と精子がくっつくこと。"
+    },
+    {
+        "word": "hatchling",
+        "phonetic": "/ˈhætʃ.lɪŋ/",
+        "translation": "孵化したてのヒナ",
+        "meaning": "卵から生まれたばかりの赤ちゃん。"
+    },
+    {
+        "word": "feeding habit",
+        "phonetic": "/ˈfiː.dɪŋ ˈhæb.ɪt/",
+        "translation": "食性（しょくせい）",
+        "meaning": "「何を食べるか」という習慣。"
+    },
+    {
+        "word": "scavenger",
+        "phonetic": "/ˈskæv.ɪn.dʒɚ/",
+        "translation": "腐肉食動物",
+        "meaning": "死んだ動物の肉を探して食べる「お掃除屋」動物。<br>（ハイエナやハゲワシなど）"
+    },
+    {
+        "word": "prey",
+        "phonetic": "/preɪ/",
+        "translation": "獲物",
+        "meaning": "他の動物に食べられてしまう側の動物。"
+    },
+    {
+        "word": "bottom feeder",
+        "phonetic": "/ˈbɑː.t̬əm ˌfiː.dɚ/",
+        "translation": "底生生物",
+        "meaning": "水底（海の底など）にあるエサを食べる魚やエビ。"
+    },
+    {
+        "word": "endotherm",
+        "phonetic": "/ˈen.doʊ.θɝːm/",
+        "translation": "恒温動物",
+        "meaning": "周りの気温に関係なく、体温を一定に保てる動物。<br>（哺乳類・鳥類）"
+    },
+    {
+        "word": "hibernation",
+        "phonetic": "/ˌhaɪ.bɚˈneɪ.ʃən/",
+        "translation": "冬眠",
+        "meaning": "冬の間、エネルギーを使わないように眠って過ごすこと。"
+    },
+    {
+        "word": "migration",
+        "phonetic": "/maɪˈɡreɪ.ʃən/",
+        "translation": "（渡り鳥の）移動",
+        "meaning": "季節ごとに場所を大きく移動すること。"
+    },
+    {
+        "word": "vocalization",
+        "phonetic": "/ˌvoʊ.kəl.əˈzeɪ.ʃən/",
+        "translation": "発声",
+        "meaning": "鳴き声を出してコミュニケーションをとること。"
+    },
+    {
+        "word": "echolocation",
+        "phonetic": "/ˌek.oʊ.loʊˈkeɪ.ʃən/",
+        "translation": "反響定位",
+        "meaning": "音波を出して、その跳ね返りで物の位置を知る能力。<br>（コウモリやイルカ）"
+    },
+    {
+        "word": "botany",
+        "phonetic": "/ˈbɑː.t̬ən.i/",
+        "translation": "植物学",
+        "meaning": "植物について研究する学問。"
+    },
+    {
+        "word": "seed",
+        "phonetic": "/siːd/",
+        "translation": "種（たね）",
+        "meaning": "植物の赤ちゃん。"
+    },
+    {
+        "word": "spore",
+        "phonetic": "/spɔːr/",
+        "translation": "胞子（ほうし）",
+        "meaning": "キノコやシダ植物が増えるための粉。<br>（種みたいな役割）"
+    },
+    {
+        "word": "germination",
+        "phonetic": "/ˌdʒɝː.məˈneɪ.ʃən/",
+        "translation": "発芽",
+        "meaning": "種から芽が出ること。"
+    },
+    {
+        "word": "pollen",
+        "phonetic": "/ˈpɑː.lən/",
+        "translation": "花粉",
+        "meaning": "花の雄しべから出る粉。"
+    },
+    {
+        "word": "photosynthesis",
+        "phonetic": "/ˌfoʊ.t̬oʊˈsɪn.θə.sɪs/",
+        "translation": "光合成",
+        "meaning": "植物が光を浴びて、栄養（デンプン）を作ること。"
+    },
+    {
+        "word": "chlorophyll",
+        "phonetic": "/ˈklɔːr.ə.fɪl/",
+        "translation": "葉緑素",
+        "meaning": "植物が緑色に見える理由の成分。<br>光合成に必要。"
+    },
+    {
+        "word": "cellulose",
+        "phonetic": "/ˈsel.ju.loʊs/",
+        "translation": "セルロース",
+        "meaning": "植物の細胞を支えている繊維。<br>紙の原料になる。"
+    },
+    {
+        "word": "stem",
+        "phonetic": "/stem/",
+        "translation": "茎、幹",
+        "meaning": "植物の体を支える棒状の部分。"
+    },
+    {
+        "word": "petal",
+        "phonetic": "/ˈpet.̬əl/",
+        "translation": "花びら",
+        "meaning": "花の色がついているヒラヒラした部分。"
+    },
+    {
+        "word": "stoma",
+        "phonetic": "/ˈstoʊ.mə/",
+        "translation": "気孔（きこう）",
+        "meaning": "葉っぱの裏にある、呼吸するための小さな穴。"
+    },
+    {
+        "word": "vein",
+        "phonetic": "/veɪn/",
+        "translation": "葉脈 / 静脈",
+        "meaning": "葉っぱの筋（すじ）。栄養や水の通り道。<br>（動物の場合は血管）"
+    },
+    {
+        "word": "taproot",
+        "phonetic": "/ˈtæp.ruːt/",
+        "translation": "主根（しゅこん）",
+        "meaning": "地面深くに伸びる、太くてメインの根っこ。"
+    },
+    {
+        "word": "perennial",
+        "phonetic": "/pəˈren.i.əl/",
+        "translation": "多年生植物",
+        "meaning": "2年以上生き続ける植物。"
+    },
+    {
+        "word": "annual",
+        "phonetic": "/ˈæn.ju.əl/",
+        "translation": "一年生植物",
+        "meaning": "1年以内に枯れる植物。"
+    },
+    {
+        "word": "biennial",
+        "phonetic": "/baɪˈen.i.əl/",
+        "translation": "二年生植物",
+        "meaning": "2年かけて成長する植物。"
+    },
+    {
+        "word": "vegetation",
+        "phonetic": "/ˌvedʒ.əˈteɪ.ʃən/",
+        "translation": "植生（しょくせい）",
+        "meaning": "ある場所に生えている植物の集まり。"
+    },
+    {
+        "word": "cluster",
+        "phonetic": "/ˈklʌs.tɚ/",
+        "translation": "（実などの）房",
+        "meaning": "ブドウの房のように、密集している状態。"
+    },
+    {
+        "word": "clump",
+        "phonetic": "/klʌmp/",
+        "translation": "茂み、群れ",
+        "meaning": "あちこちに固まって生えている草木。"
+    },
+    {
+        "word": "scrubland",
+        "phonetic": "/ˈskrʌb.lænd/",
+        "translation": "低木地帯",
+        "meaning": "背の低い木や草ばかりが生えている土地。"
+    },
+    {
+        "word": "canopy",
+        "phonetic": "/ˈkæn.ə.pi/",
+        "translation": "樹冠（じゅかん）",
+        "meaning": "森の上の方で、木の枝や葉が屋根のように覆っている部分。"
+    },
+    {
+        "word": "forest understory",
+        "phonetic": "/ˈfɔːr.ɪst ˈʌn.dɚˌstɔːr.i/",
+        "translation": "林床（りんしょう）",
+        "meaning": "森の地面に近い、薄暗い部分。<br>（Canopyの下）"
+    },
+    {
+        "word": "timberline",
+        "phonetic": "/ˈtɪm.bɚ.laɪn/",
+        "translation": "森林限界",
+        "meaning": "「これより高い場所には木が生えない」という境界線。"
+    },
+    {
+        "word": "deciduous",
+        "phonetic": "/dɪˈsɪdʒ.u.əs/",
+        "translation": "落葉性の",
+        "meaning": "秋になると葉っぱを全部落とす木のこと。<br>（⇔ Evergreen 常緑樹）"
+    },
+    {
+        "word": "shade-tolerant",
+        "phonetic": "/ʃeɪd ˈtɑː.lɚ.ənt/",
+        "translation": "耐陰性のある",
+        "meaning": "日陰でも元気に育つことができる性質。"
+    },
+    {
+        "word": "broad-leaved",
+        "phonetic": "/brɔːd liːvd/",
+        "translation": "広葉の",
+        "meaning": "葉っぱが平べったくて広い木。<br>（サクラなど）"
+    },
+    {
+        "word": "conifer",
+        "phonetic": "/ˈkɑː.nə.fɚ/",
+        "translation": "針葉樹",
+        "meaning": "葉が針みたいで、松ぼっくりができる木。<br>（マツやスギなど）"
+    },
+    {
+        "word": "insectivorous plant",
+        "phonetic": "/ˌɪn.sekˈtɪv.ɚ.əs plænt/",
+        "translation": "食虫植物",
+        "meaning": "虫を捕まえて栄養にする植物。"
+    },
+    {
+        "word": "alga",
+        "phonetic": "/ˈæl.ɡə/",
+        "translation": "藻類（そうるい）",
+        "meaning": "ワカメや海苔、水槽のコケなどの仲間。<br>（複数形は Algae）"
+    },
+    {
+        "word": "arboreal",
+        "phonetic": "/ɑːrˈbɔːr.i.əl/",
+        "translation": "樹上の",
+        "meaning": "地面ではなく、木の上で生活する性質。"
+    }
+]

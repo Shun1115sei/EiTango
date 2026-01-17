@@ -66,59 +66,17 @@
     </div>
 
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
-        const vocabulary = [
-            // Image 1: Basic Botany
-            { word: "botany", phonetic: "[bɑ́təni]", translation: "植物学", meaning: "植物全般について研究する学問のこと。「Botanic Garden（植物園）」という言葉でもよく使われます。" },
-            { word: "spore", phonetic: "[spɔːr]", translation: "胞子", meaning: "キノコやシダ植物が仲間を増やすための「種（タネ）」みたいなもの。風に乗って遠くまで飛んでいきます。" },
-            { word: "germination", phonetic: "[dʒəːrmənéiʃən]", translation: "発芽", meaning: "眠っていた種が目を覚まして、芽をニョキッと出す瞬間のこと。植物の「誕生」です。" },
-            { word: "pollen", phonetic: "[pɑ́lən]", translation: "花粉", meaning: "花粉症の原因としても有名ですが、本来は植物が子孫を残すための大切な粉。虫や風に運んでもらいます。" },
-            { word: "photosynthesis", phonetic: "[fòutousínθəsis]", translation: "光合成", meaning: "植物が太陽の光をエネルギーに変えて、自分でご飯（栄養）を作るすごい仕組みのこと。" },
-            { word: "chlorophyll", phonetic: "[klɔ́ːrəfìl]", translation: "葉緑素", meaning: "植物の血液みたいなもの。これがあるから葉っぱは緑色だし、太陽を食べ物に変換できるんです。" },
-            { word: "cellulose", phonetic: "[séljulòus]", translation: "セルロース", meaning: "植物の体を支える「骨組み」になる成分。紙の原料になったり、食物繊維としてお腹の掃除もしてくれます。" },
-            { word: "stem", phonetic: "[stem]", translation: "茎（くき） / 幹", meaning: "植物の背骨。根っこから吸った水を葉っぱへ届けるパイプラインの役割もしています。" },
-            { word: "petal", phonetic: "[pétl]", translation: "花びら", meaning: "花の中で一番カラフルな部分。虫たちに「ここに美味しい蜜があるよ！」と看板を出して呼んでいるんです。" },
-            { word: "stoma", phonetic: "[stóumə]", translation: "気孔", meaning: "葉っぱの裏にある小さな「口」。ここを開け閉めして、呼吸したり水分調整をしたりしています。（複数形は stomata）" },
-            { word: "vein", phonetic: "[vein]", translation: "葉脈", meaning: "葉っぱに見える網目状の筋のこと。人間でいう血管で、水や栄養を隅々まで運びます。" },
-            { word: "taproot", phonetic: "[tǽprùːt]", translation: "主根", meaning: "大根やニンジンのように、地面の奥深くへズドーンと伸びる太いメインの根っこのこと。" },
-            { word: "perennial", phonetic: "[pəréniəl]", translation: "多年生植物", meaning: "一度植えたら何年も生き続ける植物。毎年種をまかなくても、季節が来ればまた花を咲かせます。" },
-            { word: "annual", phonetic: "[ǽnjuəl]", translation: "一年生植物", meaning: "1年以内に発芽して、花を咲かせ、枯れていく植物。「一生が1年で完結する」タイプです。" },
-
-            // Image 2: Forests & Ecology
-            { word: "biennial", phonetic: "[baiéniəl]", translation: "二年生植物", meaning: "2年かけて一生を終える植物。1年目は体を大きくして、2年目に花を咲かせて枯れます。" },
-            { word: "vegetation", phonetic: "[vèdʒətéiʃən]", translation: "植生 / 植物", meaning: "ある場所に生えている植物全体のこと。「あそこの山のvegetationは豊かだね」みたいに使います。" },
-            { word: "scrubland", phonetic: "[skrʌ́blænd]", translation: "低木地", meaning: "背の低い木（低木）ばかりが生えている土地。あまり雨が降らない場所によくあります。" },
-            { word: "canopy", phonetic: "[kǽnəpi]", translation: "樹冠（じゅかん）", meaning: "森の上の方で、木の枝や葉っぱが屋根のように覆い被さっている部分。ジャングルの天井です。" },
-            { word: "deciduous", phonetic: "[disídʒuəs]", translation: "落葉性の", meaning: "冬になると「寒いから一旦店じまい！」といって、葉っぱを全部落としてハゲちゃう木のこと。" },
-            { word: "shade-tolerant", phonetic: "[ʃéid-tɑ́lərənt]", translation: "耐陰性のある", meaning: "日陰でもへっちゃらな植物。大きな木の下のような暗い場所でも文句を言わずに育ちます。" },
-            { word: "conifer", phonetic: "[kɑ́nəfər]", translation: "針葉樹", meaning: "マツやスギのように、葉っぱが針みたいに尖っている木。クリスマスツリーは大体これです。" },
-            { word: "insectivorous plant", phonetic: "[insèktívərəs plǽnt]", translation: "食虫植物", meaning: "虫を捕まえて食べる植物。土からの栄養だけじゃ足りないから、お肉も食べるんです。" },
-            { word: "alga", phonetic: "[ǽlgə]", translation: "藻（も）", meaning: "水の中に住んでいる植物のような生き物。ワカメやコンブの仲間。（複数形は algae）" },
-            { word: "arboreal", phonetic: "[ɑːrbɔ́ːriəl]", translation: "樹上の / 木に住む", meaning: "地面ではなく、木の上で生活すること。「コアラはarboreal animal（樹上動物）だね」のように使います。" },
-
-            // Image 3: Insects I
-            { word: "metamorphosis", phonetic: "[mètəmɔ́ːrfəsis]", translation: "変態", meaning: "劇的ビフォーアフター。芋虫が蝶になるような、成長して完全に姿が変わる変身のこと。" },
-            { word: "larva", phonetic: "[lɑ́ːrvə]", translation: "幼虫", meaning: "昆虫の子供時代。蝶でいう「アオムシ」の状態。（複数形は larvae）" },
-            { word: "pupa", phonetic: "[pjúːpə]", translation: "さなぎ", meaning: "幼虫が大人（成虫）になるための準備期間。動かないけど、中では体が作り変えられる大工事中です。" },
-            { word: "cocoon", phonetic: "[kəkúːn]", translation: "繭（まゆ）", meaning: "さなぎが自分を守るために作るシルクの寝袋。シルク（絹）はこの繭から取ります。" },
-            { word: "ecdysis", phonetic: "[ékdəsis]", translation: "脱皮", meaning: "体が大きくなって服がきつくなったから、古い皮を脱ぎ捨てること。脱ぐとひと回り大きくなります。" },
-            { word: "mimicry", phonetic: "[mímikri]", translation: "擬態（ぎたい）", meaning: "他の強い生き物や、周りの風景のモノマネをして身を守ること。「私、美味しい虫じゃないですよ〜」という演技。" },
-            { word: "camouflage", phonetic: "[kǽməflɑ̀ːʒ]", translation: "カモフラージュ / 保護色", meaning: "周りの色に溶け込んで見えなくすること。軍隊の迷彩服もこれが語源です。" },
-            { word: "antennae", phonetic: "[ænténiː]", translation: "触角", meaning: "頭についているアンテナ。これで匂いを嗅いだり、物に触れたりして周りの状況を探ります。" },
-
-            // Image 4: Insects II
-            { word: "pollinator", phonetic: "[pɑ́ləneìtər]", translation: "花粉媒介者", meaning: "ミツバチのように、花から花へ飛び回って花粉を運んでくれる「植物のキューピッド」役の生き物。" },
-            { word: "nectar", phonetic: "[néktər]", translation: "花蜜", meaning: "花が虫をおびき寄せるために用意した、あま〜いジュース。" },
-            { word: "exoskeleton", phonetic: "[èksouskélətn]", translation: "外骨格", meaning: "昆虫やカニが持っている「鎧（よろい）」。人間は骨が中にあるけど、彼らは骨（殻）を外側に着ています。" },
-            { word: "pheromone", phonetic: "[férəmòun]", translation: "フェロモン", meaning: "仲間同士で会話するための「匂いの手紙」。これで「こっちに餌があるよ！」とか「敵が来た！」と伝えます。" },
-            { word: "bioluminescence", phonetic: "[bàioulùːmənésns]", translation: "生物発光", meaning: "ホタルのように、生き物が自分で光り輝くこと。ロマンチックなイルミネーションです。" },
-            { word: "swarm", phonetic: "[swɔːrm]", translation: "（虫の）大群", meaning: "ハチやイナゴなどが大量に集まってブンブン飛び回っている状態。ちょっと怖い集団です。" },
-            { word: "social insect", phonetic: "[sóuʃəl ínsèkt]", translation: "社会性昆虫", meaning: "アリやハチのように、女王、働き手、兵隊といった役割分担をして、チームで生活する昆虫のこと。" },
-            { word: "hive", phonetic: "[haiv]", translation: "ミツバチの巣", meaning: "たくさんのハチが一緒に住んでいる家。中は六角形の部屋がいっぱいあります。" }
-        ];
-
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/5000_3-4.json');
     </script>
 </body>
 

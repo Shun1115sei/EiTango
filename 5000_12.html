@@ -72,46 +72,19 @@
 
     <!-- Shared Scripts -->
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
 
     <!-- Data & Initialization -->
     <script>
-        // Replace this array with the specific vocabulary for this deck
-        const vocabulary = [
-            { "word": "geology", "phonetic": "[dʒiálədʒi]", "translation": "地質学", "meaning": "地殻の組成、性質、構造、歴史などを研究する学問。" },
-            { "word": "topography", "phonetic": "[təpágrafi]", "translation": "地形学", "meaning": "地表の形態や成因、発達過程などを研究する学問。<br>形 topographical 地形学の" },
-            { "word": "terrain", "phonetic": "[təréin]", "translation": "地形", "meaning": "landscape 風景" },
-            { "word": "stratum", "phonetic": "[stréitəm]", "translation": "(岩石などの) 層", "meaning": "参考 複数形はstrata。" },
-            { "word": "sediment", "phonetic": "[sédəmənt]", "translation": "堆積物", "meaning": "" },
-            { "word": "weathering", "phonetic": "[wéðəriŋ]", "translation": "風化 (作用)", "meaning": "地表付近の岩石が空気や水などの物理的、化学的作用によって分解され、土壌に変化する過程。" },
-            { "word": "erosion", "phonetic": "[iróuzən]", "translation": "浸食", "meaning": "風、水、雪、氷などの自然の力によって、地盤が削られる現象。" },
-            { "word": "aquifer", "phonetic": "[ǽkwəfər]", "translation": "帯水層", "meaning": "水分が地表の中に浸透した後、不浸透性の地層にさえぎられ生成された地下水を含む地層。" },
-            { "word": "groundwater", "phonetic": "[gráundwɔ̀ːtər]", "translation": "地下水", "meaning": "" },
-            { "word": "water table", "phonetic": "", "translation": "地下水面", "meaning": "地下水の上部表面。" },
-            { "word": "safe yield", "phonetic": "", "translation": "安全採水量", "meaning": "地下水の量の減少、枯渇、水質の悪化を引き起こすことなく、帯水層から採取することができる水の量。" },
-            { "word": "quartz", "phonetic": "[kwɔ́ːrts]", "translation": "石英", "meaning": "主に六角柱状の結晶を有する硬い鉱物。ガラス、時計、陶器などを作成するときに使われる。" },
-            { "word": "clay", "phonetic": "[klei]", "translation": "粘土", "meaning": "" },
-            { "word": "shale", "phonetic": "[ʃeil]", "translation": "頁岩、シェール", "meaning": "粘土が固まって生成された堆積岩。" },
-            { "word": "sandstone", "phonetic": "[sǽndstòun]", "translation": "砂岩", "meaning": "主に砂粒が固まって生成された堆積岩。" },
-            { "word": "limestone", "phonetic": "[láimstòun]", "translation": "石灰岩", "meaning": "炭酸カルシウムを主成分とする堆積岩。" },
-            { "word": "igneous rock", "phonetic": "", "translation": "火成岩", "meaning": "マグマが冷えて、固まってできた岩石。<br>関連 granite 花崗岩（火成岩の一種で、マグマが地下深くでゆっくり冷えてできた岩石）" },
-            { "word": "lava", "phonetic": "[lɑ́ːvə]", "translation": "溶岩", "meaning": "" },
-            { "word": "strait", "phonetic": "[streit]", "translation": "海峡", "meaning": "2つの陸地の間にある狭い水域。" },
-            { "word": "continental drift theory", "phonetic": "", "translation": "大陸移動説", "meaning": "1つの巨大な大陸塊（パンゲア）が分離・移動し、現在の大陸が形成されたという説。" },
-            { "word": "plate tectonics", "phonetic": "", "translation": "プレートテクトニクス", "meaning": "10以上の巨大な板で構成される地殻が、マントルの上を流動しているという説。" },
-            { "word": "mantle", "phonetic": "[mǽntl]", "translation": "(地球の) マントル", "meaning": "地球の地下約30kmから2,900kmまでの部分で、粘性のある流体の性質を持つ。" },
-            { "word": "uplift", "phonetic": "[ʌ́plìft]", "translation": "隆起 (= upheaval)", "meaning": "地殻変動によって地表面が上昇する現象。<br>参考 一般的には「向上」という意味で使われる。" },
-            { "word": "seismic", "phonetic": "[sáizmik]", "translation": "地震の", "meaning": "関連 seismic wave 地震波<br>aftershock 余震" },
-            { "word": "landslide", "phonetic": "[lǽndslàid]", "translation": "地滑り", "meaning": "関連 mud slide 泥流（土砂崩れ時に流れる大量の泥土）" },
-            { "word": "sand dune", "phonetic": "", "translation": "砂丘", "meaning": "風によって運ばれた砂が積もってできた丘。" },
-            { "word": "plain", "phonetic": "[plein]", "translation": "平原", "meaning": "起伏がなく、ほぼ平らな広々とした土地。" },
-            { "word": "continental shelf", "phonetic": "", "translation": "大陸棚", "meaning": "大陸を囲んでいる深さ約200mまでの海底。" },
-            { "word": "ocean floor", "phonetic": "", "translation": "海洋底", "meaning": "水深4～6kmの海の底。" },
-            { "word": "crevasse", "phonetic": "[krəvǽs]", "translation": "クレバス", "meaning": "氷河にできる細く深い割れ目。" }
-        ];
-
-        // Initialize App
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/5000_12.json');
     </script>
 </body>
 

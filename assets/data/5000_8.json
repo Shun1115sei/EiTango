@@ -1,0 +1,212 @@
+[
+    {
+        "id": "01",
+        "word": "chemicals",
+        "phonetic": "[kémikəls]",
+        "translation": "化学物質",
+        "meaning": "「薬品」や「化学製品」のこと。<br>理科の実験で使う液体や粉末、身の回りの洗剤などもこれに含まれます。"
+    },
+    {
+        "id": "02",
+        "word": "oxygen",
+        "phonetic": "[ɑ́ksidʒən]",
+        "translation": "酸素 (O)",
+        "meaning": "私たちが呼吸で取り込んでいる気体。<br>物が燃えるのにも必要不可欠な要素です。"
+    },
+    {
+        "id": "03",
+        "word": "mercury",
+        "phonetic": "[móːrkjuri]",
+        "translation": "水銀 (Hg)",
+        "meaning": "常温でドロドロの液体である珍しい金属。<br>昔の体温計の中に入っていた銀色の液体のことです。"
+    },
+    {
+        "id": "04",
+        "word": "sodium chloride",
+        "phonetic": "[sóudiəm klɔ́ːraid]",
+        "translation": "塩化ナトリウム (NaCl)",
+        "meaning": "ズバリ「食卓にある塩」のこと。<br>化学の世界では、ナトリウムと塩素が合体したものと呼びます。"
+    },
+    {
+        "id": "05",
+        "word": "density",
+        "phonetic": "[dénsəti]",
+        "translation": "密度",
+        "meaning": "あるスペースにどれだけ「ギュッ」と中身が詰まっているか。<br>重い金属は密度が高く、スポンジは密度が低いです。"
+    },
+    {
+        "id": "06",
+        "word": "solution",
+        "phonetic": "[səlúːʃən]",
+        "translation": "溶液",
+        "meaning": "液体に何かが溶け込んで、均一に混ざり合った状態の液。<br>砂糖水も立派な溶液です。"
+    },
+    {
+        "id": "07",
+        "word": "dissolve",
+        "phonetic": "[dizɑ́lv]",
+        "translation": "～を溶解させる",
+        "meaning": "「溶かす」という意味。<br>コーヒーに砂糖を入れて見えなくなる現象を指します。"
+    },
+    {
+        "id": "08",
+        "word": "dilute",
+        "phonetic": "[dilúːt]",
+        "translation": "～を希釈する",
+        "meaning": "「薄める」こと。<br>カルピスの原液に水を入れて飲みやすくするイメージです。"
+    },
+    {
+        "id": "09",
+        "word": "saturate",
+        "phonetic": "[sǽtʃərèit]",
+        "translation": "～を飽和させる",
+        "meaning": "「いっぱいまで満たす」こと。<br>これ以上溶けないギリギリまで溶かした状態を指します。"
+    },
+    {
+        "id": "10",
+        "word": "crystallize",
+        "phonetic": "[krístəlàiz]",
+        "translation": "～を結晶させる",
+        "meaning": "溶けていたものが、キラキラした粒（結晶）になって出てくること。<br>塩田で塩ができる時のイメージです。"
+    },
+    {
+        "id": "11",
+        "word": "filter",
+        "phonetic": "[fíltər]",
+        "translation": "フィルター / ろ過する",
+        "meaning": "網や紙を使って、液体からゴミや粒を取り除くこと。<br>コーヒーをドリップする作業がまさに「ろ過」です。"
+    },
+    {
+        "id": "12",
+        "word": "atom",
+        "phonetic": "[ǽtəm]",
+        "translation": "原子",
+        "meaning": "物質をバラバラにしていった時の「最小の粒」。<br>中心に核があり、周りを電子が回っている構造です。"
+    },
+    {
+        "id": "13",
+        "word": "flame test",
+        "phonetic": "[fléim test]",
+        "translation": "炎色反応",
+        "meaning": "金属を火にかざすと、赤や緑など特定の色に火が染まる実験。<br>花火の色がカラフルなのはこの原理を利用しています。"
+    },
+    {
+        "id": "14",
+        "word": "periodic table",
+        "phonetic": "[piəriɑ́dik téibl]",
+        "translation": "周期表",
+        "meaning": "「水・兵・リー・ベ…」のあの表。<br>元素を性質ごとに並べた、化学の地図のようなものです。"
+    },
+    {
+        "id": "15",
+        "word": "isotope",
+        "phonetic": "[áisətòup]",
+        "translation": "同位体",
+        "meaning": "「重さだけが違う双子」のような原子。<br>性質はほぼ同じだけど、重さ（中性子の数）が違います。"
+    },
+    {
+        "id": "16",
+        "word": "element",
+        "phonetic": "[éləmənt]",
+        "translation": "元素",
+        "meaning": "物質を構成する「種類」のこと。<br>酸素や金、水素など、これ以上分けられない基本的なカテゴリーです。"
+    },
+    {
+        "id": "17",
+        "word": "compound",
+        "phonetic": "[kɑ́mpaund]",
+        "translation": "化合物",
+        "meaning": "2種類以上の元素がガッチリ握手して合体した物質。<br>水（水素＋酸素）などが代表例です。"
+    },
+    {
+        "id": "18",
+        "word": "molecule",
+        "phonetic": "[mɑ́ləkjùːl] ",
+        "translation": "分子",
+        "meaning": "その物質の性質を保ったまま存在できる「最小のグループ」。<br>原子がいくつか集まってできています。"
+    },
+    {
+        "id": "19",
+        "word": "saline",
+        "phonetic": "[séiliːn]",
+        "translation": "塩分が含まれた",
+        "meaning": "「塩気のある」という意味。<br>医学では生理食塩水のことを saline solution と呼びます。"
+    },
+    {
+        "id": "20",
+        "word": "oxidation",
+        "phonetic": "[ɑ̀ksidéiʃən]",
+        "translation": "酸化",
+        "meaning": "酸素とくっつく反応。<br>鉄が錆びたり、リンゴが茶色くなったりするのが「酸化」です。"
+    },
+    {
+        "id": "21",
+        "word": "reduction",
+        "phonetic": "[ridʌ́kʃən]",
+        "translation": "還元",
+        "meaning": "酸化の逆。酸素を離して元の状態に戻ること。<br>錆びた金属を元に戻すようなプロセスです。"
+    },
+    {
+        "id": "22",
+        "word": "catalyst",
+        "phonetic": "[kætəlist]",
+        "translation": "触媒",
+        "meaning": "自分自身は変化しないのに、周りの反応をめちゃくちゃ速める「お助け役」のこと。"
+    },
+    {
+        "id": "23",
+        "word": "evaporation",
+        "phonetic": "[ivæpəréiʃən]",
+        "translation": "蒸発",
+        "meaning": "液体が気体になって飛んでいくこと。<br>洗濯物が乾くのは、水分が蒸発しているからです。"
+    },
+    {
+        "id": "24",
+        "word": "alkali",
+        "phonetic": "[ælkəlài]",
+        "translation": "塩基 (アルカリ性)",
+        "meaning": "苦味があり、タンパク質を溶かす性質。<br>石鹸水などが身近なアルカリ性です。"
+    },
+    {
+        "id": "25",
+        "word": "acid",
+        "phonetic": "[æsid]",
+        "translation": "酸",
+        "meaning": "レモンのように酸っぱい性質。<br>金属を溶かしたり、リトマス試験紙を赤くしたりします。"
+    },
+    {
+        "id": "26",
+        "word": "neutralize",
+        "phonetic": "[njúːtrəlàiz]",
+        "translation": "中和する",
+        "meaning": "酸性とアルカリ性を混ぜて、お互いの性質を打ち消し合って「水」にすること。"
+    },
+    {
+        "id": "27",
+        "word": "concentration",
+        "phonetic": "[kɑ̀nsəntréiʃən]",
+        "translation": "濃度",
+        "meaning": "液体の「濃さ」のこと。<br>どれくらい成分が溶け込んでいるかの割合を指します。"
+    },
+    {
+        "id": "28",
+        "word": "osmosis",
+        "phonetic": "[ɑzmóusis]",
+        "translation": "浸透",
+        "meaning": "膜を通して、水分が薄い方から濃い方へと移動する現象。<br>ナメクジに塩をかけると縮むのも浸透のせいです。"
+    },
+    {
+        "id": "29",
+        "word": "carbohydrate",
+        "phonetic": "[kɑ̀ːrbouháidreit]",
+        "translation": "炭水化物",
+        "meaning": "ご飯、パン、砂糖などのエネルギー源。<br>炭素・水素・酸素からできています。"
+    },
+    {
+        "id": "30",
+        "word": "enzyme",
+        "phonetic": "[énzaim]",
+        "translation": "酵素",
+        "meaning": "体の中で食べ物を消化したり、代謝を助けたりする「特殊なタンパク質」のこと。"
+    }
+]

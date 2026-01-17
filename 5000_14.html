@@ -72,46 +72,19 @@
 
     <!-- Shared Scripts -->
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
 
     <!-- Data & Initialization -->
     <script>
-        // Replace this array with the specific vocabulary for this deck
-        const vocabulary = [
-            { "word": "dynasty", "phonetic": "[dáinəsti]", "translation": "王朝", "meaning": "" },
-            { "word": "monarchy", "phonetic": "[mɑ́nərki]", "translation": "君主制", "meaning": "君主によって統治される政治制度。<br>関連 monarch 君主" },
-            { "word": "reign", "phonetic": "[rein]", "translation": "(王の) 統治、統治期間", "meaning": "" },
-            { "word": "succession", "phonetic": "[səkséʃən]", "translation": "継承", "meaning": "参考 一般的には「連続」という意味で使われる。" },
-            { "word": "revolution", "phonetic": "[rèvəlúːʃən]", "translation": "革命", "meaning": "参考 天文学では「公転」という意味で使われる。" },
-            { "word": "democracy", "phonetic": "[dimɑ́krəsi]", "translation": "民主主義", "meaning": "関連 communism 共産主義" },
-            { "word": "federal", "phonetic": "[fédərəl]", "translation": "連邦 (制) の", "meaning": "関連 federalism 連邦制（国家の主権が中央政府と州政府に分かれている政治制度）" },
-            { "word": "council", "phonetic": "[káunsəl]", "translation": "(地方自治団体の) 議会", "meaning": "関連 city council 市議会<br>district council 地域議会" },
-            { "word": "Congress", "phonetic": "[kɑ́ŋgris]", "translation": "米国の議会、国会", "meaning": "関連 Parliament イギリスの議会" },
-            { "word": "Capitol", "phonetic": "[kǽpətl]", "translation": "米国の国会議事堂", "meaning": "▲ワシントンD.C.にある米国国会議事堂" },
-            { "word": "cabinet", "phonetic": "[kǽbənit]", "translation": "(政府の) 内閣", "meaning": "国の行政権を持っている機関。" },
-            { "word": "imposition", "phonetic": "[ìmpəzíʃən]", "translation": "(新しい法律・税金などを) 課すこと", "meaning": "" },
-            { "word": "bureaucracy", "phonetic": "[bjuərɑ́krəsi]", "translation": "官僚制度", "meaning": "専門的な知識や能力を持つ人々が任命されて、政治指導をする統治制度。<br>名 bureaucrat 官僚<br>形 bureaucratic 官僚の" },
-            { "word": "political party", "phonetic": "", "translation": "政党", "meaning": "共通の政治的見解を持っている人々が集まって作った団体。" },
-            { "word": "ruling party", "phonetic": "", "translation": "与党 (= government party)", "meaning": "政権を担当している政党。<br>関連 opposition party 野党" },
-            { "word": "Democrat", "phonetic": "[déməkræ̀t]", "translation": "(米国の) 民主党員", "meaning": "関連 Democratic Party （米国の）民主党<br>Republican Party （米国の）共和党" },
-            { "word": "Whig", "phonetic": "[hwig]", "translation": "(過去の英国の) ホイッグ党", "meaning": "17世紀に作られた英国初の近代的政党で、進歩的な性向を持っていた反王権的政党。" },
-            { "word": "election", "phonetic": "[ilékʃən]", "translation": "選挙", "meaning": "関連 vote 票 投票" },
-            { "word": "campaign", "phonetic": "[kæmpéin]", "translation": "(社会的・政治的な目的のための組織的な) 運動", "meaning": "" },
-            { "word": "platform", "phonetic": "[plǽtfɔːrm]", "translation": "(政党の) 公約", "meaning": "参考 一般的には「（駅の）ホーム」という意味で使われる。" },
-            { "word": "constituency", "phonetic": "[kənstítʃuənsi]", "translation": "選挙区", "meaning": "関連 electorate 有権者（全体）" },
-            { "word": "presidency", "phonetic": "[prézədənsi]", "translation": "大統領職", "meaning": "" },
-            { "word": "veto", "phonetic": "[víːtou]", "translation": "拒否権", "meaning": "決議された事項を単独で拒否できる権限。" },
-            { "word": "check and balance", "phonetic": "", "translation": "抑制と均衡", "meaning": "複数の機関が権力を分け持つことで、互いに牽制しながらバランスをとること。" },
-            { "word": "conservatism", "phonetic": "[kənsə́ːrvətìzm]", "translation": "保守主義", "meaning": "関連 progressivism 進歩主義" },
-            { "word": "diplomacy", "phonetic": "[diplóuməsi]", "translation": "外交 (術)", "meaning": "外国との交渉や交渉。国家間を結ぶすべての政治関係。<br>関連 diplomat 外交官" },
-            { "word": "ambassador", "phonetic": "[æmbǽsədər]", "translation": "大使", "meaning": "国を代表して他の国に派遣される外交使節の最上位の階級。" },
-            { "word": "convention", "phonetic": "[kənvénʃən]", "translation": "(国や指導者との間の) 協定、協約", "meaning": "参考 一般的には「慣習」という意味で使われる。" },
-            { "word": "ally", "phonetic": "[ǽlai]", "translation": "同盟国", "meaning": "" },
-            { "word": "Cold War", "phonetic": "", "translation": "冷戦", "meaning": "第二次世界大戦後に発生した、資本主義陣営と社会主義陣営との間の政治、外交、理念、軍事上の対立。" }
-        ];
-
-        // Initialize App
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/5000_14.json');
     </script>
 </body>
 

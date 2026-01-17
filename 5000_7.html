@@ -66,42 +66,17 @@
     </div>
 
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
-        const vocabulary = [
-            { "word": "mass", "phonetic": "[mæs]", "translation": "質量", "meaning": "その物が「どれくらい詰まっているか」を表す量。<br>地球でも月でも変わらない、物質そのものの重さの正体です。" },
-            { "word": "acceleration", "phonetic": "[æksèlərèiʃən]", "translation": "加速度", "meaning": "スピードがどれくらいの勢いで上がっているか（または下がっているか）の変化率のこと。" },
-            { "word": "friction", "phonetic": "[fríkʃən]", "translation": "摩擦", "meaning": "物と物がこすれる時に、動こうとする力をジャマする「ブレーキ」のような力。" },
-            { "word": "velocity", "phonetic": "[vəláisəti]", "translation": "速さ", "meaning": "単なるスピードだけでなく、「どの方向に」進んでいるかという情報もセットになった速度のこと。" },
-            { "word": "momentum", "phonetic": "[mouméntəm]", "translation": "運動量", "meaning": "「重さ × スピード」で決まる、動いている物の「勢い」のこと。" },
-            { "word": "resistance", "phonetic": "[rizístəns]", "translation": "抵抗", "meaning": "電気が流れるのをジャマする「通せんぼ」の力。これがあるから熱が発生したりします。" },
-            { "word": "ohm", "phonetic": "[oum]", "translation": "オーム", "meaning": "電気の通りにくさ（抵抗）を表す単位。記号は Ω です。" },
-            { "word": "electric current", "phonetic": "---", "translation": "電流", "meaning": "回路の中を流れる電気の「川」のような流れそのもの。" },
-            { "word": "in series", "phonetic": "---", "translation": "直列で", "meaning": "電球などを一列に、数珠つなぎにすること。一本道なので、一つ切れると全部消えます。" },
-            { "word": "in parallel", "phonetic": "---", "translation": "並列で", "meaning": "回路を枝分かれさせてつなぐこと。家の中のコンセントなどはこの形です。" },
-            { "word": "inertia", "phonetic": "[inə́ːrʃə]", "translation": "慣性", "meaning": "「今の状態を続けたい！」という性質。動いている物は動き続け、止まっている物は止まり続けようとします。" },
-            { "word": "locomotion", "phonetic": "[lòukəmóuʃən]", "translation": "移動（力）", "meaning": "ある場所から別の場所へ移動すること、またはそのための推進力。" },
-            { "word": "convection", "phonetic": "[kənvékʃən]", "translation": "対流", "meaning": "空気や水が温まって軽くなり、ぐるぐる回ることで熱が伝わる現象。" },
-            { "word": "trajectory", "phonetic": "[trədʒéktəri]", "translation": "軌道、弾道", "meaning": "投げたボールやロケットが空中に描く「通り道」のこと。" },
-            { "word": "horizontal", "phonetic": "[hɔ̀ːrəzántl]", "translation": "水平の", "meaning": "地面と平行な、真横の方向。地平線（horizon）のイメージ。" },
-            { "word": "vertical", "phonetic": "[və́ːrtikəl]", "translation": "垂直の", "meaning": "地面に対してまっすぐ立った、上下の方向。" },
-            { "word": "wave", "phonetic": "[weiv]", "translation": "波動", "meaning": "プルプルした揺れが、次から次へと伝わっていく現象。光や音もこれの一種。" },
-            { "word": "wavelength", "phonetic": "[wéivlèŋkθ]", "translation": "波長", "meaning": "波の山から次の山までの「一歩分」の長さ。これで色や音の高さが決まります。" },
-            { "word": "frequency", "phonetic": "[fríːkwənsi]", "translation": "周波数", "meaning": "1秒間に何回プルプル揺れるかという回数。" },
-            { "word": "electromagnetic", "phonetic": "[ilèktroumæɡnétik]", "translation": "電磁の", "meaning": "電気と磁石の力が組み合わさった性質。電波や光などの正体です。" },
-            { "word": "solar radiation", "phonetic": "---", "translation": "太陽放射", "meaning": "太陽から光や熱のエネルギーが、波として地球に飛んでくること。" },
-            { "word": "spectrum", "phonetic": "[spéktrəm]", "translation": "スペクトル", "meaning": "光を虹のように、波長（色の順番）ごとに並べたもの。" },
-            { "word": "ultraviolet", "phonetic": "[ʌ̀ltrəváiəlit]", "translation": "紫外線の", "meaning": "紫色の外側にある、目には見えないけれど日焼けの原因になる強い光。" },
-            { "word": "infrared", "phonetic": "[ìnfrəréd]", "translation": "赤外線の", "meaning": "赤色の外側にある、目には見えないけれど温かさを感じる光。リモコンなどに使われます。" },
-            { "word": "sound wave", "phonetic": "---", "translation": "音波", "meaning": "空気が震えて、その震えが耳に届くことで聞こえる波。" },
-            { "word": "radio wave", "phonetic": "---", "translation": "電波", "meaning": "情報を運ぶために使われる目に見えない波。スマホやテレビに使われます。" },
-            { "word": "light wave", "phonetic": "---", "translation": "光波", "meaning": "光が波として伝わっている状態のこと。" },
-            { "word": "white noise", "phonetic": "---", "translation": "ホワイトノイズ", "meaning": "すべての高さの音が混ざった「シャー」という砂嵐のような音。" },
-            { "word": "universal gravitation", "phonetic": "---", "translation": "万有引力", "meaning": "宇宙にあるすべての物体が、お互いを「おいで」と引き合っている力。" },
-            { "word": "law of conservation of momentum", "phonetic": "---", "translation": "運動量保存の法則", "meaning": "物がぶつかっても、全体の勢い（運動量）の合計は変わらないという宇宙の決まり。" }
-        ];
-
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/5000_7.json');
     </script>
 </body>
 

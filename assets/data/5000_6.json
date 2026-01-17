@@ -1,0 +1,182 @@
+[
+    {
+        "word": "clinical",
+        "phonetic": "[klínikəl]",
+        "translation": "臨床の",
+        "meaning": "実際の患者さんを診察したり、治療したりする「現場」のこと。<br>教科書上の理論ではなく、ベッドサイドでの実践的な医療を指します。"
+    },
+    {
+        "word": "donate",
+        "phonetic": "[dóuneit]",
+        "translation": "～を提供する",
+        "meaning": "血や臓器、あるいは寄付金などを、誰かの役に立てるために「どうぞ」と差し出すこと。<br>ドナー（提供者）の動詞形です。"
+    },
+    {
+        "word": "disorder",
+        "phonetic": "[disɔ́ːrdər]",
+        "translation": "（身体機能の）障害、異常",
+        "meaning": "体のシステムが「オーダー（順序・正常）」通りに動かなくなり、バランスが崩れてしまっている状態を指します。"
+    },
+    {
+        "word": "epidemic",
+        "phonetic": "[èpədémik]",
+        "translation": "流行、伝染病の発生",
+        "meaning": "特定の地域で、ある病気がワッと一気に広まる現象。<br>パンデミック（世界的大流行）の一歩手前の規模というイメージです。"
+    },
+    {
+        "word": "contagious",
+        "phonetic": "[kəntéidʒəs]",
+        "translation": "伝染性の",
+        "meaning": "触れたり、近くで呼吸したりするだけで「うつりやすい」性質のこと。<br>感染力が強い様子を指します。"
+    },
+    {
+        "word": "pathogen",
+        "phonetic": "[pǽθədʒən]",
+        "translation": "病原菌、病原体",
+        "meaning": "ウイルスや細菌など、私たちの体を病気にさせる「悪者（原因物質）」の総称です。"
+    },
+    {
+        "word": "infestation",
+        "phonetic": "[ìnfestéiʃən]",
+        "translation": "（寄生虫などの）体内侵入",
+        "meaning": "シラミや寄生虫などが、体（や場所）にドバッと入り入り込んで住み着き、害を与えている状態です。"
+    },
+    {
+        "word": "antibiotic",
+        "phonetic": "[æ̀ntibaiɔ́tik]",
+        "translation": "抗生物質",
+        "meaning": "体内の「細菌（バイキン）」をやっつけたり、増えるのを止めたりする魔法の薬。<br>※ウイルスには効かないのがポイントです。"
+    },
+    {
+        "word": "immune system",
+        "phonetic": "---",
+        "translation": "免疫システム",
+        "meaning": "外から来た敵（ウイルス等）から身を守る、自分専用の「ボディーガード軍団」のような仕組み。"
+    },
+    {
+        "word": "vaccination",
+        "phonetic": "[væ̀ksənéiʃən]",
+        "translation": "予防接種",
+        "meaning": "本物の病気になる前に、弱い菌を体に入れて予行演習をさせ、免疫を作っておくこと（ワクチンを打つこと）。"
+    },
+    {
+        "word": "tolerance",
+        "phonetic": "[tɑ́lərəns]",
+        "translation": "耐性",
+        "meaning": "薬などを使いすぎて、体がそれに慣れてしまい、以前と同じ量では効かなくなってしまうこと。"
+    },
+    {
+        "word": "hiccup",
+        "phonetic": "[híkʌp]",
+        "translation": "しゃっくり",
+        "meaning": "横隔膜が自分の意志とは関係なく「ビクッ」と動いてしまう、あの現象。"
+    },
+    {
+        "word": "sneeze",
+        "phonetic": "[sniːz]",
+        "translation": "くしゃみ",
+        "meaning": "鼻に入った異物を追い出すために、肺から空気を勢いよく「ハクション！」と出す動作。"
+    },
+    {
+        "word": "symptom",
+        "phonetic": "[símptəm]",
+        "translation": "（病気の）症状",
+        "meaning": "熱がある、喉が痛いなど、体が発信している「どこかおかしいぞ」という具体的なサイン。"
+    },
+    {
+        "word": "fatigue",
+        "phonetic": "[fətíːɡ]",
+        "translation": "疲労",
+        "meaning": "ただの疲れではなく、寝てもなかなか取れないような「ずっしり重い、深刻な疲れ」のニュアンス。"
+    },
+    {
+        "word": "irritation",
+        "phonetic": "[ìritéiʃən]",
+        "translation": "刺激、炎症",
+        "meaning": "皮膚などがヒリヒリ、ムズムズして、不快で赤くなっているような状態。"
+    },
+    {
+        "word": "nausea",
+        "phonetic": "[nɔ́ːziə]",
+        "translation": "吐き気",
+        "meaning": "お腹のあたりがムカムカして、「今にも戻してしまいそう...」という気持ち悪さのこと。"
+    },
+    {
+        "word": "infection",
+        "phonetic": "[infékʃən]",
+        "translation": "感染",
+        "meaning": "ウイルスや細菌が体の中に侵入して、そこで悪さをし始めること。"
+    },
+    {
+        "word": "sprain",
+        "phonetic": "[sprein]",
+        "translation": "ねんざ（する）",
+        "meaning": "関節をグネッとひねって、靭帯を伸ばしたり傷めたりすること。特に関節のケガに使います。"
+    },
+    {
+        "word": "necrosis",
+        "phonetic": "[nekróusis]",
+        "translation": "壊死",
+        "meaning": "血が通わなくなったりして、体の組織（細胞）の一部が完全に死んでしまうこと。"
+    },
+    {
+        "word": "paralysis",
+        "phonetic": "[pərǽləsis]",
+        "translation": "麻痺",
+        "meaning": "神経のダメージなどで、体の一部が動かせなくなったり、感覚がなくなったりすること。"
+    },
+    {
+        "word": "dehydration",
+        "phonetic": "[dìːhaidréiʃən]",
+        "translation": "脱水(症)",
+        "meaning": "体内の水分がカラカラに足りなくなって、めまいや頭痛が起きる危険な状態。"
+    },
+    {
+        "word": "ailment",
+        "phonetic": "[éilmənt]",
+        "translation": "（比較的軽い）病気",
+        "meaning": "手術が必要な大病というよりは、持病やちょっとした体調不良を指す、少し丁寧な言い方。"
+    },
+    {
+        "word": "diagnosis",
+        "phonetic": "[dàiəɡnóusis]",
+        "translation": "診断",
+        "meaning": "お医者さんが検査結果などを見て、「あなたの病気はこれですね」と特定すること。"
+    },
+    {
+        "word": "asthma",
+        "phonetic": "[ǽzmə]",
+        "translation": "喘息",
+        "meaning": "空気の通り道が狭くなって、呼吸をするときに「ゼーゼー」と音がして苦しくなる病気。"
+    },
+    {
+        "word": "measles",
+        "phonetic": "[míːzlz]",
+        "translation": "麻疹、はしか",
+        "meaning": "赤いブツブツと高熱が出る、とても感染力が強いウイルス性の病気。"
+    },
+    {
+        "word": "smallpox",
+        "phonetic": "[smɔ́ːlpɑks]",
+        "translation": "天然痘",
+        "meaning": "かつて世界中で恐れられた、全身に発疹ができる深刻な感染症（現在は根絶されています）。"
+    },
+    {
+        "word": "malnutrition",
+        "phonetic": "[mæ̀lnjutríʃən]",
+        "translation": "栄養失調",
+        "meaning": "「マル（悪い）」＋「ニュートリション（栄養）」。必要な栄養が足りず、体が弱っている状態。"
+    },
+    {
+        "word": "amnesia",
+        "phonetic": "[æmníːʒə]",
+        "translation": "記憶喪失(症)",
+        "meaning": "ショックや事故などで、自分の名前や過去の出来事をポロッと忘れて思い出せなくなること。"
+    },
+    {
+        "word": "remedy",
+        "phonetic": "[rémədi]",
+        "translation": "治療(薬)",
+        "meaning": "病気を治すための方法や飲み薬。家庭でできる「おばあちゃんの知恵」的な治療法も含まれます。"
+    }
+]

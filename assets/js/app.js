@@ -1,8 +1,8 @@
 
 class FlashcardApp {
-    constructor(data, options = {}) {
-        this.allCards = data; // Original source
-        this.deck = [...data]; // Working deck
+    constructor(dataOrUrl, options = {}) {
+        this.deck = [];
+        this.allCards = [];
         this.currentIndex = 0;
         this.isFlipped = false;
 
@@ -28,9 +28,89 @@ class FlashcardApp {
 
         // Bind events
         this.bindEvents();
-
-        // Initial render
         this.setupWordListUI();
+
+        // Initialize Data
+        this.deckId = 'custom'; // Default
+
+        if (typeof dataOrUrl === 'string') {
+            // Extract filename as ID (e.g., "5000_15")
+            const matches = dataOrUrl.match(/([^/]+)\.json$/);
+            if (matches) this.deckId = matches[1];
+
+            this.setupQuizUI();
+            this.loadDeck(dataOrUrl);
+        } else if (Array.isArray(dataOrUrl)) {
+            this.allCards = dataOrUrl;
+            this.deck = [...dataOrUrl];
+            this.init();
+        }
+    }
+
+    async loadDeck(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            const data = await response.json();
+            this.allCards = data;
+
+            // Sync with Cloud
+            if (window.dbManager && window.dbManager.user) {
+                await this.syncProgress();
+            } else {
+                this.deck = [...data];
+                this.init();
+            }
+        } catch (e) {
+            console.error("Failed to load deck:", e);
+            alert("Failed to load vocabulary data. Please check connection.");
+        }
+    }
+
+    async syncProgress() {
+        if (!window.dbManager || !window.dbManager.user) {
+            this.deck = [...this.allCards];
+            this.init();
+            return;
+        }
+
+        // Load SRS Data
+        const srsData = await window.dbManager.getSRSData(this.deckId);
+        const now = Date.now();
+
+        // Filter: Show New (no data) OR Due (nextReview <= now)
+        this.deck = this.allCards.filter(card => {
+            const stats = srsData[card.word || card.Word];
+            if (!stats) return true; // New card
+            return stats.nextReview <= now; // Due card
+        });
+
+        console.log(`SRS Loaded: ${this.deck.length} cards due or new.`);
+
+        this.init();
+
+        // Check for deep link again in case the target word was filtered out (unlikely if searching, but possible)
+        // If deep link, forcing it into the deck might be needed, but let's stick to standard flow.
+    }
+
+    init() {
+        // Check for deep link
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetWord = urlParams.get('word');
+
+        if (targetWord) {
+            let index = this.deck.findIndex(item => (item.word || item.Word) === targetWord);
+            if (index === -1) {
+                // If targeted word is not in due/new list, find it in allCards and add it temporarily
+                const card = this.allCards.find(item => (item.word || item.Word) === targetWord);
+                if (card) {
+                    this.deck.unshift(card);
+                    index = 0;
+                }
+            }
+            if (index !== -1) this.currentIndex = index;
+        }
+
         this.updateCard();
     }
 
@@ -40,14 +120,11 @@ class FlashcardApp {
 
     bindEvents() {
         // Card Flip
-        this.els.card.addEventListener('click', () => this.flipCard());
+        if (this.els.card) {
+            this.els.card.addEventListener('click', () => this.flipCard());
+        }
 
-        // Audio Button (stop propagation)
-        // Note: The HTML must have onclick="app.playAudio(event)" or similar, 
-        // OR we bind it here if we querySelector it every time? 
-        // Better: Event delegation or expect the button to exist.
-        // For simplicity with the template, we'll attach listeners dynamically or globally.
-        // Let's attach global helpers for the HTML onclick handlers to find this instance.
+        // Global reference
         window.app = this;
     }
 
@@ -71,13 +148,42 @@ class FlashcardApp {
         }
     }
 
+    setupQuizUI() {
+        // Remove old container if it exists (cleanup)
+        const oldContainer = document.querySelector('.quiz-btn-container');
+        if (oldContainer) oldContainer.remove();
+
+        if (document.querySelector('.fab-quiz')) return;
+
+        // Create Floating Button for Quiz
+        const btn = document.createElement('button');
+        btn.className = 'fab-quiz';
+        btn.onclick = () => location.href = `quiz.html?deck=${this.deckId}`;
+        btn.innerHTML = `
+            <span>🧠</span>
+            <span>Quiz</span>
+        `;
+
+        document.body.appendChild(btn);
+    }
+
     // --- Navigation & Grading ---
 
     markKnown(e) {
         if (e) e.stopPropagation();
         if (this.deck.length === 0) return;
 
+        const currentWord = this.deck[this.currentIndex];
+
         this.resetFlip(() => {
+            // SRS: Good (Pass) -> Schedule future
+            if (window.dbManager) {
+                // Use safe word property
+                const wordText = currentWord.word || currentWord.Word;
+                window.dbManager.saveSRS(this.deckId, wordText, 'good');
+            }
+
+            // Remove from current session
             this.deck.splice(this.currentIndex, 1);
             if (this.currentIndex >= this.deck.length) {
                 this.currentIndex = 0;
@@ -90,8 +196,19 @@ class FlashcardApp {
         if (e) e.stopPropagation();
         if (this.deck.length === 0) return;
 
+        const currentWord = this.deck[this.currentIndex];
+
         this.resetFlip(() => {
-            this.currentIndex = (this.currentIndex + 1) % this.deck.length;
+            // SRS: Again (Fail) -> Interval 1 day
+            if (window.dbManager) {
+                const wordText = currentWord.word || currentWord.Word;
+                window.dbManager.saveSRS(this.deckId, wordText, 'again');
+            }
+
+            // Move to end of session queue to review again TODAY
+            this.deck.push(this.deck.splice(this.currentIndex, 1)[0]);
+            // Don't increment index, implicitly the next card slides into currentIndex
+
             this.updateCard();
         });
     }

@@ -1,0 +1,182 @@
+[
+    {
+        "word": "celestial body",
+        "phonetic": "",
+        "translation": "天体 (= heavenly body)",
+        "meaning": "宇宙を構成している恒星、惑星、衛星、小惑星、彗星、星団などの総称。"
+    },
+    {
+        "word": "planet",
+        "phonetic": "[plǽnit]",
+        "translation": "惑星",
+        "meaning": "自ら光を放たない、恒星の周りを回る天体の1つ。<br>関連 star 恒星（太陽のように自ら光を放つ星）"
+    },
+    {
+        "word": "meteor",
+        "phonetic": "[míːtiər]",
+        "translation": "流星、流れ星",
+        "meaning": "小さな天体が地球の大気に突入した後、空気との摩擦で消滅しながら発光する現象。"
+    },
+    {
+        "word": "comet",
+        "phonetic": "[kámət]",
+        "translation": "彗星",
+        "meaning": "太陽系内で、太陽や恒星を中心に一定の軌道を描いて回る小さな天体。"
+    },
+    {
+        "word": "meteoroid",
+        "phonetic": "[míːtiərɔ̀id]",
+        "translation": "流星物質",
+        "meaning": "太陽系内を運行している岩石。"
+    },
+    {
+        "word": "meteorite",
+        "phonetic": "[míːtiəràit]",
+        "translation": "隕石",
+        "meaning": "宇宙から地球に進入した岩石が大気との摩擦によって燃えた後に発見されたもの。"
+    },
+    {
+        "word": "stellar",
+        "phonetic": "[stélər]",
+        "translation": "星の",
+        "meaning": "関連 interstellar 星間の"
+    },
+    {
+        "word": "constellation",
+        "phonetic": "[kànstəléiʃən]",
+        "translation": "星座",
+        "meaning": ""
+    },
+    {
+        "word": "variable star",
+        "phonetic": "",
+        "translation": "変光星",
+        "meaning": "明るさが時間とともに変化する星。"
+    },
+    {
+        "word": "star formation",
+        "phonetic": "",
+        "translation": "星形成",
+        "meaning": "星間空間の分子雲の高密度領域があるきっかけで収縮し始め、星が形成される現象。"
+    },
+    {
+        "word": "dwarf star",
+        "phonetic": "",
+        "translation": "矮星",
+        "meaning": "恒星の進化の段階で、巨星に対して用いられる語。青年期や壮年期の比較的小さい星。<br>関連 giant star 巨星（恒星が進化して形成される、直径、明るさ、質量などが著しく大きい）"
+    },
+    {
+        "word": "nebula",
+        "phonetic": "[nébjulə]",
+        "translation": "星雲",
+        "meaning": "塵、水素ガス、プラズマなどから成る雲のように見える天体。"
+    },
+    {
+        "word": "supernova",
+        "phonetic": "[sùːpərnóuvə]",
+        "translation": "超新星",
+        "meaning": "寿命が尽きた星が爆発を起こして普段の数億倍も輝き徐々に減光していく現象。"
+    },
+    {
+        "word": "solar system",
+        "phonetic": "",
+        "translation": "太陽系",
+        "meaning": "太陽、およびその重力によって太陽の周りを回っている天体の集団。水星、金星、地球、火星、木星、土星、天王星、海王星の合計8個の惑星などを含む。"
+    },
+    {
+        "word": "Pluto",
+        "phonetic": "[plúːtou]",
+        "translation": "冥王星",
+        "meaning": "1930年に発見された天体。太陽系の9番目の惑星とされてきたが、2006年に惑星分類法が変わり、準惑星に分類されている。"
+    },
+    {
+        "word": "Terrestrial planets",
+        "phonetic": "",
+        "translation": "地球型惑星 (= inner planets)",
+        "meaning": "水星、金星、火星、地球のように、木星型惑星に比べて質量が小さく、密度が非常に高い惑星のこと。"
+    },
+    {
+        "word": "Jovian planets",
+        "phonetic": "",
+        "translation": "木星型惑星",
+        "meaning": "木星、土星、天王星、海王星のように、地球型惑星に比べて質量が大きく、密度が小さい惑星のこと。"
+    },
+    {
+        "word": "heliocentric theory",
+        "phonetic": "",
+        "translation": "地動説 (= the Copernican system)",
+        "meaning": "コペルニクスが唱えた説。太陽が宇宙の中心に静止し、他の惑星がその周りを公転しているというもの。<br>関連 geocentric theory (= the Ptolemaic system) 天動説"
+    },
+    {
+        "word": "revolution",
+        "phonetic": "[rèvəlúːʃən]",
+        "translation": "公転",
+        "meaning": "天体が一定の周期で他の天体の周りを回る運動。<br>動 revolve 公転する"
+    },
+    {
+        "word": "rotation",
+        "phonetic": "[routéiʃən]",
+        "translation": "自転",
+        "meaning": "天体がその重心を通る軸を中心にして回転する運動。"
+    },
+    {
+        "word": "orbit",
+        "phonetic": "[ɔ́ːrbit]",
+        "translation": "軌道",
+        "meaning": "天体が一定の曲線を描いて運行する道筋。"
+    },
+    {
+        "word": "precession",
+        "phonetic": "[priːséʃən]",
+        "translation": "歳差運動",
+        "meaning": "地球の自転のように、固定された特定の回転軸の周囲を回る現象。"
+    },
+    {
+        "word": "satellite",
+        "phonetic": "[sǽtəlàit]",
+        "translation": "(惑星の) 衛星",
+        "meaning": "月のように、惑星の周りを回る天体。<br>参考 一般的には「人工衛星」という意味で使われる。"
+    },
+    {
+        "word": "phase",
+        "phonetic": "[feiz]",
+        "translation": "(定期的に形が変わる月の) 相",
+        "meaning": "参考 一般的には「段階」という意味で使われる。"
+    },
+    {
+        "word": "eclipse",
+        "phonetic": "[iklíps]",
+        "translation": "(太陽・月の) 食",
+        "meaning": "関連 solar eclipse 日食（太陽が月によって隠れる現象）<br>lunar eclipse 月食（月が地球の影に隠れる現象）"
+    },
+    {
+        "word": "lunar cycle",
+        "phonetic": "",
+        "translation": "太陰周期",
+        "meaning": "月の公転周期、約29.5日。<br>関連 lunar year 太陰年（太陰暦での1年、約354日）<br>solar year 太陽年（約365日）"
+    },
+    {
+        "word": "albedo",
+        "phonetic": "[ælbíːdou]",
+        "translation": "アルベド、反射率",
+        "meaning": "月、惑星などが太陽から受けた光を反射する割合を数値で表したもの。"
+    },
+    {
+        "word": "crater",
+        "phonetic": "[kréitər]",
+        "translation": "クレーター",
+        "meaning": "隕石、火山、内部のガス噴出などの理由で形成された衛星や惑星の表面に見られるくぼんだ地形。"
+    },
+    {
+        "word": "visible light",
+        "phonetic": "",
+        "translation": "可視光線",
+        "meaning": "人の眼に見える波長の光。"
+    },
+    {
+        "word": "magnetic field",
+        "phonetic": "",
+        "translation": "磁場",
+        "meaning": "磁石の周りの磁力が作用する空間。<br>関連 magnetic force 磁力（磁性を持つ物体が互いに引き合ったり、退け合ったりする力）"
+    }
+]

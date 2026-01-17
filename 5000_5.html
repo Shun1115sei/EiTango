@@ -66,42 +66,17 @@
     </div>
 
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
-        const vocabulary = [
-            { id: 1, word: "anatomy", phonetic: "[əˈnætəmi]", translation: "解剖学", meaning: "<span class='tag-teacher'>解説</span>生物の体の構造や仕組み、臓器の配置などを研究する学問のこと。" },
-            { id: 2, word: "circulatory", phonetic: "[ˌsɜːrkjələˈtɔːri]", translation: "血液循環の", meaning: "<span class='tag-ref'>関連</span>circulatory system: 循環器系（心臓、血管、リンパ管のような血液とリンパの循環に関与する身体器官）。" },
-            { id: 3, word: "blood vessel", phonetic: "[blʌd ˈvɛsəl]", translation: "血管", meaning: "<span class='tag-ref'>関連</span>artery: 動脈 / vein: 静脈" },
-            { id: 4, word: "red blood cell", phonetic: "[rɛd blʌd sɛl]", translation: "赤血球", meaning: "血液中を移動しながら、体の組織に酸素や二酸化炭素を運ぶ血液細胞のこと。（別名: erythrocyte）<br><span class='tag-ref'>関連</span>white blood cell: 白血球（外部から侵入する細菌や感染症から身体を保護する血液細胞のこと）" },
-            { id: 5, word: "secrete", phonetic: "[sɪˈkriːt]", translation: "分泌する", meaning: "（主に体内で作られたものを）細胞や器官からじわっと外に出すこと。<br><span class='tag-ref'>関連</span>excrete: （老廃物などを体の外に）排泄する" },
-            { id: 6, word: "respiratory", phonetic: "[ˈrɛspərətɔːri]", translation: "呼吸の、呼吸器官の", meaning: "<span class='tag-ref'>関連</span>respiratory system: 呼吸器系（気道、肺、気管支、横隔膜のような呼吸に関係する身体の器官）。" },
-            { id: 7, word: "inhale", phonetic: "[ɪnˈheɪl]", translation: "息を吸う", meaning: "<span class='tag-teacher'>解説</span>空気や、時には薬などを肺いっぱいに吸い込む動作のこと。" },
-            { id: 8, word: "exhale", phonetic: "[ɛksˈheɪl]", translation: "息を吐く", meaning: "<span class='tag-teacher'>解説</span>肺の中にある空気を外に吐き出す動作のこと。" },
-            { id: 9, word: "nostril", phonetic: "[ˈnɑːstrəl]", translation: "鼻の穴", meaning: "<span class='tag-teacher'>解説</span>空気の出入り口となる、鼻の孔のこと。" },
-            { id: 10, word: "airway", phonetic: "[ˈɛrweɪ]", translation: "（鼻から肺までの）気道", meaning: "<span class='tag-teacher'>解説</span>呼吸をするときに空気が通るパイプライン全体のこと。" },
-            { id: 11, word: "ingest", phonetic: "[ɪnˈdʒɛst]", translation: "摂取する", meaning: "（食品・薬など）を口から体内に取り入れること。食べる、飲むことの少し専門的な言い方。" },
-            { id: 12, word: "digest", phonetic: "[daɪˈdʒɛst]", translation: "～を消化する", meaning: "<span class='tag-ref'>名</span>digestion: 消化<br><span class='tag-ref'>関連</span>digestive system: 消化器系（胃、腸のように摂取した食物の消化と吸収を担当する身体器官）。" },
-            { id: 13, word: "intestine", phonetic: "[ɪnˈtɛstɪn]", translation: "腸", meaning: "<span class='tag-teacher'>解説</span>胃の次にある長い管状の器官。栄養を吸収したり便を作ったりする場所。" },
-            { id: 14, word: "metabolism", phonetic: "[məˈtæbəlɪzəm]", translation: "新陳代謝", meaning: "生物内で起こる物質のすべての化学的変化（エネルギーを作ったり、新しい細胞を作ったりすること）。" },
-            { id: 15, word: "skeleton", phonetic: "[ˈskɛlətn]", translation: "骨格", meaning: "<span class='tag-ref'>関連</span>skull: 頭蓋骨" },
-            { id: 16, word: "joint", phonetic: "[dʒɔɪnt]", translation: "関節", meaning: "<span class='tag-teacher'>解説</span>骨と骨のつなぎ目。ここが動くことで、ひじやひざを曲げることができる。" },
-            { id: 17, word: "vertebra", phonetic: "[ˈvɜːrtəbrə]", translation: "脊椎（背骨の一つ）", meaning: "<span class='tag-ref'>参考</span>複数形は vertebrae。" },
-            { id: 18, word: "marrow", phonetic: "[ˈmæroʊ]", translation: "骨髄", meaning: "骨の中にある血液細胞を作り出す組織。（bone marrow とも言う）。" },
-            { id: 19, word: "apparatus", phonetic: "[ˌæpəˈrætəs]", translation: "（身体の）器官", meaning: "<span class='tag-ref'>関連</span>the sensory apparatus: 感覚器官" },
-            { id: 20, word: "Rapid Eye Movement", phonetic: "[ˈræpɪd aɪ ˈmuːvmənt]", translation: "急速眼球運動 (REM)", meaning: "レム睡眠時に眼球が急速に運動する現象。この時、脳波は覚醒状態に似ていて夢を見る。<br><span class='tag-ref'>関連</span>Non-Rapid Eye Movement (NREM): 非急速眼球運動" },
-            { id: 21, word: "tissue", phonetic: "[ˈtɪʃuː]", translation: "組織", meaning: "類似した形態や機能を持つ細胞の集まり（筋肉組織、神経組織など）。" },
-            { id: 22, word: "cell wall", phonetic: "[sɛl wɔːl]", translation: "細胞壁", meaning: "<span class='tag-teacher'>解説</span>植物や菌類の細胞の周りにある、硬くて丈夫な壁。動物細胞にはない。" },
-            { id: 23, word: "membrane", phonetic: "[ˈmɛmbreɪn]", translation: "（人体の皮膚・組織の）膜", meaning: "<span class='tag-teacher'>解説</span>細胞や組織を包んでいる薄い皮のこと。" },
-            { id: 24, word: "nerve", phonetic: "[nɜːrv]", translation: "神経", meaning: "脳、脊髄から身体各部へ信号を伝え、また身体各部からの刺激を脳、脊髄へ伝える器官。" },
-            { id: 25, word: "hypothalamus", phonetic: "[ˌhaɪpoʊˈθæləməs]", translation: "視床下部", meaning: "体温調節、物質代謝の調整、睡眠など生命維持に関わる脳の部分。" },
-            { id: 26, word: "cortex", phonetic: "[ˈkɔːrtɛks]", translation: "皮質", meaning: "大脳、腎臓などの実質臓器の外層をなす部分。内部と外層とでは機能が異なることが多い。<br><span class='tag-ref'>関連</span>cerebrum cortex: 大脳皮質" },
-            { id: 27, word: "cuticle", phonetic: "[ˈkjuːtɪkəl]", translation: "クチクラ、角皮", meaning: "生物の細胞で最も外側の部分を覆っている固い膜状の構造。" },
-            { id: 28, word: "limb", phonetic: "[lɪm]", translation: "四肢、手足", meaning: "<span class='tag-teacher'>解説</span>人間でいう腕(arm)や脚(leg)のこと。木の「枝」という意味もある。" },
-            { id: 29, word: "vocal cord", phonetic: "[ˈvoʊkəl kɔːrd]", translation: "声帯", meaning: "<span class='tag-teacher'>解説</span>のどにあるヒダ。空気が通るときに震えて声を出す、楽器の弦のような場所。" },
-            { id: 30, word: "inner ear", phonetic: "[ˈɪnər ɪər]", translation: "内耳", meaning: "平衡感覚を司る三半規管と、聴覚を担当する蝸牛（かぎゅう）で構成された、耳の最も内側にある部分。<br>（図解あり: 耳の奥のカタツムリのような部分）" }
-        ];
-
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/5000_5.json');
     </script>
 </body>
 

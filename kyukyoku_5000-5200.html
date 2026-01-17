@@ -66,23 +66,17 @@
     </div>
 
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
-        const vocabulary = [
-            { "word": "jolly", "phonetic": "[dʒάli]", "translation": "陽気な", "meaning": "サンタクロースのように、ニコニコして楽しそうな様子。<br>単にHappyというより、周りも明るくするような「ご機嫌さ」を表します。" },
-            { "word": "landmine", "phonetic": "[lǽndmàin]", "translation": "地雷", "meaning": "地面に隠された爆弾。比喩として「触れてはいけない話題」「踏むとヤバい地雷ポイント」という意味でもよく使われます。" },
-            { "word": "boast", "phonetic": "[bóust]", "translation": "自慢する", "meaning": "「俺ってすごいでしょ！」と自分の手柄を鼻にかけて話すこと。<br>誇らしげに言うニュアンスです。" },
-            { "word": "timid", "phonetic": "[tímid]", "translation": "内気な", "meaning": "気が小さくて、すぐにビクビクしてしまう性格のこと。新しいことや人前に出るのを怖がる「臆病さ」を指します。" },
-            { "word": "courtesy", "phonetic": "[kə́ːrtəsi]", "translation": "親切、礼儀正しさ", "meaning": "相手を思いやった丁寧な振る舞いのこと。ホテルの「サービス」や、ドアを開けて待つような「マナーとしての優しさ」です。" },
-            { "word": "mutter", "phonetic": "[mʌ́tər]", "translation": "不明瞭な声で言う", "meaning": "口の中でボソボソと、他の人に聞こえないように「つぶやく」こと。不満があるときや、独り言を言うときの動作です。" },
-            { "word": "fling", "phonetic": "[flíŋ]", "translation": "放り出す", "meaning": "勢いよく、あるいは無造作にパッと投げること。脱いだ服をベッドに「ポイッ」と投げるような荒っぽい動きです。" },
-            { "word": "peck", "phonetic": "[pék]", "translation": "くちばしでつつく", "meaning": "鳥がエサを食べる時のように、鋭いものでチョンチョンとつつくこと。軽いキス（peck on the cheek）にも使われます。" },
-            { "word": "shiver", "phonetic": "[ʃívər]", "translation": "身震いする", "meaning": "寒さや恐怖で、体がブルブルッと震えること。自分の意思に関係なく震えが止まらない状態です。" },
-            { "word": "thrust", "phonetic": "[θrʌ́st]", "translation": "押し分けて進む", "meaning": "強い力でグイッと押し込んだり、人混みを強引にかき分けて進むこと。鋭く突き出すような力強い動作です。" },
-            { "word": "defendant", "phonetic": "[diféndənt]", "translation": "被告人", "meaning": "裁判で「訴えられている側」の人。<br>「守る（defend）」立場にある人、と覚えると分かりやすいです。" }
-        ];
-
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/kyukyoku_5000-5200.json');
     </script>
 </body>
 

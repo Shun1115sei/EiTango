@@ -66,42 +66,17 @@
     </div>
 
     <script src="assets/js/confetti.js"></script>
+        <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <script src="assets/js/firebase-config.js"></script>
+    <script src="assets/js/firebase-manager.js"></script>
+        <script src="assets/js/srs.js"></script>
     <script src="assets/js/app.js"></script>
     <script>
-        const vocabulary = [
-            { id: "01", word: "ecosystem", phonetic: "[íːkousìstəm]", translation: "生態系", meaning: "生き物たちと、それを取り巻く水や土などの環境がセットになった「ひとつの宇宙」のような仕組みのことです。" },
-            { id: "02", word: "ecology", phonetic: "[ikɑ́lədʒi]", translation: "生態学", meaning: "生き物がどうやって環境と関わって生きているかを研究する学問。「エコ」の語源です。" },
-            { id: "03", word: "marsh", phonetic: "[mɑ́ːrʃ]", translation: "湿地 (= wetland)", meaning: "いつも湿っていて、じゅくじゅくした土地。泥や湿地植物が多い場所です。" },
-            { id: "04", word: "prairie", phonetic: "[préəri]", translation: "（北米の）大草原", meaning: "アメリカの真ん中あたりに広がる、見渡す限りの草の海のような場所のことです。" },
-            { id: "05", word: "biodiversity", phonetic: "[bàioudaivə́ːrsəti]", translation: "生物多様性", meaning: "その場所に「いろんな種類の生き物がたくさん住んでいる」という状態。豊かさの証拠です。" },
-            { id: "06", word: "ecological succession", phonetic: "[èkəlɑ́dʒikl səkséʃən]", translation: "生態遷移", meaning: "空き地が草原になり、やがて森になるように、自然が時間をかけて入れ替わっていく現象です。" },
-            { id: "07", word: "pollutant", phonetic: "[pəlúːtənt]", translation: "汚染物質", meaning: "空気や水を汚してしまう、悪い物質（ゴミや化学物質など）のこと。" },
-            { id: "08", word: "overhunting", phonetic: "[òuvərhʌ́ntiŋ]", translation: "乱獲", meaning: "生き物が子供を産んで増えるスピードよりも速く、人間が捕まえすぎてしまうことです。" },
-            { id: "09", word: "endangered", phonetic: "[indéindʒərd]", translation: "絶滅の危機に瀕した", meaning: "このまま放っておくと、地球上からいなくなってしまう危険がある生き物の状態です。" },
-            { id: "10", word: "mass extinction", phonetic: "[mæs ikstíŋkʃən]", translation: "大量絶滅", meaning: "恐竜が消えた時のように、短い期間にたくさんの種類の生き物が一気にいなくなることです。" },
-            { id: "11", word: "genetic modification", phonetic: "[dʒənétik mɑ̀dəfikéiʃən]", translation: "遺伝子組み換え", meaning: "作物を強くしたりするために、人間が細胞の中の「設計図」を直接書き換えることです。" },
-            { id: "12", word: "greenhouse effect", phonetic: "[ɡríːnhaùs ifékt]", translation: "温室効果", meaning: "二酸化炭素などが地球をビニールハウスのように包んで、熱を逃がさず温度を上げてしまうこと。" },
-            { id: "13", word: "landfill", phonetic: "[lǽndfìl]", translation: "ごみ埋立地", meaning: "集めたゴミを土の中に埋めておくための場所です。" },
-            { id: "14", word: "acid rain", phonetic: "[ǽsid rèin]", translation: "酸性雨", meaning: "工場の煙などが空で雨に混ざり、酸っぱくなった雨。木を枯らしたり建物を溶かしたりします。" },
-            { id: "15", word: "desertification", phonetic: "[dezə̀ːrtifikéiʃən]", translation: "砂漠化", meaning: "もともと緑があった土地が、乾燥や使いすぎでカラカラの砂漠になってしまうことです。" },
-            { id: "16", word: "logging", phonetic: "[lɔ́ːgiŋ]", translation: "伐採", meaning: "木材として使うために、森の木を切り倒す作業のことです。" },
-            { id: "17", word: "deforest", phonetic: "[diːfɔ́ːrist]", translation: "～の森林を伐採する", meaning: "木を切って森をなくしてしまうこと。地球温暖化の原因にもなります。" },
-            { id: "18", word: "white pollution", phonetic: "[wait pəlúːʃən]", translation: "白い汚染", meaning: "プラスチック容器や発泡スチロールのゴミによる汚れ。色が白いものが多いのでこう呼ばれます。" },
-            { id: "19", word: "light pollution", phonetic: "[lait pəlúːʃən]", translation: "光害", meaning: "街灯などが明るすぎて、夜空の星が見えなくなったり生き物のリズムが狂ったりすること。" },
-            { id: "20", word: "ambient", phonetic: "[ǽmbiənt]", translation: "周囲の、環境の", meaning: "自分の周りをぐるりと取り囲んでいる雰囲気や環境のこと。ambient music（環境音楽）という言葉もあります。" },
-            { id: "21", word: "soil erosion", phonetic: "[sɔil iróuʒən]", translation: "土壌侵食", meaning: "雨や風によって、大切な地面の土が削られてどこかへ流れていってしまうことです。" },
-            { id: "22", word: "runoff", phonetic: "[rʌ́nɔ̀ːf]", translation: "流出する水", meaning: "地面に染み込まずに、道路や地面の上をさらさらと流れていく雨水などのことです。" },
-            { id: "23", word: "cover crop", phonetic: "[kʌ́vər krɑp]", translation: "被覆植物", meaning: "土が削られないように、地面を覆う（カバーする）ために植える草のことです。" },
-            { id: "24", word: "pesticide", phonetic: "[péstəsàid]", translation: "殺虫剤、農薬", meaning: "害虫を殺して、野菜などを守るために使う薬のことです。" },
-            { id: "25", word: "fertilizer", phonetic: "[fə́ːrtəlàizər]", translation: "肥料", meaning: "植物が元気に育つための「栄養たっぷりのごはん」のことです。" },
-            { id: "26", word: "detergent", phonetic: "[ditə́ːrdʒənt]", translation: "洗剤", meaning: "服や食器の汚れを落とす石鹸のような薬。流しすぎると川が汚れる原因にもなります。" },
-            { id: "27", word: "submarine", phonetic: "[sʌ̀bməríːn]", translation: "海底の", meaning: "海の底にある、という意味。「潜水艦」という意味もありますが、ここでは環境用語として使われます。" },
-            { id: "28", word: "fish farm", phonetic: "[fiʃ fɑːrm]", translation: "養魚場", meaning: "海や川の魚を自然に任せるのではなく、人間が囲いの中で育てる「魚の牧場」です。" },
-            { id: "29", word: "spillage", phonetic: "[spílidʒ]", translation: "（油などの）流出", meaning: "タンカーの事故などで、中に入っていた油などが外にドバッと漏れ出してしまうことです。" },
-            { id: "30", word: "oil slick", phonetic: "[ɔil slik]", translation: "油膜", meaning: "水面に浮いてギラギラしている薄い油の膜のことです。" }
-        ];
-
-        const app = new FlashcardApp(vocabulary);
+        // Load data from JSON
+        const app = new FlashcardApp('assets/data/5000_9.json');
     </script>
 </body>
 

@@ -1,0 +1,182 @@
+[
+    {
+        "word": "fossil fuel",
+        "phonetic": "[fάsl fjúːəl]",
+        "translation": "化石燃料",
+        "meaning": "石炭や石油のように、動植物の遺骸が地下で長い時間をかけて、温度や圧力を受けてできた燃料。"
+    },
+    {
+        "word": "mineral",
+        "phonetic": "[mínərəl]",
+        "translation": "鉱物",
+        "meaning": "関連 mineral resource 鉱物資源"
+    },
+    {
+        "word": "ore",
+        "phonetic": "[ɔːr]",
+        "translation": "鉱石",
+        "meaning": "有用な鉱物を多量に含有する岩石で、採掘して採算がとれるもの。"
+    },
+    {
+        "word": "coal mine",
+        "phonetic": "",
+        "translation": "炭鉱",
+        "meaning": ""
+    },
+    {
+        "word": "extraction",
+        "phonetic": "[ikstrǽkʃən]",
+        "translation": "抽出、採取",
+        "meaning": "混合物から特定の成分を分離すること。<br>関連 oil extraction 石油の採取<br>mineral extraction 鉱物の採取"
+    },
+    {
+        "word": "reserves",
+        "phonetic": "[rizə́ːrvz]",
+        "translation": "埋蔵量",
+        "meaning": ""
+    },
+    {
+        "word": "depletion",
+        "phonetic": "[diplíːʃən]",
+        "translation": "(資源などの) 枯渇",
+        "meaning": "動 deplete ～を使い果たす"
+    },
+    {
+        "word": "smelter",
+        "phonetic": "[sméltər]",
+        "translation": "製錬所",
+        "meaning": "鉱石を溶かして、含有されている金属を取り出す事業所。"
+    },
+    {
+        "word": "blast furnace",
+        "phonetic": "",
+        "translation": "溶鉱炉",
+        "meaning": "鉱石を高温で溶かして、金属を分離して抽出する炉。"
+    },
+    {
+        "word": "petroleum",
+        "phonetic": "[pətróuliəm]",
+        "translation": "石油",
+        "meaning": ""
+    },
+    {
+        "word": "oil pool",
+        "phonetic": "",
+        "translation": "油層、オイルプール (= oil reservoir)",
+        "meaning": "石油を含有している地層。"
+    },
+    {
+        "word": "oil field",
+        "phonetic": "",
+        "translation": "油田",
+        "meaning": "地下から原油が産出する地域。"
+    },
+    {
+        "word": "drilling",
+        "phonetic": "[dríliŋ]",
+        "translation": "掘削",
+        "meaning": "地質調査や資源採取のために、掘削機械を用いて地盤に穴を開ける作業。<br>関連 drilling rig 掘削機械（土地を掘削して、石油を採取する際に使用される機械）"
+    },
+    {
+        "word": "tanker",
+        "phonetic": "[tǽŋkər]",
+        "translation": "(石油、ガスなどを輸送する) タンカー",
+        "meaning": ""
+    },
+    {
+        "word": "refining",
+        "phonetic": "[rifáiniŋ]",
+        "translation": "精製",
+        "meaning": "関連 petroleum refining 石油精製（原油を精製して、燃料油などの石油製品を製造する作業）"
+    },
+    {
+        "word": "kerosene",
+        "phonetic": "[kérəsin]",
+        "translation": "灯油",
+        "meaning": "石油の構成成分の中で、ガソリンの次に沸点が高い油。"
+    },
+    {
+        "word": "gasoline",
+        "phonetic": "[gǽsəliːn]",
+        "translation": "ガソリン (= petrol)",
+        "meaning": ""
+    },
+    {
+        "word": "petrochemical",
+        "phonetic": "[pètroukémikəl]",
+        "translation": "石油化学の",
+        "meaning": ""
+    },
+    {
+        "word": "generator",
+        "phonetic": "[dʒénərèitər]",
+        "translation": "発電機",
+        "meaning": "機械エネルギーを電気エネルギーに変換する（電気を発生させる）装置。"
+    },
+    {
+        "word": "power plant",
+        "phonetic": "",
+        "translation": "発電所",
+        "meaning": "発電機を利用して電力を発生させる施設。"
+    },
+    {
+        "word": "waterpower",
+        "phonetic": "[wɔːtərpàwər]",
+        "translation": "水力",
+        "meaning": ""
+    },
+    {
+        "word": "thermal power generation",
+        "phonetic": "",
+        "translation": "火力発電",
+        "meaning": "重油などの化石燃料の燃焼によって蒸気タービンを回転させ、発電機を運転して電力を発生させる方法。"
+    },
+    {
+        "word": "hydroelectricity",
+        "phonetic": "[hàidrouilèktrísəti]",
+        "translation": "水力電気",
+        "meaning": "水の力を利用して発電機を回転させ作られた電力。<br>関連 hydroelectric power generation 水力発電"
+    },
+    {
+        "word": "tidal power generation",
+        "phonetic": "",
+        "translation": "潮力発電",
+        "meaning": "潮の干満の差を利用して発電機を回転させ、電力を発生させる方法。<br>関連 tide 潮の干満（満ち潮と引き潮）"
+    },
+    {
+        "word": "wind power generation",
+        "phonetic": "",
+        "translation": "風力発電",
+        "meaning": "風力によって発電機を回転させ、電力を発生させる方法。"
+    },
+    {
+        "word": "solar power generation",
+        "phonetic": "",
+        "translation": "太陽光発電",
+        "meaning": "太陽電池などを利用して、太陽の光エネルギーを電力に変換する方法。"
+    },
+    {
+        "word": "blackout",
+        "phonetic": "[blǽkàut]",
+        "translation": "停電",
+        "meaning": "参考 一般的には「一時的な意識［記憶］の喪失」という意味で使われる。"
+    },
+    {
+        "word": "alternative energy",
+        "phonetic": "",
+        "translation": "代替エネルギー",
+        "meaning": "化石燃料に代わる新しいエネルギー資源。"
+    },
+    {
+        "word": "ethanol fuel",
+        "phonetic": "",
+        "translation": "エタノール燃料",
+        "meaning": "サトウキビやトウモロコシなどから抽出したエチルアルコールで作られた燃料。"
+    },
+    {
+        "word": "geothermal energy",
+        "phonetic": "",
+        "translation": "地熱エネルギー",
+        "meaning": "地球内部に蓄積されている熱エネルギー。"
+    }
+]

@@ -1,0 +1,212 @@
+[
+    {
+        "id": 1,
+        "word": "complete metamorphosis",
+        "phonetic": "[kəmˈpliːt ˌmɛtəˈmɔːrfəsɪs]",
+        "translation": "完全変態",
+        "meaning": "昆虫の成長の過程で、卵→幼虫→さなぎの3つの段階を経て成虫に変化する現象。"
+    },
+    {
+        "id": 2,
+        "word": "larvae",
+        "phonetic": "[ˈlɑːrviː]",
+        "translation": "幼虫",
+        "meaning": "成虫になる前の子供の昆虫。<br><span class='tag-ref'>参考</span>単数形は larva。"
+    },
+    {
+        "id": 3,
+        "word": "caterpillar",
+        "phonetic": "[ˈkætərpɪlər]",
+        "translation": "毛虫",
+        "meaning": "体が長く、体表が毛で覆われているチョウ目の幼虫。"
+    },
+    {
+        "id": 4,
+        "word": "pupa",
+        "phonetic": "[ˈpjuːpə]",
+        "translation": "さなぎ",
+        "meaning": "<span class='tag-ref'>参考</span>複数形は pupae。"
+    },
+    {
+        "id": 5,
+        "word": "cocoon",
+        "phonetic": "[kəˈkuːn]",
+        "translation": "繭 (まゆ)",
+        "meaning": "完全変態をする昆虫の幼虫がさなぎに変わる際に作る殻。"
+    },
+    {
+        "id": 6,
+        "word": "incomplete metamorphosis",
+        "phonetic": "[ˌɪnkəmˈpliːt ˌmɛtəˈmɔːrfəsɪs]",
+        "translation": "不完全変態",
+        "meaning": "幼虫がすでに成虫と同様の形態を有し、さなぎの時代を経ないで成虫になる成長形式。トンボ、バッタなどに見られる。"
+    },
+    {
+        "id": 7,
+        "word": "ecdysis",
+        "phonetic": "[ˈɛkdəsɪs]",
+        "translation": "脱皮",
+        "meaning": "頑丈な表皮を持っている動物が成長の過程で古い表皮を脱ぐ現象。"
+    },
+    {
+        "id": 8,
+        "word": "mimicry",
+        "phonetic": "[ˈmɪmɪkri]",
+        "translation": "擬態",
+        "meaning": "自分の身を守ったり、狩りをするために、周囲の環境や他の種の生物と非常によく似た形態を持っていること。<br><span class='tag-ref'>動</span>mimic: 擬態する"
+    },
+    {
+        "id": 9,
+        "word": "protective coloration",
+        "phonetic": "[prəˈtɛktɪv ˌkʌləˈreɪʃən]",
+        "translation": "保護色",
+        "meaning": "周囲の環境に溶け込んで、敵に見つかりにくくする体の色や模様のこと。"
+    },
+    {
+        "id": 10,
+        "word": "camouflage",
+        "phonetic": "[ˈkæməflɑːʒ]",
+        "translation": "偽装、擬態",
+        "meaning": "（保護色や形などを通じて）敵の目をあざむくために、周囲の風景にとけこむこと。"
+    },
+    {
+        "id": 11,
+        "word": "microhabitat",
+        "phonetic": "[ˈmaɪkroʊˌhæbɪtæt]",
+        "translation": "微小生息地",
+        "meaning": "微生物、昆虫のような小さな生物が生息するのに適した環境を持つ場所のこと。"
+    },
+    {
+        "id": 12,
+        "word": "antennae",
+        "phonetic": "[ænˈtɛniː]",
+        "translation": "（昆虫の）触角",
+        "meaning": "（昆虫の）頭部についている、感覚をつかさどる器官。<br><span class='tag-ref'>参考</span>単数形は antenna。"
+    },
+    {
+        "id": 13,
+        "word": "abdomen",
+        "phonetic": "[ˈæbdəmən]",
+        "translation": "（昆虫の）腹部",
+        "meaning": "<span class='tag-ref'>関連</span>head: 頭部 / thorax: 胸部"
+    },
+    {
+        "id": 14,
+        "word": "pollinator",
+        "phonetic": "[ˈpɑːləneɪtər]",
+        "translation": "送粉者",
+        "meaning": "花の雄しべで生産される花粉を雌しべに移す生物のことで、ほとんどの昆虫がその役割を果たす。"
+    },
+    {
+        "id": 15,
+        "word": "nectar",
+        "phonetic": "[ˈnɛktər]",
+        "translation": "（花の）蜜",
+        "meaning": "花が分泌する甘い液体。昆虫などを引き寄せるためのもの。"
+    },
+    {
+        "id": 16,
+        "word": "infested",
+        "phonetic": "[ɪnˈfɛstɪd]",
+        "translation": "（害虫などが）群がった",
+        "meaning": "害虫や寄生虫などが大量発生して、場所や物を荒らしている状態。"
+    },
+    {
+        "id": 17,
+        "word": "insecticide",
+        "phonetic": "[ɪnˈsɛktɪsaɪd]",
+        "translation": "殺虫剤",
+        "meaning": "昆虫（害虫）を駆除するために使われる薬品。"
+    },
+    {
+        "id": 18,
+        "word": "exoskeleton",
+        "phonetic": "[ˌɛksoʊˈskɛlətn]",
+        "translation": "外骨格",
+        "meaning": "昆虫やカニの殻のように体の外側を囲み、体を保護したり、支えたりする骨格のこと。<br><span class='tag-ref'>関連</span>endoskeleton: 内骨格"
+    },
+    {
+        "id": 19,
+        "word": "pheromone",
+        "phonetic": "[ˈfɛrəmoʊn]",
+        "translation": "フェロモン",
+        "meaning": "動物の体内で作られたあとに体外に放出され、同種の他の個体の行動的・生理的反応を誘導する物質。"
+    },
+    {
+        "id": 20,
+        "word": "sting",
+        "phonetic": "[stɪŋ]",
+        "translation": "針 / 刺す",
+        "meaning": "<span class='tag-ref'>名</span>（昆虫などの）針<br><span class='tag-ref'>動</span>刺す"
+    },
+    {
+        "id": 21,
+        "word": "bioluminescence",
+        "phonetic": "[ˌbaɪoʊluːmɪˈnɛsns]",
+        "translation": "生物発光",
+        "meaning": "ホタルのように、生物が自ら光を出す現象。"
+    },
+    {
+        "id": 22,
+        "word": "ephemeral insects",
+        "phonetic": "[ɪˈfɛmərəl ˈɪnsɛkts]",
+        "translation": "寿命が非常に短い昆虫",
+        "meaning": "カゲロウなどのように、成虫になってからの寿命が極端に短い（1日など）昆虫のこと。<br><span class='tag-ref'>単語</span>ephemeral: つかの間の、短命な"
+    },
+    {
+        "id": 23,
+        "word": "swarm",
+        "phonetic": "[swɔːrm]",
+        "translation": "群れ",
+        "meaning": "（ハチやアリ、バッタなどが）一方向に移動するために形成する大きな集団。"
+    },
+    {
+        "id": 24,
+        "word": "social insect",
+        "phonetic": "[ˈsoʊʃəl ˈɪnsɛkt]",
+        "translation": "社会性昆虫",
+        "meaning": "ハチやアリのように、同種の個体が集団をなし、互いに役割を分担して生活する昆虫のこと。"
+    },
+    {
+        "id": 25,
+        "word": "hive",
+        "phonetic": "[haɪv]",
+        "translation": "ハチの巣、群れ",
+        "meaning": "ミツバチなどが生活する巣箱。または、1つの巣に住むハチの集団全体。"
+    },
+    {
+        "id": 26,
+        "word": "wasp",
+        "phonetic": "[wɑːsp]",
+        "translation": "スズメバチ",
+        "meaning": "狩りをするハチの一種。針を持ち、攻撃性が高いものが多い。ミツバチ(bee)とは区別される。"
+    },
+    {
+        "id": 27,
+        "word": "fruit fly",
+        "phonetic": "[fruːt flaɪ]",
+        "translation": "ミバエ / ショウジョウバエ",
+        "meaning": "熟した果実や樹液に集まる小さなハエ。"
+    },
+    {
+        "id": 28,
+        "word": "firefly",
+        "phonetic": "[ˈfaɪərflaɪ]",
+        "translation": "ホタル",
+        "meaning": "お尻の部分を発光させて、仲間とコミュニケーションをとる昆虫。"
+    },
+    {
+        "id": 29,
+        "word": "cicada",
+        "phonetic": "[sɪˈkeɪdə]",
+        "translation": "セミ",
+        "meaning": "幼虫は長い間土の中で過ごし、成虫になると夏に大きな声で鳴く昆虫。"
+    },
+    {
+        "id": 30,
+        "word": "grasshopper",
+        "phonetic": "[ˈɡræshɑːpər]",
+        "translation": "バッタ",
+        "meaning": "草原などに住み、後ろ足が発達していて高くジャンプできる昆虫。"
+    }
+]
