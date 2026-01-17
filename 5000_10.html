@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meteorology (Vol. 10)</title>
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Meteorology (Vol. 10)</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
+        </div>
+    </header>
+
+    <div class="card-container">
+        <!-- Completion Overlay -->
+        <div class="completed-overlay" id="completed-overlay">
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
+        </div>
+
+        <!-- Flashcard Component -->
+        <div class="card" id="flashcard">
+            <div class="card-face card-front">
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
+                <!-- Audio Button -->
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+                <div class="click-hint">Click to Flip</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
+            </button>
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
+        </div>
+    </div>
+
+    <!-- Shared Scripts -->
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Data & Initialization -->
+    <script>
+        // Replace this array with the specific vocabulary for this deck
+        const vocabulary = [
+            { "word": "meteorology", "phonetic": "[mìːtiərálədʒi]", "translation": "気象学", "meaning": "大気の状態、大気中のさまざまな気象現象、気象が地表面へ及ぼす影響などを研究する学問。" },
+            { "word": "precipitation", "phonetic": "[prisìpətéiʃən]", "translation": "降水（量）", "meaning": "雨、雪、あられ、霧などが一定期間、特定の場所に降った水の量。" },
+            { "word": "rainfall", "phonetic": "[réinfɔ̀ːl]", "translation": "降雨（量）", "meaning": "一定期間、特定の場所に降った雨の量。" },
+            { "word": "humidity", "phonetic": "[hjuːmídəti]", "translation": "湿度", "meaning": "" },
+            { "word": "arid", "phonetic": "[ǽrid]", "translation": "乾燥した", "meaning": "名 aridity 乾燥" },
+            { "word": "semiarid", "phonetic": "[sèmiǽrid]", "translation": "半乾燥の", "meaning": "関連 semiarid zone 半乾燥地帯（砂漠の周辺に分布する比較的乾燥の程度が低い地域のこと）" },
+            { "word": "drought", "phonetic": "[draut]", "translation": "干ばつ", "meaning": "関連 flood 洪水" },
+            { "word": "monsoon", "phonetic": "[mansúːn]", "translation": "季節風", "meaning": "季節によって吹く方向が変わる風のこと。<br>参考 一般的には「（東南アジアの夏場の）雨季、梅雨」という意味で使われる。" },
+            { "word": "temperature", "phonetic": "[témpərətʃər]", "translation": "温度、気温", "meaning": "参考 「体温」という意味でも使われる。" },
+            { "word": "thermometer", "phonetic": "[θərmámətər]", "translation": "温度計", "meaning": "" },
+            { "word": "Celsius", "phonetic": "[sélsiəs]", "translation": "摂氏", "meaning": "1気圧での水の凝固点を0℃、沸点を100℃にして、その間を100等分した温度の測定単位。<br>関連 Fahrenheit 華氏（1気圧での水の凝固点を32℉、沸点を212℉にして、その間を180等分した温度の測定単位）" },
+            { "word": "heat wave", "phonetic": "[hiːt weiv]", "translation": "熱波", "meaning": "数日あるいは数週間続く、異常な高温現象。" },
+            { "word": "equator", "phonetic": "[ikwéitər]", "translation": "赤道", "meaning": "" },
+            { "word": "elevation", "phonetic": "[èləvéiʃən]", "translation": "高度、海抜 (= altitude)", "meaning": "" },
+            { "word": "latitude", "phonetic": "[lǽtətjùːd]", "translation": "緯度", "meaning": "赤道を基準に、特定の地域の南北の位置を示す座標。<br>関連 longitude 経度（特定の地域の東西の位置を示す座標）" },
+            { "word": "weather vane", "phonetic": "[wéðər vein]", "translation": "風向計", "meaning": "" },
+            { "word": "prevailing wind", "phonetic": "[privéiliŋ wind]", "translation": "卓越風", "meaning": "ある地域で、特定の期間、最も頻度の高い方向から吹く風。" },
+            { "word": "atmospheric pressure", "phonetic": "[æ̀tməsférik préʃər]", "translation": "気圧", "meaning": "関連 barometer 気圧計" },
+            { "word": "front", "phonetic": "[frʌnt]", "translation": "前線", "meaning": "発生地が異なる2種類の空気の境界面と地表との交線。" },
+            { "word": "glaciation", "phonetic": "[glèisiéiʃən]", "translation": "氷河作用", "meaning": "氷河が形成、移動、後退しながら地表を浸食、運搬、堆積すること。" },
+            { "word": "icecap", "phonetic": "[áiskæ̀p]", "translation": "氷冠", "meaning": "高い山や極地などを覆っている溶けない氷河。" },
+            { "word": "tundra", "phonetic": "[tʌ́ndrə]", "translation": "ツンドラ、凍土帯", "meaning": "夏の間だけ地表の氷が溶けて、限られた種類の草木だけが育つことのできる地帯。" },
+            { "word": "hemisphere", "phonetic": "[hémisfìər]", "translation": "(地球の) 半球", "meaning": "関連 Northern Hemisphere 北半球<br>Southern Hemisphere 南半球<br>参考 生理学では「（脳の）半球」という意味で使われる。" },
+            { "word": "life zone", "phonetic": "[láif zòun]", "translation": "生物分布帯", "meaning": "温度、降水量、湿度などの気象条件に応じて分類されたいくつかの生物の分布地域。" },
+            { "word": "microclimate", "phonetic": "[màikroukláimit]", "translation": "微気候", "meaning": "地表の影響を受けて生じる、地表面近くの局地的な気象状態。" },
+            { "word": "subtropics", "phonetic": "[sʌbtrápiks]", "translation": "亜熱帯地方", "meaning": "熱帯と温帯の間に位置する、気温は高いが降水量は少ない地域。" },
+            { "word": "El Niño", "phonetic": "[el níːnjo]", "translation": "エルニーニョ現象", "meaning": "東太平洋赤道付近の海水面の温度が5カ月以上、平年より高い状態が続く現象。" },
+            { "word": "Pleistocene epoch", "phonetic": "[pláistəsiːn èpək]", "translation": "更新世、洪積世", "meaning": "約200万年前から約1万2千年前までの時期。少なくとも4回から最大6回の間氷期があった。" },
+            { "word": "interglacial period", "phonetic": "[ìntərgléisil píəriəd]", "translation": "間氷期", "meaning": "氷期と氷期の間の比較的気候が温暖な時期。" },
+            { "word": "Milankovitch's hypothesis", "phonetic": "[milǽnkovitʃiz hàipáθəsis]", "translation": "ミランコビッチの仮説", "meaning": "地球軌道の3要素（地球の自転軸の傾きの変化、地球の公転軌道の楕円形、地球の歳差）が集約的に作用して、氷期、間氷期といった気候変動が生じるという仮説。" }
+        ];
+
+        // Initialize App
+        const app = new FlashcardApp(vocabulary);
+    </script>
+</body>
+
+</html>

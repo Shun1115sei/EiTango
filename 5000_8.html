@@ -1,320 +1,104 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOEFL化学単語マスター - Sequential Mode</title>
-    <style>
-        :root {
-            --primary-color: #4a90e2;
-            --success-color: #2ecc71;
-            --retry-color: #f39c12;
-            --bg-color: #f0f2f5;
-            --card-front: #ffffff;
-            --card-back: #fff9f0;
-            --text-main: #2c3e50;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        header {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .progress-container {
-            width: 300px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        /* 修正点2: バーを中央に配置 */
-        .progress-bar {
-            background: #ddd;
-            height: 10px;
-            border-radius: 5px;
-            overflow: hidden;
-            width: 100%;
-            margin: 10px auto; 
-        }
-
-        #progress-fill {
-            background: var(--primary-color);
-            height: 100%;
-            width: 0%;
-            transition: width 0.3s;
-        }
-
-        /* 3D Card Animation */
-        .scene {
-            width: 340px;
-            height: 480px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-radius: 20px;
-        }
-
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-            box-sizing: border-box;
-        }
-
-        .card-front {
-            background-color: var(--card-front);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .card-back {
-            background-color: var(--card-back);
-            transform: rotateY(180deg);
-            justify-content: flex-start;
-            overflow-y: auto;
-        }
-
-        /* Front Content */
-        .word-num { font-size: 0.9rem; color: #aaa; margin-bottom: 5px; }
-        .word { font-size: 2rem; font-weight: bold; margin-bottom: 10px; color: var(--primary-color); text-align: center; }
-        .phonetic { font-size: 1.1rem; color: #7f8c8d; font-family: 'Arial', sans-serif; }
-        .audio-btn {
-            background: #f8f9fa; border: 1px solid #ddd; border-radius: 50%; width: 50px; height: 50px;
-            margin-top: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: background 0.2s;
-        }
-        .audio-btn:hover { background: #e9ecef; }
-
-        /* Back Content */
-        .translation { font-size: 1.5rem; font-weight: bold; border-bottom: 2px solid var(--retry-color); padding-bottom: 10px; margin-bottom: 20px; }
-        .meaning-title { font-weight: bold; color: #e67e22; margin-top: 10px; font-size: 0.9rem; text-transform: uppercase; }
-        .meaning { font-size: 1.05rem; line-height: 1.6; color: #444; }
-
-        /* Controls */
-        .controls {
-            margin-top: 30px;
-            display: flex;
-            gap: 15px;
-        }
-
-        button.action-btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
-            color: white;
-        }
-
-        button.action-btn:active { transform: scale(0.95); }
-        .btn-learned { background-color: var(--success-color); }
-        .btn-retry { background-color: var(--retry-color); }
-
-        /* Complete View */
-        #complete-screen {
-            display: none;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .hidden { display: none !important; }
-
-        @media (max-width: 400px) {
-            .scene { width: 90vw; height: 450px; }
-        }
-    </style>
+    <title>Chemistry Vocabulary</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<header>
-    <h1>🧪 Chemistry Vocabulary</h1>
-    <div class="progress-container">
-        <div id="count-display">残り: 30 枚</div>
-        <div class="progress-bar"><div id="progress-fill"></div></div>
-    </div>
-</header>
+    <header>
+        <h1>Chemistry Vocabulary</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
+        </div>
+    </header>
 
-<div id="game-container">
-    <div class="scene" onclick="flipCard()">
-        <div class="card" id="card">
+    <div class="card-container">
+        <div class="completed-overlay" id="completed-overlay">
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
+        </div>
+
+        <div class="card" id="flashcard">
             <div class="card-face card-front">
-                <div class="word-num" id="num-display">No. 01</div>
-                <div class="word" id="word-display">Word</div>
-                <div class="phonetic" id="phonetic-display">/phonetic/</div>
-                <button class="audio-btn" onclick="speakWord(event)" title="音声を聞く">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                </button>
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+                <div class="click-hint">Click to Flip</div>
             </div>
             <div class="card-face card-back">
-                <div class="translation" id="translation-display">日本語訳</div>
-                <div class="meaning-title">💡 先生の解説</div>
-                <div class="meaning" id="meaning-display">解説テキスト</div>
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
             </div>
         </div>
     </div>
 
-    <div class="controls">
-        <button class="action-btn btn-retry" onclick="nextCard(false)">🔄 苦手 / まだ</button>
-        <button class="action-btn btn-learned" onclick="nextCard(true)">✅ 覚えた (除外)</button>
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
+            </button>
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
+        </div>
     </div>
-</div>
 
-<div id="complete-screen">
-    <h2>🎉 お疲れ様でした！</h2>
-    <p>写真に載っているすべての単語を習得しました！</p>
-    <button class="action-btn btn-learned" onclick="resetGame()" style="background-color: var(--primary-color)">もう一度最初から</button>
-</div>
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+        const vocabulary = [
+            { id: "01", word: "chemicals", phonetic: "[kémikəls]", translation: "化学物質", meaning: "「薬品」や「化学製品」のこと。<br>理科の実験で使う液体や粉末、身の回りの洗剤などもこれに含まれます。" },
+            { id: "02", word: "oxygen", phonetic: "[ɑ́ksidʒən]", translation: "酸素 (O)", meaning: "私たちが呼吸で取り込んでいる気体。<br>物が燃えるのにも必要不可欠な要素です。" },
+            { id: "03", word: "mercury", phonetic: "[móːrkjuri]", translation: "水銀 (Hg)", meaning: "常温でドロドロの液体である珍しい金属。<br>昔の体温計の中に入っていた銀色の液体のことです。" },
+            { id: "04", word: "sodium chloride", phonetic: "[sóudiəm klɔ́ːraid]", translation: "塩化ナトリウム (NaCl)", meaning: "ズバリ「食卓にある塩」のこと。<br>化学の世界では、ナトリウムと塩素が合体したものと呼びます。" },
+            { id: "05", word: "density", phonetic: "[dénsəti]", translation: "密度", meaning: "あるスペースにどれだけ「ギュッ」と中身が詰まっているか。<br>重い金属は密度が高く、スポンジは密度が低いです。" },
+            { id: "06", word: "solution", phonetic: "[səlúːʃən]", translation: "溶液", meaning: "液体に何かが溶け込んで、均一に混ざり合った状態の液。<br>砂糖水も立派な溶液です。" },
+            { id: "07", word: "dissolve", phonetic: "[dizɑ́lv]", translation: "～を溶解させる", meaning: "「溶かす」という意味。<br>コーヒーに砂糖を入れて見えなくなる現象を指します。" },
+            { id: "08", word: "dilute", phonetic: "[dilúːt]", translation: "～を希釈する", meaning: "「薄める」こと。<br>カルピスの原液に水を入れて飲みやすくするイメージです。" },
+            { id: "09", word: "saturate", phonetic: "[sǽtʃərèit]", translation: "～を飽和させる", meaning: "「いっぱいまで満たす」こと。<br>これ以上溶けないギリギリまで溶かした状態を指します。" },
+            { id: "10", word: "crystallize", phonetic: "[krístəlàiz]", translation: "～を結晶させる", meaning: "溶けていたものが、キラキラした粒（結晶）になって出てくること。<br>塩田で塩ができる時のイメージです。" },
+            { id: "11", word: "filter", phonetic: "[fíltər]", translation: "フィルター / ろ過する", meaning: "網や紙を使って、液体からゴミや粒を取り除くこと。<br>コーヒーをドリップする作業がまさに「ろ過」です。" },
+            { id: "12", word: "atom", phonetic: "[ǽtəm]", translation: "原子", meaning: "物質をバラバラにしていった時の「最小の粒」。<br>中心に核があり、周りを電子が回っている構造です。" },
+            { id: "13", word: "flame test", phonetic: "[fléim test]", translation: "炎色反応", meaning: "金属を火にかざすと、赤や緑など特定の色に火が染まる実験。<br>花火の色がカラフルなのはこの原理を利用しています。" },
+            { id: "14", word: "periodic table", phonetic: "[piəriɑ́dik téibl]", translation: "周期表", meaning: "「水・兵・リー・ベ…」のあの表。<br>元素を性質ごとに並べた、化学の地図のようなものです。" },
+            { id: "15", word: "isotope", phonetic: "[áisətòup]", translation: "同位体", meaning: "「重さだけが違う双子」のような原子。<br>性質はほぼ同じだけど、重さ（中性子の数）が違います。" },
+            { id: "16", word: "element", phonetic: "[éləmənt]", translation: "元素", meaning: "物質を構成する「種類」のこと。<br>酸素や金、水素など、これ以上分けられない基本的なカテゴリーです。" },
+            { id: "17", word: "compound", phonetic: "[kɑ́mpaund]", translation: "化合物", meaning: "2種類以上の元素がガッチリ握手して合体した物質。<br>水（水素＋酸素）などが代表例です。" },
+            { id: "18", word: "molecule", phonetic: "[mɑ́ləkjùːl] ", translation: "分子", meaning: "その物質の性質を保ったまま存在できる「最小のグループ」。<br>原子がいくつか集まってできています。" },
+            { id: "19", word: "saline", phonetic: "[séiliːn]", translation: "塩分が含まれた", meaning: "「塩気のある」という意味。<br>医学では生理食塩水のことを saline solution と呼びます。" },
+            { id: "20", word: "oxidation", phonetic: "[ɑ̀ksidéiʃən]", translation: "酸化", meaning: "酸素とくっつく反応。<br>鉄が錆びたり、リンゴが茶色くなったりするのが「酸化」です。" },
+            { id: "21", word: "reduction", phonetic: "[ridʌ́kʃən]", translation: "還元", meaning: "酸化の逆。酸素を離して元の状態に戻ること。<br>錆びた金属を元に戻すようなプロセスです。" },
+            { id: "22", word: "catalyst", phonetic: "[kætəlist]", translation: "触媒", meaning: "自分自身は変化しないのに、周りの反応をめちゃくちゃ速める「お助け役」のこと。" },
+            { id: "23", word: "evaporation", phonetic: "[ivæpəréiʃən]", translation: "蒸発", meaning: "液体が気体になって飛んでいくこと。<br>洗濯物が乾くのは、水分が蒸発しているからです。" },
+            { id: "24", word: "alkali", phonetic: "[ælkəlài]", translation: "塩基 (アルカリ性)", meaning: "苦味があり、タンパク質を溶かす性質。<br>石鹸水などが身近なアルカリ性です。" },
+            { id: "25", word: "acid", phonetic: "[æsid]", translation: "酸", meaning: "レモンのように酸っぱい性質。<br>金属を溶かしたり、リトマス試験紙を赤くしたりします。" },
+            { id: "26", word: "neutralize", phonetic: "[njúːtrəlàiz]", translation: "中和する", meaning: "酸性とアルカリ性を混ぜて、お互いの性質を打ち消し合って「水」にすること。" },
+            { id: "27", word: "concentration", phonetic: "[kɑ̀nsəntréiʃən]", translation: "濃度", meaning: "液体の「濃さ」のこと。<br>どれくらい成分が溶け込んでいるかの割合を指します。" },
+            { id: "28", word: "osmosis", phonetic: "[ɑzmóusis]", translation: "浸透", meaning: "膜を通して、水分が薄い方から濃い方へと移動する現象。<br>ナメクジに塩をかけると縮むのも浸透のせいです。" },
+            { id: "29", word: "carbohydrate", phonetic: "[kɑ̀ːrbouháidreit]", translation: "炭水化物", meaning: "ご飯、パン、砂糖などのエネルギー源。<br>炭素・水素・酸素からできています。" },
+            { id: "30", word: "enzyme", phonetic: "[énzaim]", translation: "酵素", meaning: "体の中で食べ物を消化したり、代謝を助けたりする「特殊なタンパク質」のこと。" }
+        ];
 
-<script>
-    // 写真の通りの順番（1〜30）で定義
-    const vocabulary = [
-        { id: "01", word: "chemicals", phonetic: "[kémikəls]", translation: "化学物質", meaning: "「薬品」や「化学製品」のこと。<br>理科の実験で使う液体や粉末、身の回りの洗剤などもこれに含まれます。" },
-        { id: "02", word: "oxygen", phonetic: "[ɑ́ksidʒən]", translation: "酸素 (O)", meaning: "私たちが呼吸で取り込んでいる気体。<br>物が燃えるのにも必要不可欠な要素です。" },
-        { id: "03", word: "mercury", phonetic: "[móːrkjuri]", translation: "水銀 (Hg)", meaning: "常温でドロドロの液体である珍しい金属。<br>昔の体温計の中に入っていた銀色の液体のことです。" },
-        { id: "04", word: "sodium chloride", phonetic: "[sóudiəm klɔ́ːraid]", translation: "塩化ナトリウム (NaCl)", meaning: "ズバリ「食卓にある塩」のこと。<br>化学の世界では、ナトリウムと塩素が合体したものと呼びます。" },
-        { id: "05", word: "density", phonetic: "[dénsəti]", translation: "密度", meaning: "あるスペースにどれだけ「ギュッ」と中身が詰まっているか。<br>重い金属は密度が高く、スポンジは密度が低いです。" },
-        { id: "06", word: "solution", phonetic: "[səlúːʃən]", translation: "溶液", meaning: "液体に何かが溶け込んで、均一に混ざり合った状態の液。<br>砂糖水も立派な溶液です。" },
-        { id: "07", word: "dissolve", phonetic: "[dizɑ́lv]", translation: "～を溶解させる", meaning: "「溶かす」という意味。<br>コーヒーに砂糖を入れて見えなくなる現象を指します。" },
-        { id: "08", word: "dilute", phonetic: "[dilúːt]", translation: "～を希釈する", meaning: "「薄める」こと。<br>カルピスの原液に水を入れて飲みやすくするイメージです。" },
-        { id: "09", word: "saturate", phonetic: "[sǽtʃərèit]", translation: "～を飽和させる", meaning: "「いっぱいまで満たす」こと。<br>これ以上溶けないギリギリまで溶かした状態を指します。" },
-        { id: "10", word: "crystallize", phonetic: "[krístəlàiz]", translation: "～を結晶させる", meaning: "溶けていたものが、キラキラした粒（結晶）になって出てくること。<br>塩田で塩ができる時のイメージです。" },
-        { id: "11", word: "filter", phonetic: "[fíltər]", translation: "フィルター / ろ過する", meaning: "網や紙を使って、液体からゴミや粒を取り除くこと。<br>コーヒーをドリップする作業がまさに「ろ過」です。" },
-        { id: "12", word: "atom", phonetic: "[ǽtəm]", translation: "原子", meaning: "物質をバラバラにしていった時の「最小の粒」。<br>中心に核があり、周りを電子が回っている構造です。" },
-        { id: "13", word: "flame test", phonetic: "[fléim test]", translation: "炎色反応", meaning: "金属を火にかざすと、赤や緑など特定の色に火が染まる実験。<br>花火の色がカラフルなのはこの原理を利用しています。" },
-        { id: "14", word: "periodic table", phonetic: "[piəriɑ́dik téibl]", translation: "周期表", meaning: "「水・兵・リー・ベ…」のあの表。<br>元素を性質ごとに並べた、化学の地図のようなものです。" },
-        { id: "15", word: "isotope", phonetic: "[áisətòup]", translation: "同位体", meaning: "「重さだけが違う双子」のような原子。<br>性質はほぼ同じだけど、重さ（中性子の数）が違います。" },
-        { id: "16", word: "element", phonetic: "[éləmənt]", translation: "元素", meaning: "物質を構成する「種類」のこと。<br>酸素や金、水素など、これ以上分けられない基本的なカテゴリーです。" },
-        { id: "17", word: "compound", phonetic: "[kɑ́mpaund]", translation: "化合物", meaning: "2種類以上の元素がガッチリ握手して合体した物質。<br>水（水素＋酸素）などが代表例です。" },
-        { id: "18", word: "molecule", phonetic: "[mɑ́ləkjùːl] ", translation: "分子", meaning: "その物質の性質を保ったまま存在できる「最小のグループ」。<br>原子がいくつか集まってできています。" },
-        { id: "19", word: "saline", phonetic: "[séiliːn]", translation: "塩分が含まれた", meaning: "「塩気のある」という意味。<br>医学では生理食塩水のことを saline solution と呼びます。" },
-        { id: "20", word: "oxidation", phonetic: "[ɑ̀ksidéiʃən]", translation: "酸化", meaning: "酸素とくっつく反応。<br>鉄が錆びたり、リンゴが茶色くなったりするのが「酸化」です。" },
-        { id: "21", word: "reduction", phonetic: "[ridʌ́kʃən]", translation: "還元", meaning: "酸化の逆。酸素を離して元の状態に戻ること。<br>錆びた金属を元に戻すようなプロセスです。" },
-        { id: "22", word: "catalyst", phonetic: "[kætəlist]", translation: "触媒", meaning: "自分自身は変化しないのに、周りの反応をめちゃくちゃ速める「お助け役」のこと。" },
-        { id: "23", word: "evaporation", phonetic: "[ivæpəréiʃən]", translation: "蒸発", meaning: "液体が気体になって飛んでいくこと。<br>洗濯物が乾くのは、水分が蒸発しているからです。" },
-        { id: "24", word: "alkali", phonetic: "[ælkəlài]", translation: "塩基 (アルカリ性)", meaning: "苦味があり、タンパク質を溶かす性質。<br>石鹸水などが身近なアルカリ性です。" },
-        { id: "25", word: "acid", phonetic: "[æsid]", translation: "酸", meaning: "レモンのように酸っぱい性質。<br>金属を溶かしたり、リトマス試験紙を赤くしたりします。" },
-        { id: "26", word: "neutralize", phonetic: "[njúːtrəlàiz]", translation: "中和する", meaning: "酸性とアルカリ性を混ぜて、お互いの性質を打ち消し合って「水」にすること。" },
-        { id: "27", word: "concentration", phonetic: "[kɑ̀nsəntréiʃən]", translation: "濃度", meaning: "液体の「濃さ」のこと。<br>どれくらい成分が溶け込んでいるかの割合を指します。" },
-        { id: "28", word: "osmosis", phonetic: "[ɑzmóusis]", translation: "浸透", meaning: "膜を通して、水分が薄い方から濃い方へと移動する現象。<br>ナメクジに塩をかけると縮むのも浸透のせいです。" },
-        { id: "29", word: "carbohydrate", phonetic: "[kɑ̀ːrbouháidreit]", translation: "炭水化物", meaning: "ご飯、パン、砂糖などのエネルギー源。<br>炭素・水素・酸素からできています。" },
-        { id: "30", word: "enzyme", phonetic: "[énzaim]", translation: "酵素", meaning: "体の中で食べ物を消化したり、代謝を助けたりする「特殊なタンパク質」のこと。" }
-    ];
-
-    let remainingWords = [];
-    let currentIndex = 0;
-
-    function initGame() {
-        // 修正点1: シャッフルを削除し、常に元の配列のコピーを使用
-        remainingWords = [...vocabulary];
-        currentIndex = 0;
-        showComplete(false);
-        updateCard();
-    }
-
-    function updateCard() {
-        if (remainingWords.length === 0) {
-            showComplete(true);
-            return;
-        }
-        
-        // インデックスが範囲外にならないよう調整
-        if (currentIndex >= remainingWords.length) {
-            currentIndex = 0;
-        }
-
-        const current = remainingWords[currentIndex];
-        document.getElementById('num-display').textContent = `No. ${current.id}`;
-        document.getElementById('word-display').textContent = current.word;
-        document.getElementById('phonetic-display').textContent = current.phonetic;
-        document.getElementById('translation-display').textContent = current.translation;
-        document.getElementById('meaning-display').innerHTML = current.meaning;
-        
-        document.getElementById('count-display').textContent = `残り: ${remainingWords.length} 枚`;
-        
-        // 進捗バーの計算
-        const progress = ((vocabulary.length - remainingWords.length) / vocabulary.length) * 100;
-        document.getElementById('progress-fill').style.width = `${progress}%`;
-        
-        const card = document.getElementById('card');
-        card.classList.remove('is-flipped');
-    }
-
-    function flipCard() {
-        document.getElementById('card').classList.toggle('is-flipped');
-    }
-
-    function nextCard(isLearned) {
-        if (isLearned) {
-            // リストから削除して次のカードへ
-            remainingWords.splice(currentIndex, 1);
-        } else {
-            // 削除せず、インデックスを次に進める（ループする）
-            currentIndex = (currentIndex + 1) % remainingWords.length;
-        }
-        updateCard();
-    }
-
-    function speakWord(event) {
-        event.stopPropagation();
-        const word = remainingWords[currentIndex].word;
-        const utterance = new SpeechSynthesisUtterance(word);
-        utterance.lang = 'en-US';
-        
-        const voices = speechSynthesis.getVoices();
-        const preferredVoice = voices.find(v => v.name.includes("Google US English") || v.name.includes("Samantha") || v.name.includes("Alex"));
-        if (preferredVoice) utterance.voice = preferredVoice;
-        
-        speechSynthesis.speak(utterance);
-    }
-
-    function showComplete(isFinished) {
-        document.getElementById('game-container').classList.toggle('hidden', isFinished);
-        document.getElementById('complete-screen').classList.toggle('hidden', !isFinished);
-        if(isFinished) {
-            document.getElementById('count-display').textContent = `コンプリート！`;
-            document.getElementById('progress-fill').style.width = `100%`;
-        }
-    }
-
-    function resetGame() {
-        initGame();
-    }
-
-    // 音声リスト読み込みの初期化
-    window.speechSynthesis.onvoiceschanged = () => {};
-    
-    // 起動
-    initGame();
-</script>
-
+        const app = new FlashcardApp(vocabulary);
+    </script>
 </body>
+
 </html>

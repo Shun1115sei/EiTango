@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economics (Vol. 15)</title>
+    <!-- Shared Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Economics (Vol. 15)</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
+        </div>
+    </header>
+
+    <div class="card-container">
+        <!-- Completion Overlay -->
+        <div class="completed-overlay" id="completed-overlay">
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
+        </div>
+
+        <!-- Flashcard Component -->
+        <div class="card" id="flashcard">
+            <div class="card-face card-front">
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
+                <!-- Audio Button -->
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+                <div class="click-hint">Click to Flip</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
+            </button>
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
+        </div>
+    </div>
+
+    <!-- Shared Scripts -->
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <!-- Data & Initialization -->
+    <script>
+        // Replace this array with the specific vocabulary for this deck
+        const vocabulary = [
+            { "word": "import", "phonetic": "[impɔ́ːrt]", "translation": "～を輸入する", "meaning": "関連 export ～を輸出する" },
+            { "word": "domestic", "phonetic": "[dəméstik]", "translation": "国内の", "meaning": "参考 一般的には「家庭の、家庭内の」という意味で使われる。" },
+            { "word": "international trade", "phonetic": "", "translation": "国際貿易", "meaning": "" },
+            { "word": "tariff", "phonetic": "[tǽrif]", "translation": "関税", "meaning": "国外から輸入される商品に課せられる税金。" },
+            { "word": "quota", "phonetic": "[kwóutə]", "translation": "割当量", "meaning": "一定期間に、輸入または輸出することを許可されている財貨やサービスの量。" },
+            { "word": "protectionist", "phonetic": "[prətékʃənist]", "translation": "保護貿易論者", "meaning": "関連 protectionism 保護貿易主義（国家が貿易に介入して、自国の産業を保護する必要があるという主張）" },
+            { "word": "smuggle", "phonetic": "[smʌ́gl]", "translation": "～を密輸する", "meaning": "" },
+            { "word": "tax revenue", "phonetic": "", "translation": "租税収入", "meaning": "政府が国民や民間企業から強制的に徴収する金銭。" },
+            { "word": "levy", "phonetic": "[lévi]", "translation": "(税金の) 徴収", "meaning": "" },
+            { "word": "subsidy", "phonetic": "[sʌ́bsədi]", "translation": "(国・機関が提供する) 補助金", "meaning": "" },
+            { "word": "surplus", "phonetic": "[sə́ːrplʌs]", "translation": "黒字", "meaning": "収入が支出よりも多い状態。<br>関連 deficit 赤字（支出が収入よりも多い状態）" },
+            { "word": "law of supply and demand", "phonetic": "", "translation": "供給と需要の法則", "meaning": "商品の市場価格と販売量は、需要と供給が均衡する均衡点で決まるという法則。<br>（注：グラフの図解あり。需要曲線と供給曲線の交点が均衡点）" },
+            { "word": "boom", "phonetic": "[buːm]", "translation": "(事業・経済の) 好況", "meaning": "" },
+            { "word": "depression", "phonetic": "[dipréʃən]", "translation": "不景気", "meaning": "関連 Great Depression 大恐慌（1929年から1933年まで続いた世界的な経済恐慌）" },
+            { "word": "inflation", "phonetic": "[infléiʃən]", "translation": "インフレーション", "meaning": "貨幣価値の下落により、全体的に物価の上昇が続く現象。" },
+            { "word": "stagflation", "phonetic": "[stæ̀gfléiʃən]", "translation": "スタグフレーション", "meaning": "景気が低迷し、需要が減少したにもかかわらず、むしろ物価の上昇が続く現象。" },
+            { "word": "monopoly", "phonetic": "[mənɑ́pəli]", "translation": "(市場の) 独占", "meaning": "" },
+            { "word": "manipulation", "phonetic": "[mənìpjuléiʃən]", "translation": "株価操作", "meaning": "株式の価格を人為的に上げたり下げたり固定したりする不法行為。" },
+            { "word": "speculation", "phonetic": "[spèkjuléiʃən]", "translation": "投機", "meaning": "相場の変動を利用して、短期間で売買差益を得ようとする投資行為。<br>参考 一般的には「推測」という意味で使われる。" },
+            { "word": "fiscal year", "phonetic": "", "translation": "会計年度", "meaning": "会計の記録を正確に整理するために、人為的に設定された予算の単位期間。" },
+            { "word": "audit", "phonetic": "[ɔ́ːdit]", "translation": "会計監査", "meaning": "会計操作や不正を防ぐために第三者が会計記録を検査し、意見表明すること。" },
+            { "word": "currency", "phonetic": "[kə́ːrənsi]", "translation": "通貨", "meaning": "取引の支払い手段として機能する、銀行や政府が発行する紙幣と硬貨。" },
+            { "word": "monetary", "phonetic": "[mɑ́nətèri]", "translation": "貨幣の", "meaning": "" },
+            { "word": "savings account", "phonetic": "", "translation": "普通預金口座", "meaning": "預け入れや払い戻しが自由にできる銀行預金。" },
+            { "word": "interest", "phonetic": "[íntərəst]", "translation": "利子", "meaning": "" },
+            { "word": "mortgage", "phonetic": "[mɔ́ːrgidʒ]", "translation": "(抵当によって借りた) ローン", "meaning": "" },
+            { "word": "credit", "phonetic": "[krédit]", "translation": "信用取引", "meaning": "" },
+            { "word": "bank run", "phonetic": "", "translation": "取付け", "meaning": "銀行が倒産するかもしれないという不安感で、預金者が払い戻しを求めて殺到すること。" },
+            { "word": "auction", "phonetic": "[ɔ́ːkʃən]", "translation": "競売", "meaning": "" },
+            { "word": "bid", "phonetic": "[bid]", "translation": "(競売などで値) をつける", "meaning": "関連 bidder 入札者" }
+        ];
+
+        // Initialize App
+        const app = new FlashcardApp(vocabulary);
+    </script>
+</body>
+
+</html>

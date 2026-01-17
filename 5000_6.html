@@ -1,243 +1,70 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medical English Flashcards</title>
-    <style>
-        :root {
-            --primary-color: #4a90e2;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --bg-color: #f0f2f5;
-            --card-width: 340px;
-            --card-height: 480px;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            color: #333;
-        }
-
-        #header {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .progress-info {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 5px;
-        }
-
-        .card-container {
-            width: var(--card-width);
-            height: var(--card-height);
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: flex;
-            flex-direction: column;
-            padding: 30px;
-            box-sizing: border-box;
-            background: white;
-        }
-
-        .card-front {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .word {
-            font-size: 2.2rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
-
-        .phonetic {
-            font-family: 'Lucida Sans Unicode', sans-serif;
-            font-size: 1.1rem;
-            color: #888;
-            margin-bottom: 30px;
-        }
-
-        .audio-btn {
-            background: #eee;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background 0.2s;
-        }
-
-        .audio-btn:hover {
-            background: #e0e0e0;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            justify-content: flex-start;
-            overflow-y: auto;
-        }
-
-        .translation {
-            font-size: 1.4rem;
-            font-weight: bold;
-            color: #333;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .meaning-box {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #555;
-            text-align: justify;
-        }
-
-        /* 修正箇所：ボタンを中央寄せにする設定 */
-        .controls {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center; /* 横方向の中央寄せ */
-            gap: 15px;
-            width: 100%; /* コンテナ幅をいっぱいに広げる */
-            max-width: var(--card-width);
-        }
-
-        button.action-btn {
-            flex: 1; /* ボタンの幅を均等にする */
-            min-width: 140px; /* 極端に小さくならないように */
-            padding: 12px 10px;
-            border: none;
-            border-radius: 30px;
-            font-size: 0.95rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center; /* テキストを中央寄せ */
-            gap: 8px;
-        }
-
-        button.action-btn:active {
-            transform: scale(0.95);
-        }
-
-        .btn-learned { background-color: var(--success-color); }
-        .btn-retry { background-color: var(--warning-color); }
-
-        #complete-screen {
-            display: none;
-            text-align: center;
-        }
-
-        #complete-screen h2 {
-            font-size: 2rem;
-            color: var(--success-color);
-        }
-
-        .restart-btn {
-            padding: 15px 40px;
-            font-size: 1.2rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-
-        @media (max-width: 400px) {
-            :root {
-                --card-width: 90vw;
-                --card-height: 70vh;
-            }
-            .controls {
-                padding: 0 10px;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-    <div id="game-container">
-        <div id="header">
-            <h1 style="margin:0; font-size: 1.5rem;">TOEFL Medical Vocab</h1>
-            <div class="progress-info" id="progress-info">Loading...</div>
+    <header>
+        <h1>Medical English Flashcards</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
+        </div>
+    </header>
+
+    <div class="card-container">
+        <div class="completed-overlay" id="completed-overlay">
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
         </div>
 
-        <div class="card-container" onclick="flipCard()">
-            <div class="card" id="card">
-                <div class="card-face card-front">
-                    <div class="word" id="word-display">Word</div>
-                    <div class="phonetic" id="phonetic-display">[phonetic]</div>
-                    <button class="audio-btn" onclick="playAudio(event)">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                    </button>
-                </div>
-                <div class="card-face card-back">
-                    <div class="translation" id="translation-display">日本語訳</div>
-                    <div class="meaning-box" id="meaning-display"></div>
-                </div>
+        <div class="card" id="flashcard">
+            <div class="card-face card-front">
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+                <div class="click-hint">Click to Flip</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
             </div>
         </div>
+    </div>
 
-        <div class="controls" id="controls">
-            <button class="action-btn btn-retry" onclick="markAsRetry()">
-                🔄 苦手 / まだ
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
             </button>
-            <button class="action-btn btn-learned" onclick="markAsLearned()">
-                ✅ 覚えた
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
             </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
         </div>
     </div>
 
-    <div id="complete-screen">
-        <h2>🎉 おめでとうございます！</h2>
-        <p>医学・健康の全単語をマスターしました。</p>
-        <button class="restart-btn" onclick="restart()">最初からやり直す</button>
-    </div>
-
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
     <script>
-        const wordData = [
+        const vocabulary = [
             { "Word": "clinical", "Phonetic": "[klínikəl]", "Translation": "臨床の", "Meaning": "実際の患者さんを診察したり、治療したりする「現場」のこと。<br>教科書上の理論ではなく、ベッドサイドでの実践的な医療を指します。" },
             { "Word": "donate", "Phonetic": "[dóuneit]", "Translation": "～を提供する", "Meaning": "血や臓器、あるいは寄付金などを、誰かの役に立てるために「どうぞ」と差し出すこと。<br>ドナー（提供者）の動詞形です。" },
             { "Word": "disorder", "Phonetic": "[disɔ́ːrdər]", "Translation": "（身体機能の）障害、異常", "Meaning": "体のシステムが「オーダー（順序・正常）」通りに動かなくなり、バランスが崩れてしまっている状態を指します。" },
@@ -270,85 +97,8 @@
             { "Word": "remedy", "Phonetic": "[rémədi]", "Translation": "治療(薬)", "Meaning": "病気を治すための方法や飲み薬。家庭でできる「おばあちゃんの知恵」的な治療法も含まれます。" }
         ];
 
-        let activeWords = [...wordData];
-        let currentIndex = 0;
-
-        const cardEl = document.getElementById('card');
-        const wordEl = document.getElementById('word-display');
-        const phoneticEl = document.getElementById('phonetic-display');
-        const translationEl = document.getElementById('translation-display');
-        const meaningEl = document.getElementById('meaning-display');
-        const progressEl = document.getElementById('progress-info');
-        const gameContainer = document.getElementById('game-container');
-        const completeScreen = document.getElementById('complete-screen');
-
-        let synth = window.speechSynthesis;
-        let voices = [];
-
-        function loadVoices() {
-            voices = synth.getVoices();
-        }
-        loadVoices();
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = loadVoices;
-        }
-
-        function updateCard() {
-            if (activeWords.length === 0) {
-                showComplete();
-                return;
-            }
-            const current = activeWords[currentIndex];
-            wordEl.textContent = current.Word;
-            phoneticEl.textContent = current.Phonetic;
-            translationEl.textContent = current.Translation;
-            meaningEl.innerHTML = current.Meaning;
-            
-            cardEl.classList.remove('is-flipped');
-            progressEl.textContent = `残り: ${activeWords.length} 枚`;
-        }
-
-        function flipCard() {
-            cardEl.classList.toggle('is-flipped');
-        }
-
-        function playAudio(event) {
-            event.stopPropagation();
-            const text = activeWords[currentIndex].Word;
-            const utter = new SpeechSynthesisUtterance(text);
-            const preferredVoices = ["Google US English", "Samantha", "Alex", "Microsoft Zira"];
-            const voice = voices.find(v => preferredVoices.some(p => v.name.includes(p))) || voices.find(v => v.lang.startsWith('en'));
-            if (voice) utter.voice = voice;
-            utter.lang = 'en-US';
-            utter.rate = 0.9;
-            synth.speak(utter);
-        }
-
-        function markAsLearned() {
-            activeWords.splice(currentIndex, 1);
-            if (currentIndex >= activeWords.length) currentIndex = 0;
-            updateCard();
-        }
-
-        function markAsRetry() {
-            currentIndex = (currentIndex + 1) % activeWords.length;
-            updateCard();
-        }
-
-        function showComplete() {
-            gameContainer.style.display = 'none';
-            completeScreen.style.display = 'block';
-        }
-
-        function restart() {
-            activeWords = [...wordData];
-            currentIndex = 0;
-            gameContainer.style.display = 'block';
-            completeScreen.style.display = 'none';
-            updateCard();
-        }
-
-        window.onload = updateCard;
+        const app = new FlashcardApp(vocabulary);
     </script>
 </body>
+
 </html>

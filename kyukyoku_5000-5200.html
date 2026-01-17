@@ -1,336 +1,85 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ultimate English Vocab Vol.2 (5000-5200)</title>
-    <style>
-        :root {
-            --primary-color: #6c5ce7; /* 語彙学習らしいパープル */
-            --success-color: #00b894;
-            --warning-color: #fdcb6e;
-            --bg-color: #f9f9fb;
-            --card-width: 350px;
-            --card-height: 480px;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, 'Hiragino Kaku Gothic ProN', 'Meiryo';
-            background-color: var(--bg-color);
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            color: #2d3436;
-        }
-
-        #header {
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .progress-info {
-            font-size: 0.95rem;
-            color: #636e72;
-            margin-top: 8px;
-            font-weight: 600;
-        }
-
-        .card-container {
-            width: var(--card-width);
-            height: var(--card-height);
-            perspective: 1000px;
-            cursor: pointer;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 25px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            padding: 40px;
-            box-sizing: border-box;
-            background: white;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .card-front {
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-
-        .word {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--primary-color);
-            margin-bottom: 12px;
-        }
-
-        .phonetic {
-            font-family: 'Arial', sans-serif;
-            font-size: 1.2rem;
-            color: #b2bec3;
-            margin-bottom: 35px;
-        }
-
-        .audio-btn {
-            background: #f1f2f6;
-            border: none;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .audio-btn:hover {
-            background: #dfe4ea;
-            transform: scale(1.05);
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            justify-content: flex-start;
-            overflow-y: auto;
-        }
-
-        .translation {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #2d3436;
-            border-bottom: 4px solid var(--warning-color);
-            padding-bottom: 12px;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-
-        .meaning-box {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #4b4b4b;
-        }
-
-        /* コントロールボタン中央寄せ */
-        .controls {
-            margin-top: 35px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            width: 100%;
-            max-width: var(--card-width);
-        }
-
-        button.action-btn {
-            flex: 1;
-            min-width: 140px;
-            padding: 15px 10px;
-            border: none;
-            border-radius: 15px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        button.action-btn:active {
-            transform: scale(0.96);
-        }
-
-        .btn-learned { background-color: var(--success-color); }
-        .btn-retry { background-color: var(--warning-color); color: #2d3436; }
-
-        #complete-screen {
-            display: none;
-            text-align: center;
-            animation: fadeIn 0.6s ease;
-        }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .restart-btn {
-            padding: 18px 45px;
-            font-size: 1.2rem;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 25px;
-        }
-
-        @media (max-width: 400px) {
-            :root {
-                --card-width: 92vw;
-                --card-height: 70vh;
-            }
-        }
-    </style>
+    <title>Ultimate Vocab 5000-5200</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-    <div id="game-container">
-        <div id="header">
-            <h1 style="margin:0; font-size: 1.4rem;">Ultimate Vocab 5000-5200</h1>
-            <div class="progress-info" id="progress-info">Loading...</div>
+    <header>
+        <h1>Ultimate Vocab 5000-5200</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
+        </div>
+    </header>
+
+    <div class="card-container">
+        <div class="completed-overlay" id="completed-overlay">
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
         </div>
 
-        <div class="card-container" onclick="flipCard()">
-            <div class="card" id="card">
-                <!-- 表面 -->
-                <div class="card-face card-front">
-                    <div class="word" id="word-display">Word</div>
-                    <div class="phonetic" id="phonetic-display">[phonetic]</div>
-                    <button class="audio-btn" onclick="playAudio(event)">
-                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#6c5ce7" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
-                    </button>
-                </div>
-                <!-- 裏面 -->
-                <div class="card-face card-back">
-                    <div class="translation" id="translation-display">日本語訳</div>
-                    <div class="meaning-box" id="meaning-display"></div>
-                </div>
+        <div class="card" id="flashcard">
+            <div class="card-face card-front">
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+                <div class="click-hint">Click to Flip</div>
+            </div>
+            <div class="card-face card-back">
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
             </div>
         </div>
+    </div>
 
-        <div class="controls" id="controls">
-            <button class="action-btn btn-retry" onclick="markAsRetry()">
-                🔄 まだ / 苦手
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
             </button>
-            <button class="action-btn btn-learned" onclick="markAsLearned()">
-                ✅ 覚えた
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
             </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
         </div>
     </div>
 
-    <div id="complete-screen">
-        <div style="font-size: 5rem; margin-bottom: 20px;">🏆</div>
-        <h2>基礎固め 完了！</h2>
-        <p>リストの単語をすべて覚えました。</p>
-        <button class="restart-btn" onclick="restart()">もう一度復習する</button>
-    </div>
-
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
     <script>
-        const wordData = [
-            { "Word": "jolly", "Phonetic": "[dʒάli]", "Translation": "陽気な", "Meaning": "サンタクロースのように、ニコニコして楽しそうな様子。<br>単にHappyというより、周りも明るくするような「ご機嫌さ」を表します。" },
-            { "Word": "landmine", "Phonetic": "[lǽndmàin]", "Translation": "地雷", "Meaning": "地面に隠された爆弾。比喩として「触れてはいけない話題」「踏むとヤバい地雷ポイント」という意味でもよく使われます。" },
-            { "Word": "boast", "Phonetic": "[bóust]", "Translation": "自慢する", "Meaning": "「俺ってすごいでしょ！」と自分の手柄を鼻にかけて話すこと。<br>誇らしげに言うニュアンスです。" },
-            { "Word": "timid", "Phonetic": "[tímid]", "Translation": "内気な", "Meaning": "気が小さくて、すぐにビクビクしてしまう性格のこと。新しいことや人前に出るのを怖がる「臆病さ」を指します。" },
-            { "Word": "courtesy", "Phonetic": "[kə́ːrtəsi]", "Translation": "親切、礼儀正しさ", "Meaning": "相手を思いやった丁寧な振る舞いのこと。ホテルの「サービス」や、ドアを開けて待つような「マナーとしての優しさ」です。" },
-            { "Word": "mutter", "Phonetic": "[mʌ́tər]", "Translation": "不明瞭な声で言う", "Meaning": "口の中でボソボソと、他の人に聞こえないように「つぶやく」こと。不満があるときや、独り言を言うときの動作です。" },
-            { "Word": "fling", "Phonetic": "[flíŋ]", "Translation": "放り出す", "Meaning": "勢いよく、あるいは無造作にパッと投げること。脱いだ服をベッドに「ポイッ」と投げるような荒っぽい動きです。" },
-            { "Word": "peck", "Phonetic": "[pék]", "Translation": "くちばしでつつく", "Meaning": "鳥がエサを食べる時のように、鋭いものでチョンチョンとつつくこと。軽いキス（peck on the cheek）にも使われます。" },
-            { "Word": "shiver", "Phonetic": "[ʃívər]", "Translation": "身震いする", "Meaning": "寒さや恐怖で、体がブルブルッと震えること。自分の意思に関係なく震えが止まらない状態です。" },
-            { "Word": "thrust", "Phonetic": "[θrʌ́st]", "Translation": "押し分けて進む", "Meaning": "強い力でグイッと押し込んだり、人混みを強引にかき分けて進むこと。鋭く突き出すような力強い動作です。" },
-            { "Word": "defendant", "Phonetic": "[diféndənt]", "Translation": "被告人", "Meaning": "裁判で「訴えられている側」の人。<br>「守る（defend）」立場にある人、と覚えると分かりやすいです。" }
+        const vocabulary = [
+            { "word": "jolly", "phonetic": "[dʒάli]", "translation": "陽気な", "meaning": "サンタクロースのように、ニコニコして楽しそうな様子。<br>単にHappyというより、周りも明るくするような「ご機嫌さ」を表します。" },
+            { "word": "landmine", "phonetic": "[lǽndmàin]", "translation": "地雷", "meaning": "地面に隠された爆弾。比喩として「触れてはいけない話題」「踏むとヤバい地雷ポイント」という意味でもよく使われます。" },
+            { "word": "boast", "phonetic": "[bóust]", "translation": "自慢する", "meaning": "「俺ってすごいでしょ！」と自分の手柄を鼻にかけて話すこと。<br>誇らしげに言うニュアンスです。" },
+            { "word": "timid", "phonetic": "[tímid]", "translation": "内気な", "meaning": "気が小さくて、すぐにビクビクしてしまう性格のこと。新しいことや人前に出るのを怖がる「臆病さ」を指します。" },
+            { "word": "courtesy", "phonetic": "[kə́ːrtəsi]", "translation": "親切、礼儀正しさ", "meaning": "相手を思いやった丁寧な振る舞いのこと。ホテルの「サービス」や、ドアを開けて待つような「マナーとしての優しさ」です。" },
+            { "word": "mutter", "phonetic": "[mʌ́tər]", "translation": "不明瞭な声で言う", "meaning": "口の中でボソボソと、他の人に聞こえないように「つぶやく」こと。不満があるときや、独り言を言うときの動作です。" },
+            { "word": "fling", "phonetic": "[flíŋ]", "translation": "放り出す", "meaning": "勢いよく、あるいは無造作にパッと投げること。脱いだ服をベッドに「ポイッ」と投げるような荒っぽい動きです。" },
+            { "word": "peck", "phonetic": "[pék]", "translation": "くちばしでつつく", "meaning": "鳥がエサを食べる時のように、鋭いものでチョンチョンとつつくこと。軽いキス（peck on the cheek）にも使われます。" },
+            { "word": "shiver", "phonetic": "[ʃívər]", "translation": "身震いする", "meaning": "寒さや恐怖で、体がブルブルッと震えること。自分の意思に関係なく震えが止まらない状態です。" },
+            { "word": "thrust", "phonetic": "[θrʌ́st]", "translation": "押し分けて進む", "meaning": "強い力でグイッと押し込んだり、人混みを強引にかき分けて進むこと。鋭く突き出すような力強い動作です。" },
+            { "word": "defendant", "phonetic": "[diféndənt]", "translation": "被告人", "meaning": "裁判で「訴えられている側」の人。<br>「守る（defend）」立場にある人、と覚えると分かりやすいです。" }
         ];
 
-        let activeWords = [...wordData];
-        let currentIndex = 0;
-
-        const cardEl = document.getElementById('card');
-        const wordEl = document.getElementById('word-display');
-        const phoneticEl = document.getElementById('phonetic-display');
-        const translationEl = document.getElementById('translation-display');
-        const meaningEl = document.getElementById('meaning-display');
-        const progressEl = document.getElementById('progress-info');
-        const gameContainer = document.getElementById('game-container');
-        const completeScreen = document.getElementById('complete-screen');
-
-        let synth = window.speechSynthesis;
-        let voices = [];
-
-        function loadVoices() {
-            voices = synth.getVoices();
-        }
-        loadVoices();
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = loadVoices;
-        }
-
-        function updateCard() {
-            if (activeWords.length === 0) {
-                showComplete();
-                return;
-            }
-            const current = activeWords[currentIndex];
-            wordEl.textContent = current.Word;
-            phoneticEl.textContent = current.Phonetic;
-            translationEl.textContent = current.Translation;
-            meaningEl.innerHTML = current.Meaning;
-            
-            cardEl.classList.remove('is-flipped');
-            progressEl.textContent = `${wordData.length - activeWords.length} / ${wordData.length} 完了 (残り ${activeWords.length} 枚)`;
-        }
-
-        function flipCard() {
-            cardEl.classList.toggle('is-flipped');
-        }
-
-        function playAudio(event) {
-            event.stopPropagation();
-            const text = activeWords[currentIndex].Word;
-            const utter = new SpeechSynthesisUtterance(text);
-            const preferredVoices = ["Google US English", "Samantha", "Alex", "Microsoft Zira"];
-            const voice = voices.find(v => preferredVoices.some(p => v.name.includes(p))) || voices.find(v => v.lang.startsWith('en'));
-            if (voice) utter.voice = voice;
-            utter.lang = 'en-US';
-            utter.rate = 0.9;
-            synth.speak(utter);
-        }
-
-        function markAsLearned() {
-            activeWords.splice(currentIndex, 1);
-            if (currentIndex >= activeWords.length) currentIndex = 0;
-            updateCard();
-        }
-
-        function markAsRetry() {
-            currentIndex = (currentIndex + 1) % activeWords.length;
-            updateCard();
-        }
-
-        function showComplete() {
-            gameContainer.style.display = 'none';
-            completeScreen.style.display = 'block';
-        }
-
-        function restart() {
-            activeWords = [...wordData];
-            currentIndex = 0;
-            gameContainer.style.display = 'block';
-            completeScreen.style.display = 'none';
-            updateCard();
-        }
-
-        window.onload = updateCard;
+        const app = new FlashcardApp(vocabulary);
     </script>
 </body>
+
 </html>

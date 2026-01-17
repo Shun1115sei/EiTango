@@ -1,154 +1,157 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vocabulary Flashcards Hub</title>
-  <style>
-    body {
-      font-family: "Helvetica Neue", Arial, sans-serif;
-      background-color: #f0f2f5;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      color: #333;
-    }
-
-    h1 {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-      color: #2c3e50;
-    }
-
-    .menu-container {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      width: 320px;
-      padding: 0 20px;
-    }
-
-    /* 共通カードスタイル（色は CSS 変数で切替） */
-    .menu-card {
-      display: block;
-      text-decoration: none;
-      background: white;
-      border-radius: 16px;
-      padding: 25px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-      transition: transform 0.2s, box-shadow 0.2s;
-      border-left: 8px solid var(--theme-color, #ccc); /* ここが色の肝 */
-      color: #333;
-    }
-
-    .menu-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-    }
-
-    .menu-card:active {
-      transform: scale(0.98);
-    }
-
-    .title {
-      display: block;
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin-bottom: 5px;
-      color: var(--theme-color, #333); /* タイトルもテーマ色に */
-    }
-
-    .subtitle {
-      display: block;
-      font-size: 0.9rem;
-      color: #666;
-    }
-
-    /* .theme-insects { --theme-color: #e67e22; }
-       .theme-anatomy { --theme-color: #e84118; } */
-
-    /* 色クラス（必要に応じて増やせます） */
-    .theme-orange { --theme-color: #e67e22; }
-    .theme-red    { --theme-color: #e84118; }
-    .theme-blue   { --theme-color: #2980b9; }
-    .theme-green  { --theme-color: #27ae60; }
-    .theme-purple { --theme-color: #8e44ad; }
-    .theme-teal   { --theme-color: #16a085; }
-    .theme-pink   { --theme-color: #ff6b81; }
-    .theme-brown  { --theme-color: #8d6e63; }
-    .theme-gold   { --theme-color: #d4a017; }
-    .theme-gray   { --theme-color: #7f8c8d; }
-
-    .footer-group {
-      margin-top: 20px;
-    }
-    
-    .footer {
-      margin: 0;
-      font-size: 0.8rem;
-      color: #999;
-      line-height: 1.2;
-      text-align: center;
-    }
-  </style>
+  <title>VocabAtlas - Your Learning Journey</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
 </head>
-<body>
-  <h1>📚 Select a Unit</h1>
 
-  <div class="menu-container">
-    <!-- ここで各カードに色クラスを付けてください -->
-    <a href="5000_2-3.html" class="menu-card theme-orange">
-      <span class="title">生物</span>
-      <span class="subtitle">動物・植物 (2・3)</span>
-    </a>
+<body class="home-body">
 
-    <a href="5000_3-4.html" class="menu-card theme-red">
-      <span class="title">生物</span>
-      <span class="subtitle">植物・昆虫 (3・4)</span>
-    </a>
-
-    <a href="5000_4.html" class="menu-card theme-blue">
-      <span class="title">生物</span>
-      <span class="subtitle">昆虫 (4)</span>
-    </a>
-
-    <a href="5000_5.html" class="menu-card theme-green">
-      <span class="title">生理 / 解剖</span>
-      <span class="subtitle">生理/解剖 (5)</span>
-    </a>
-
-    <a href="5000_6.html" class="menu-card theme-purple">
-      <span class="title">医学 / 健康</span>
-      <span class="subtitle">医学/健康 (6)</span>
-    </a>
-
-    <a href="5000_7.html" class="menu-card theme-teal">
-      <span class="title">物理</span>
-      <span class="subtitle">物理 (7)</span>
-    </a>
-
-    <a href="kyukyoku_5000-5200.html" class="menu-card theme-pink">
-      <span class="title">究極の英単語2</span>
-      <span class="subtitle">5000-5200</span>
-    </a>
-
-    <a href="5000_8.html" class="menu-card theme-brown">
-      <span class="title">化学</span>
-      <span class="subtitle">化学 (8)</span>
-    </a>
-
-    <a href="5000_9.html" class="menu-card theme-gold">
-      <span class="title"> 環境 / 生態</span>
-      <span class="subtitle">環境/生態 (9)</span>
-    </a>
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">VocabAtlas</h1>
+      <p class="hero-subtitle">Master your vocabulary, one card at a time.</p>
+    </div>
   </div>
 
-  <div class="footer-group">
-    <div class="footer">Happy Learning!</div>
-    <div class="footer">The Best Is Yet To Be.</div>
-  </div>
+  <main class="dashboard-container">
+    <h2 class="section-title">Available Decks</h2>
+
+    <div class="deck-grid">
+      <!-- Biology Series -->
+      <a href="5000_2-3.html" class="deck-card theme-orange">
+        <div class="deck-icon">🧬</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Biology: Flora & Fauna</h3>
+          <span class="deck-tag">Vol. 2-3</span>
+        </div>
+      </a>
+
+      <a href="5000_3-4.html" class="deck-card theme-red">
+        <div class="deck-icon">🌿</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Biology: Plants & Insects</h3>
+          <span class="deck-tag">Vol. 3-4</span>
+        </div>
+      </a>
+
+      <a href="5000_4.html" class="deck-card theme-blue">
+        <div class="deck-icon">🐞</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Biology: Insects</h3>
+          <span class="deck-tag">Vol. 4</span>
+        </div>
+      </a>
+
+      <!-- Medical/Physiology -->
+      <a href="5000_5.html" class="deck-card theme-green">
+        <div class="deck-icon">🫀</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Physiology & Anatomy</h3>
+          <span class="deck-tag">Vol. 5</span>
+        </div>
+      </a>
+
+      <a href="5000_6.html" class="deck-card theme-purple">
+        <div class="deck-icon">🩺</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Medicine & Health</h3>
+          <span class="deck-tag">Vol. 6</span>
+        </div>
+      </a>
+
+      <!-- Sciences -->
+      <a href="5000_7.html" class="deck-card theme-teal">
+        <div class="deck-icon">⚛️</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Physics</h3>
+          <span class="deck-tag">Vol. 7</span>
+        </div>
+      </a>
+
+      <a href="5000_8.html" class="deck-card theme-brown">
+        <div class="deck-icon">🧪</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Chemistry</h3>
+          <span class="deck-tag">Vol. 8</span>
+        </div>
+      </a>
+
+      <a href="5000_9.html" class="deck-card theme-gold">
+        <div class="deck-icon">🌍</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Environment & Ecology</h3>
+          <span class="deck-tag">Vol. 9</span>
+        </div>
+      </a>
+
+      <a href="5000_10.html" class="deck-card theme-gray">
+        <div class="deck-icon">🌦️</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Meteorology</h3>
+          <span class="deck-tag">Vol. 10</span>
+        </div>
+      </a>
+
+      <a href="5000_11.html" class="deck-card theme-blue">
+        <div class="deck-icon">🪐</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Astronomy</h3>
+          <span class="deck-tag">Vol. 11</span>
+        </div>
+      </a>
+
+      <a href="5000_12.html" class="deck-card theme-brown">
+        <div class="deck-icon">🏔️</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Geography & Geology</h3>
+          <span class="deck-tag">Vol. 12</span>
+        </div>
+      </a>
+
+      <a href="5000_13.html" class="deck-card theme-gold">
+        <div class="deck-icon">⚡</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Resources & Energy</h3>
+          <span class="deck-tag">Vol. 13</span>
+        </div>
+      </a>
+
+      <a href="5000_14.html" class="deck-card theme-red">
+        <div class="deck-icon">🏛️</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Politics & Diplomacy</h3>
+          <span class="deck-tag">Vol. 14</span>
+        </div>
+      </a>
+
+      <a href="5000_15.html" class="deck-card theme-green">
+        <div class="deck-icon">💰</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Economics</h3>
+          <span class="deck-tag">Vol. 15</span>
+        </div>
+      </a>
+
+      <!-- Advanced -->
+      <a href="kyukyoku_5000-5200.html" class="deck-card theme-pink">
+        <div class="deck-icon">🚀</div>
+        <div class="deck-info">
+          <h3 class="deck-title">Ultimate Vocab</h3>
+          <span class="deck-tag">5000-5200</span>
+        </div>
+      </a>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    <p>Happy Learning! The Best Is Yet To Be.</p>
+  </footer>
+
 </body>
+
 </html>

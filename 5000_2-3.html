@@ -1,328 +1,77 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生物学 英単語（学習機能付き）</title>
-    <style>
-        body {
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            background-color: #f0f4f8;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            color: #333;
-        }
-
-        h1 {
-            color: #2c3e50;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            text-align: center;
-        }
-
-        .status-bar {
-            margin-bottom: 15px;
-            font-size: 1rem;
-            color: #555;
-            background: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-
-        .card-container {
-            width: 90%;
-            max-width: 500px;
-            height: 400px;
-            perspective: 1000px;
-            cursor: pointer;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            border-radius: 15px;
-        }
-
-        .card.flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            box-sizing: border-box;
-            background: white;
-            border: 1px solid #e1e8ed;
-            padding: 20px;
-        }
-
-        .card-front {
-            justify-content: center;
-            background: linear-gradient(135deg, #ffffff 0%, #f7f9fc 100%);
-            z-index: 2;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            justify-content: flex-start;
-            padding-top: 40px;
-            overflow-y: auto;
-            background: #fff;
-        }
-
-        .word {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 5px;
-        }
-
-        .phonetic {
-            font-size: 1.2rem;
-            color: #7f8c8d;
-            font-family: "Lucida Sans Unicode", "Arial Unicode MS", sans-serif;
-            margin-bottom: 20px;
-            background-color: #edf2f7;
-            padding: 4px 12px;
-            border-radius: 10px;
-        }
-
-        .btn-audio {
-            background-color: #fff;
-            border: 2px solid #3498db;
-            color: #3498db;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin-bottom: 10px;
-            z-index: 10;
-        }
-
-        .btn-audio:hover {
-            background-color: #3498db;
-            color: white;
-            transform: scale(1.1);
-        }
-
-        .click-hint {
-            position: absolute;
-            bottom: 15px;
-            font-size: 0.8rem;
-            color: #bdc3c7;
-        }
-
-        .translation {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #e67e22;
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 2px solid #fce4cc;
-            padding-bottom: 10px;
-            width: 100%;
-        }
-
-        .meaning {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #444;
-            background: #fff8e1;
-            padding: 15px;
-            border-radius: 8px;
-            width: 100%;
-            box-sizing: border-box;
-            text-align: left;
-        }
-
-        /* 判定ボタンエリア */
-        .grading-controls {
-            display: flex;
-            gap: 20px;
-            margin-bottom: 20px;
-            width: 90%;
-            max-width: 500px;
-        }
-
-        .btn-grade {
-            flex: 1;
-            padding: 15px;
-            font-size: 1rem;
-            font-weight: bold;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: transform 0.1s, box-shadow 0.1s;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-        }
-
-        .btn-grade:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
-        }
-
-        /* 覚えたボタン */
-        .btn-known {
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-        }
-        .btn-known span { font-size: 0.8rem; opacity: 0.9; }
-
-        /* まだボタン */
-        .btn-unknown {
-            background: linear-gradient(135deg, #f39c12, #d35400);
-        }
-        .btn-unknown span { font-size: 0.8rem; opacity: 0.9; }
-
-        /* ナビゲーション（小さいボタン） */
-        .nav-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 10px;
-        }
-
-        button.nav-btn {
-            padding: 8px 15px;
-            font-size: 0.9rem;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            background-color: #ecf0f1;
-            color: #7f8c8d;
-            transition: all 0.2s;
-        }
-
-        button.nav-btn:hover {
-            background-color: #bdc3c7;
-            color: #2c3e50;
-        }
-
-        /* 完了画面 */
-        .completed-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255,255,255,0.95);
-            display: none; /* 初期は非表示 */
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            border-radius: 15px;
-        }
-
-        .completed-overlay h2 {
-            color: #27ae60;
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .btn-restart {
-            padding: 15px 30px;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.4);
-        }
-        
-        .btn-restart:hover {
-            background-color: #2980b9;
-        }
-
-    </style>
+    <title>生物学 英単語 (動物・植物)</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-    <h1>生物学 英単語帳</h1>
-    
-    <div class="status-bar" id="status-bar">
-        残り枚数: <strong id="remaining-count">50</strong> 枚
-    </div>
+    <header>
+        <h1>生物学 (動物・植物)</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
+        </div>
+    </header>
 
     <div class="card-container">
         <!-- 完了画面 -->
         <div class="completed-overlay" id="completed-overlay">
-            <h2>🎉 コンプリート！</h2>
-            <p>全ての単語を覚えました。</p>
-            <br>
-            <button class="btn-restart" onclick="resetAll()">最初からやり直す</button>
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
         </div>
 
         <!-- カード本体 -->
-        <div class="card" id="flashcard" onclick="flipCard()">
+        <div class="card" id="flashcard">
             <!-- 表面 -->
             <div class="card-face card-front">
-                <div class="word" id="word">mammal</div>
-                <div class="phonetic" id="phonetic">/ˈmæm.əl/</div>
-                
-                <div class="btn-audio" onclick="playAudio(event)" title="発音を聞く">🔊</div>
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
 
-                <div class="click-hint">クリックして裏面へ</div>
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+
+                <div class="click-hint">Click to Flip</div>
             </div>
             <!-- 裏面 -->
             <div class="card-face card-back">
-                <div class="translation" id="translation">哺乳類</div>
-                <div class="meaning" id="meaning">
-                    お母さんのお乳を飲んで育つ動物。<br>人間、犬、猫など。
-                </div>
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
             </div>
         </div>
     </div>
 
-    <!-- 判定ボタン -->
-    <div class="grading-controls">
-        <button class="btn-grade btn-unknown" onclick="markUnknown(event)">
-            🔄 まだ / 苦手
-            <span>(リストに残す)</span>
-        </button>
-        <button class="btn-grade btn-known" onclick="markKnown(event)">
-            ✅ 覚えた
-            <span>(リストから消す)</span>
-        </button>
+    <!-- コントロール -->
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
+            </button>
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
+        </div>
     </div>
 
-    <!-- 補助ナビゲーション -->
-    <div class="nav-controls">
-        <button class="nav-btn" onclick="prevCard(event)">← 前に戻る</button>
-        <button class="nav-btn" onclick="shuffleCards(event)">🔀 シャッフル</button>
-        <button class="nav-btn" onclick="resetAll()">🔄 全てリセット</button>
-    </div>
-
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
     <script>
-        // 全データのマスター
-        const allVocabulary = [
+        const vocabulary = [
             { word: "mammal", phonetic: "/ˈmæm.əl/", translation: "哺乳類", meaning: "お母さんのお乳を飲んで育つ動物。<br>（人間、犬、猫など）" },
             { word: "cetacean", phonetic: "/sɪˈteɪ.ʃən/", translation: "クジラ目の動物", meaning: "海に住む哺乳類。<br>（クジラやイルカの仲間）" },
             { word: "ruminant", phonetic: "/ˈruː.mə.nənt/", translation: "反芻（はんすう）動物", meaning: "食べた草を胃から口に戻して、もう一度噛む動物。<br>（ウシ、ヒツジ、キリンなど）" },
@@ -385,177 +134,9 @@
             { word: "arboreal", phonetic: "/ɑːrˈbɔːr.i.əl/", translation: "樹上の", meaning: "地面ではなく、木の上で生活する性質。" }
         ];
 
-        // 学習用デッキ（最初は全単語のコピー）
-        let studyDeck = [...allVocabulary];
-        let currentIndex = 0;
-        let isFlipped = false;
-        let preferredVoice = null;
-
-        const cardElement = document.getElementById('flashcard');
-        const wordElement = document.getElementById('word');
-        const phoneticElement = document.getElementById('phonetic');
-        const translationElement = document.getElementById('translation');
-        const meaningElement = document.getElementById('meaning');
-        const remainingCountElement = document.getElementById('remaining-count');
-        const completedOverlay = document.getElementById('completed-overlay');
-        const synth = window.speechSynthesis;
-
-        // --- 音声設定 ---
-        function loadVoices() {
-            const voices = synth.getVoices();
-            preferredVoice = voices.find(voice => voice.name.includes("Google US English")) ||
-                             voices.find(voice => voice.name.includes("Samantha")) || 
-                             voices.find(voice => voice.name.includes("Zira")) ||
-                             voices.find(voice => voice.lang === "en-US");
-        }
-        if (speechSynthesis.onvoiceschanged !== undefined) {
-            speechSynthesis.onvoiceschanged = loadVoices;
-        }
-        loadVoices();
-
-        // --- 初期化 ---
-        updateCard();
-
-        function playAudio(event) {
-            event.stopPropagation();
-            if (synth.speaking) synth.cancel();
-            
-            // デッキが空の時のエラー防止
-            if (studyDeck.length === 0) return;
-
-            const item = studyDeck[currentIndex];
-            const utterThis = new SpeechSynthesisUtterance(item.word);
-            if (preferredVoice) utterThis.voice = preferredVoice;
-            utterThis.lang = 'en-US';
-            synth.speak(utterThis);
-        }
-
-        function flipCard() {
-            if (studyDeck.length === 0) return;
-            isFlipped = !isFlipped;
-            if (isFlipped) {
-                cardElement.classList.add('flipped');
-            } else {
-                cardElement.classList.remove('flipped');
-            }
-        }
-
-        // --- 学習機能のロジック ---
-
-        // 「覚えた」ボタン：デッキから削除
-        function markKnown(event) {
-            event.stopPropagation(); // カードクリックのフリップ防止
-            if (studyDeck.length === 0) return;
-
-            // 裏返しの状態をリセットしてから処理
-            resetFlip(() => {
-                // 現在のカードを削除
-                studyDeck.splice(currentIndex, 1);
-                
-                // インデックス調整（末尾を消した場合、0に戻る）
-                if (currentIndex >= studyDeck.length) {
-                    currentIndex = 0;
-                }
-                
-                updateCard();
-            });
-        }
-
-        // 「まだ」ボタン：デッキに残して次へ
-        function markUnknown(event) {
-            event.stopPropagation();
-            if (studyDeck.length === 0) return;
-
-            resetFlip(() => {
-                // 次のカードへ（循環）
-                currentIndex = (currentIndex + 1) % studyDeck.length;
-                updateCard();
-            });
-        }
-
-        // 単なる閲覧用「前へ」
-        function prevCard(event) {
-            event && event.stopPropagation();
-            if (studyDeck.length === 0) return;
-            resetFlip(() => {
-                currentIndex = (currentIndex - 1 + studyDeck.length) % studyDeck.length;
-                updateCard();
-            });
-        }
-
-        // シャッフル
-        function shuffleCards(event) {
-            event && event.stopPropagation();
-            if (studyDeck.length === 0) return;
-            resetFlip(() => {
-                for (let i = studyDeck.length - 1; i > 0; i--) {
-                    const j = Math.floor(Math.random() * (i + 1));
-                    [studyDeck[i], studyDeck[j]] = [studyDeck[j], studyDeck[i]];
-                }
-                currentIndex = 0;
-                updateCard();
-            });
-        }
-
-        // 全リセット
-        function resetAll() {
-            studyDeck = [...allVocabulary];
-            currentIndex = 0;
-            isFlipped = false;
-            cardElement.classList.remove('flipped');
-            completedOverlay.style.display = 'none';
-            updateCard();
-        }
-
-        function resetFlip(callback) {
-            if (isFlipped) {
-                isFlipped = false;
-                cardElement.classList.remove('flipped');
-                setTimeout(callback, 300);
-            } else {
-                callback();
-            }
-        }
-
-        function updateCard() {
-            // 残り枚数更新
-            remainingCountElement.textContent = studyDeck.length;
-
-            // 完了判定
-            if (studyDeck.length === 0) {
-                completedOverlay.style.display = 'flex';
-                return;
-            } else {
-                completedOverlay.style.display = 'none';
-            }
-
-            const item = studyDeck[currentIndex];
-            wordElement.textContent = item.word;
-            phoneticElement.textContent = item.phonetic;
-            translationElement.textContent = item.translation;
-            meaningElement.innerHTML = item.meaning;
-        }
-
-        // キーボード操作対応
-        document.addEventListener('keydown', (e) => {
-            if (studyDeck.length === 0) return;
-
-            if (e.code === 'Space' || e.code === 'Enter') {
-                e.preventDefault();
-                flipCard();
-            } else if (e.code === 'ArrowRight') {
-                // 右キーは「まだ」と同じ挙動（次へ）
-                markUnknown(e);
-            } else if (e.code === 'ArrowLeft') {
-                // 左キーは「前へ」
-                prevCard();
-            } else if (e.code === 'ArrowUp') {
-                // 上キーで「覚えた」
-                markKnown(e);
-            } else if (e.key === 'a' || e.key === 's') {
-                playAudio({ stopPropagation: () => {} });
-            }
-        });
+        // Initialize App
+        const app = new FlashcardApp(vocabulary);
     </script>
 </body>
+
 </html>

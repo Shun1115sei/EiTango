@@ -1,530 +1,121 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bio English Flashcards</title>
-    <style>
-        :root {
-            --primary-color: #4CAF50; /* Biology Green */
-            --accent-color: #2E7D32;
-            --bg-color: #f0f4f8;
-            --card-bg: #ffffff;
-            --text-main: #333;
-            --text-sub: #666;
-            --shadow: 0 10px 25px rgba(0,0,0,0.1);
-            --btn-ok: #4CAF50;
-            --btn-ng: #FF9800;
-            --font-main: 'Helvetica Neue', Arial, sans-serif;
-        }
-
-        * { box-sizing: border-box; touch-action: manipulation; }
-        
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: var(--font-main);
-            background-color: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            color: var(--text-main);
-        }
-
-        /* Container */
-        .app-container {
-            width: 100%;
-            max-width: 400px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh; /* Full viewport height */
-            max-height: 800px;
-        }
-
-        /* Progress Bar */
-        .progress-container {
-            width: 100%;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .progress-text {
-            font-size: 0.9rem;
-            color: var(--text-sub);
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .progress-bar-bg {
-            width: 100%;
-            height: 8px;
-            background: #ddd;
-            border-radius: 4px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 100%;
-            background: var(--primary-color);
-            width: 0%; /* JSで制御 */
-            transition: width 0.3s ease;
-        }
-
-        /* Card Scene */
-        .scene {
-            width: 100%;
-            flex-grow: 1; /* 残りのスペースを埋める */
-            perspective: 1000px;
-            position: relative;
-            margin-bottom: 20px;
-            cursor: pointer;
-        }
-
-        .card {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .card.is-flipped {
-            transform: rotateY(180deg);
-        }
-
-        .card-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden; /* Safari fix */
-            border-radius: 20px;
-            background: var(--card-bg);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 30px;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        /* Front Face */
-        .card-front {
-            z-index: 2;
-        }
-        .word {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-            color: var(--text-main);
-            text-align: center;
-        }
-        .phonetic {
-            font-size: 1.2rem;
-            color: var(--text-sub);
-            font-family: 'Times New Roman', serif;
-            margin-bottom: 30px;
-        }
-        .speaker-btn {
-            background: #e8f5e9;
-            border: none;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--primary-color);
-            transition: transform 0.1s, background 0.2s;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .speaker-btn:active {
-            transform: scale(0.95);
-        }
-        .speaker-btn:hover {
-            background: #c8e6c9;
-        }
-
-        /* Back Face */
-        .card-back {
-            transform: rotateY(180deg);
-            justify-content: flex-start; /* 長文対策：上詰め */
-            overflow-y: auto; /* スクロール許可 */
-        }
-        .translation {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            margin-top: auto; /* 垂直中央寄せの補助 */
-            text-align: center;
-        }
-        .meaning-box {
-            background: #fff8e1;
-            padding: 15px;
-            border-radius: 10px;
-            width: 100%;
-            margin-bottom: auto; /* 垂直中央寄せの補助 */
-            border-left: 5px solid #ffc107;
-        }
-        .meaning-title {
-            font-size: 0.8rem;
-            color: #ff8f00;
-            font-weight: bold;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .meaning-text {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #444;
-        }
-        /* スクロールバーの装飾（Webkit） */
-        .card-back::-webkit-scrollbar {
-            width: 6px;
-        }
-        .card-back::-webkit-scrollbar-thumb {
-            background-color: rgba(0,0,0,0.2);
-            border-radius: 3px;
-        }
-
-        /* Controls */
-        .controls {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            gap: 15px;
-        }
-        .btn {
-            flex: 1;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.1s, opacity 0.2s;
-            color: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-        }
-        .btn:active { transform: translateY(2px); box-shadow: 0 2px 3px rgba(0,0,0,0.15); }
-        .btn-ng { background-color: var(--btn-ng); }
-        .btn-ok { background-color: var(--btn-ok); }
-
-        /* Completion Screen */
-        .completion-screen {
-            text-align: center;
-            display: none;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-        }
-        .completion-title {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-        .completion-emoji {
-            font-size: 5rem;
-            margin-bottom: 30px;
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-            40% {transform: translateY(-20px);}
-            60% {transform: translateY(-10px);}
-        }
-
-        /* Helper */
-        .hidden { display: none !important; }
-
-    </style>
+    <title>Bio English Flashcards (Plant/Insect)</title>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<div class="app-container">
-    
-    <!-- Progress Header -->
-    <div class="progress-container" id="progressContainer">
-        <div class="progress-text">残り単語数: <span id="remainingCount">0</span></div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progressBar"></div>
+    <header>
+        <h1>Bio English (Plant/Insect)</h1>
+        <div class="status-bar">
+            残り: <strong id="remaining-count">0</strong> 枚
         </div>
-    </div>
+    </header>
 
-    <!-- Main Card Area -->
-    <div class="scene" id="cardScene">
-        <div class="card" id="card">
-            <!-- Front -->
+    <div class="card-container">
+        <div class="completed-overlay" id="completed-overlay">
+            <div class="completed-title">🎉</div>
+            <p class="completed-text">ALL WORDS LEARNED!</p>
+            <button class="btn-restart" onclick="app.resetAll()">Start Over</button>
+        </div>
+
+        <div class="card" id="flashcard">
             <div class="card-face card-front">
-                <div class="word" id="wordDisplay">Loading...</div>
-                <div class="phonetic" id="phoneticDisplay"></div>
-                <button class="speaker-btn" id="speakerBtn" title="音声再生">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                    </svg>
-                </button>
+                <div class="word" id="word">Word</div>
+                <div class="phonetic" id="phonetic">/phonetic/</div>
+                <button class="btn-audio" onclick="app.playAudio(event)" title="Pronounce">🔊</button>
+                <div class="click-hint">Click to Flip</div>
             </div>
-            <!-- Back -->
             <div class="card-face card-back">
-                <div class="translation" id="translationDisplay"></div>
-                <div class="meaning-box">
-                    <div class="meaning-title">先生のひとこと解説</div>
-                    <div class="meaning-text" id="meaningDisplay"></div>
-                </div>
+                <div class="translation" id="translation">Translation</div>
+                <div class="meaning" id="meaning">Meaning</div>
             </div>
         </div>
     </div>
 
-    <!-- Completion Screen -->
-    <div class="completion-screen" id="completionScreen">
-        <div class="completion-emoji">🎉</div>
-        <div class="completion-title">Complete!</div>
-        <p>すべての単語をチェックしました。<br>素晴らしい！</p>
-        <button class="btn btn-ok" onclick="location.reload()" style="margin-top: 20px;">
-            もう一度最初から
-        </button>
+    <div class="controls-container">
+        <div class="grading-group">
+            <button class="btn-grade btn-unknown" onclick="app.markUnknown(event)">
+                🔄 Review
+                <span>(Keep in list)</span>
+            </button>
+            <button class="btn-grade btn-known" onclick="app.markKnown(event)">
+                ✅ Got it
+                <span>(Remove)</span>
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <button class="nav-btn" onclick="app.prevCard(event)">← Prev</button>
+            <button class="nav-btn" onclick="app.shuffleCards(event)">🔀 Shuffle</button>
+            <button class="nav-btn" onclick="app.resetAll()">↻ Reset</button>
+        </div>
+
+        <div style="text-align:center; margin-top:20px;">
+            <a href="index.html" class="nav-btn" style="text-decoration:none;">🏠 Home</a>
+        </div>
     </div>
 
-    <!-- Controls -->
-    <div class="controls" id="controls">
-        <button class="btn btn-ng" id="btnNg">
-            <span>🔄</span> 苦手 / まだ
-        </button>
-        <button class="btn btn-ok" id="btnOk">
-            <span>✅</span> 覚えた！
-        </button>
-    </div>
+    <script src="assets/js/confetti.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script>
+        const vocabulary = [
+            // Image 1: Basic Botany
+            { word: "botany", phonetic: "[bɑ́təni]", translation: "植物学", meaning: "植物全般について研究する学問のこと。「Botanic Garden（植物園）」という言葉でもよく使われます。" },
+            { word: "spore", phonetic: "[spɔːr]", translation: "胞子", meaning: "キノコやシダ植物が仲間を増やすための「種（タネ）」みたいなもの。風に乗って遠くまで飛んでいきます。" },
+            { word: "germination", phonetic: "[dʒəːrmənéiʃən]", translation: "発芽", meaning: "眠っていた種が目を覚まして、芽をニョキッと出す瞬間のこと。植物の「誕生」です。" },
+            { word: "pollen", phonetic: "[pɑ́lən]", translation: "花粉", meaning: "花粉症の原因としても有名ですが、本来は植物が子孫を残すための大切な粉。虫や風に運んでもらいます。" },
+            { word: "photosynthesis", phonetic: "[fòutousínθəsis]", translation: "光合成", meaning: "植物が太陽の光をエネルギーに変えて、自分でご飯（栄養）を作るすごい仕組みのこと。" },
+            { word: "chlorophyll", phonetic: "[klɔ́ːrəfìl]", translation: "葉緑素", meaning: "植物の血液みたいなもの。これがあるから葉っぱは緑色だし、太陽を食べ物に変換できるんです。" },
+            { word: "cellulose", phonetic: "[séljulòus]", translation: "セルロース", meaning: "植物の体を支える「骨組み」になる成分。紙の原料になったり、食物繊維としてお腹の掃除もしてくれます。" },
+            { word: "stem", phonetic: "[stem]", translation: "茎（くき） / 幹", meaning: "植物の背骨。根っこから吸った水を葉っぱへ届けるパイプラインの役割もしています。" },
+            { word: "petal", phonetic: "[pétl]", translation: "花びら", meaning: "花の中で一番カラフルな部分。虫たちに「ここに美味しい蜜があるよ！」と看板を出して呼んでいるんです。" },
+            { word: "stoma", phonetic: "[stóumə]", translation: "気孔", meaning: "葉っぱの裏にある小さな「口」。ここを開け閉めして、呼吸したり水分調整をしたりしています。（複数形は stomata）" },
+            { word: "vein", phonetic: "[vein]", translation: "葉脈", meaning: "葉っぱに見える網目状の筋のこと。人間でいう血管で、水や栄養を隅々まで運びます。" },
+            { word: "taproot", phonetic: "[tǽprùːt]", translation: "主根", meaning: "大根やニンジンのように、地面の奥深くへズドーンと伸びる太いメインの根っこのこと。" },
+            { word: "perennial", phonetic: "[pəréniəl]", translation: "多年生植物", meaning: "一度植えたら何年も生き続ける植物。毎年種をまかなくても、季節が来ればまた花を咲かせます。" },
+            { word: "annual", phonetic: "[ǽnjuəl]", translation: "一年生植物", meaning: "1年以内に発芽して、花を咲かせ、枯れていく植物。「一生が1年で完結する」タイプです。" },
 
-</div>
+            // Image 2: Forests & Ecology
+            { word: "biennial", phonetic: "[baiéniəl]", translation: "二年生植物", meaning: "2年かけて一生を終える植物。1年目は体を大きくして、2年目に花を咲かせて枯れます。" },
+            { word: "vegetation", phonetic: "[vèdʒətéiʃən]", translation: "植生 / 植物", meaning: "ある場所に生えている植物全体のこと。「あそこの山のvegetationは豊かだね」みたいに使います。" },
+            { word: "scrubland", phonetic: "[skrʌ́blænd]", translation: "低木地", meaning: "背の低い木（低木）ばかりが生えている土地。あまり雨が降らない場所によくあります。" },
+            { word: "canopy", phonetic: "[kǽnəpi]", translation: "樹冠（じゅかん）", meaning: "森の上の方で、木の枝や葉っぱが屋根のように覆い被さっている部分。ジャングルの天井です。" },
+            { word: "deciduous", phonetic: "[disídʒuəs]", translation: "落葉性の", meaning: "冬になると「寒いから一旦店じまい！」といって、葉っぱを全部落としてハゲちゃう木のこと。" },
+            { word: "shade-tolerant", phonetic: "[ʃéid-tɑ́lərənt]", translation: "耐陰性のある", meaning: "日陰でもへっちゃらな植物。大きな木の下のような暗い場所でも文句を言わずに育ちます。" },
+            { word: "conifer", phonetic: "[kɑ́nəfər]", translation: "針葉樹", meaning: "マツやスギのように、葉っぱが針みたいに尖っている木。クリスマスツリーは大体これです。" },
+            { word: "insectivorous plant", phonetic: "[insèktívərəs plǽnt]", translation: "食虫植物", meaning: "虫を捕まえて食べる植物。土からの栄養だけじゃ足りないから、お肉も食べるんです。" },
+            { word: "alga", phonetic: "[ǽlgə]", translation: "藻（も）", meaning: "水の中に住んでいる植物のような生き物。ワカメやコンブの仲間。（複数形は algae）" },
+            { word: "arboreal", phonetic: "[ɑːrbɔ́ːriəl]", translation: "樹上の / 木に住む", meaning: "地面ではなく、木の上で生活すること。「コアラはarboreal animal（樹上動物）だね」のように使います。" },
 
-<script>
-    /* =========================================
-       1. Vocabulary Data (Extracted & Enhanced)
-       ========================================= */
-    const rawData = [
-        // Image 1: Basic Botany
-        { word: "botany", phonetic: "[bɑ́təni]", translation: "植物学", meaning: "植物全般について研究する学問のこと。「Botanic Garden（植物園）」という言葉でもよく使われます。" },
-        { word: "spore", phonetic: "[spɔːr]", translation: "胞子", meaning: "キノコやシダ植物が仲間を増やすための「種（タネ）」みたいなもの。風に乗って遠くまで飛んでいきます。" },
-        { word: "germination", phonetic: "[dʒəːrmənéiʃən]", translation: "発芽", meaning: "眠っていた種が目を覚まして、芽をニョキッと出す瞬間のこと。植物の「誕生」です。" },
-        { word: "pollen", phonetic: "[pɑ́lən]", translation: "花粉", meaning: "花粉症の原因としても有名ですが、本来は植物が子孫を残すための大切な粉。虫や風に運んでもらいます。" },
-        { word: "photosynthesis", phonetic: "[fòutousínθəsis]", translation: "光合成", meaning: "植物が太陽の光をエネルギーに変えて、自分でご飯（栄養）を作るすごい仕組みのこと。" },
-        { word: "chlorophyll", phonetic: "[klɔ́ːrəfìl]", translation: "葉緑素", meaning: "植物の血液みたいなもの。これがあるから葉っぱは緑色だし、太陽を食べ物に変換できるんです。" },
-        { word: "cellulose", phonetic: "[séljulòus]", translation: "セルロース", meaning: "植物の体を支える「骨組み」になる成分。紙の原料になったり、食物繊維としてお腹の掃除もしてくれます。" },
-        { word: "stem", phonetic: "[stem]", translation: "茎（くき） / 幹", meaning: "植物の背骨。根っこから吸った水を葉っぱへ届けるパイプラインの役割もしています。" },
-        { word: "petal", phonetic: "[pétl]", translation: "花びら", meaning: "花の中で一番カラフルな部分。虫たちに「ここに美味しい蜜があるよ！」と看板を出して呼んでいるんです。" },
-        { word: "stoma", phonetic: "[stóumə]", translation: "気孔", meaning: "葉っぱの裏にある小さな「口」。ここを開け閉めして、呼吸したり水分調整をしたりしています。（複数形は stomata）" },
-        { word: "vein", phonetic: "[vein]", translation: "葉脈", meaning: "葉っぱに見える網目状の筋のこと。人間でいう血管で、水や栄養を隅々まで運びます。" },
-        { word: "taproot", phonetic: "[tǽprùːt]", translation: "主根", meaning: "大根やニンジンのように、地面の奥深くへズドーンと伸びる太いメインの根っこのこと。" },
-        { word: "perennial", phonetic: "[pəréniəl]", translation: "多年生植物", meaning: "一度植えたら何年も生き続ける植物。毎年種をまかなくても、季節が来ればまた花を咲かせます。" },
-        { word: "annual", phonetic: "[ǽnjuəl]", translation: "一年生植物", meaning: "1年以内に発芽して、花を咲かせ、枯れていく植物。「一生が1年で完結する」タイプです。" },
+            // Image 3: Insects I
+            { word: "metamorphosis", phonetic: "[mètəmɔ́ːrfəsis]", translation: "変態", meaning: "劇的ビフォーアフター。芋虫が蝶になるような、成長して完全に姿が変わる変身のこと。" },
+            { word: "larva", phonetic: "[lɑ́ːrvə]", translation: "幼虫", meaning: "昆虫の子供時代。蝶でいう「アオムシ」の状態。（複数形は larvae）" },
+            { word: "pupa", phonetic: "[pjúːpə]", translation: "さなぎ", meaning: "幼虫が大人（成虫）になるための準備期間。動かないけど、中では体が作り変えられる大工事中です。" },
+            { word: "cocoon", phonetic: "[kəkúːn]", translation: "繭（まゆ）", meaning: "さなぎが自分を守るために作るシルクの寝袋。シルク（絹）はこの繭から取ります。" },
+            { word: "ecdysis", phonetic: "[ékdəsis]", translation: "脱皮", meaning: "体が大きくなって服がきつくなったから、古い皮を脱ぎ捨てること。脱ぐとひと回り大きくなります。" },
+            { word: "mimicry", phonetic: "[mímikri]", translation: "擬態（ぎたい）", meaning: "他の強い生き物や、周りの風景のモノマネをして身を守ること。「私、美味しい虫じゃないですよ〜」という演技。" },
+            { word: "camouflage", phonetic: "[kǽməflɑ̀ːʒ]", translation: "カモフラージュ / 保護色", meaning: "周りの色に溶け込んで見えなくすること。軍隊の迷彩服もこれが語源です。" },
+            { word: "antennae", phonetic: "[ænténiː]", translation: "触角", meaning: "頭についているアンテナ。これで匂いを嗅いだり、物に触れたりして周りの状況を探ります。" },
 
-        // Image 2: Forests & Ecology
-        { word: "biennial", phonetic: "[baiéniəl]", translation: "二年生植物", meaning: "2年かけて一生を終える植物。1年目は体を大きくして、2年目に花を咲かせて枯れます。" },
-        { word: "vegetation", phonetic: "[vèdʒətéiʃən]", translation: "植生 / 植物", meaning: "ある場所に生えている植物全体のこと。「あそこの山のvegetationは豊かだね」みたいに使います。" },
-        { word: "scrubland", phonetic: "[skrʌ́blænd]", translation: "低木地", meaning: "背の低い木（低木）ばかりが生えている土地。あまり雨が降らない場所によくあります。" },
-        { word: "canopy", phonetic: "[kǽnəpi]", translation: "樹冠（じゅかん）", meaning: "森の上の方で、木の枝や葉っぱが屋根のように覆い被さっている部分。ジャングルの天井です。" },
-        { word: "deciduous", phonetic: "[disídʒuəs]", translation: "落葉性の", meaning: "冬になると「寒いから一旦店じまい！」といって、葉っぱを全部落としてハゲちゃう木のこと。" },
-        { word: "shade-tolerant", phonetic: "[ʃéid-tɑ́lərənt]", translation: "耐陰性のある", meaning: "日陰でもへっちゃらな植物。大きな木の下のような暗い場所でも文句を言わずに育ちます。" },
-        { word: "conifer", phonetic: "[kɑ́nəfər]", translation: "針葉樹", meaning: "マツやスギのように、葉っぱが針みたいに尖っている木。クリスマスツリーは大体これです。" },
-        { word: "insectivorous plant", phonetic: "[insèktívərəs plǽnt]", translation: "食虫植物", meaning: "虫を捕まえて食べる植物。土からの栄養だけじゃ足りないから、お肉も食べるんです。" },
-        { word: "alga", phonetic: "[ǽlgə]", translation: "藻（も）", meaning: "水の中に住んでいる植物のような生き物。ワカメやコンブの仲間。（複数形は algae）" },
-        { word: "arboreal", phonetic: "[ɑːrbɔ́ːriəl]", translation: "樹上の / 木に住む", meaning: "地面ではなく、木の上で生活すること。「コアラはarboreal animal（樹上動物）だね」のように使います。" },
+            // Image 4: Insects II
+            { word: "pollinator", phonetic: "[pɑ́ləneìtər]", translation: "花粉媒介者", meaning: "ミツバチのように、花から花へ飛び回って花粉を運んでくれる「植物のキューピッド」役の生き物。" },
+            { word: "nectar", phonetic: "[néktər]", translation: "花蜜", meaning: "花が虫をおびき寄せるために用意した、あま〜いジュース。" },
+            { word: "exoskeleton", phonetic: "[èksouskélətn]", translation: "外骨格", meaning: "昆虫やカニが持っている「鎧（よろい）」。人間は骨が中にあるけど、彼らは骨（殻）を外側に着ています。" },
+            { word: "pheromone", phonetic: "[férəmòun]", translation: "フェロモン", meaning: "仲間同士で会話するための「匂いの手紙」。これで「こっちに餌があるよ！」とか「敵が来た！」と伝えます。" },
+            { word: "bioluminescence", phonetic: "[bàioulùːmənésns]", translation: "生物発光", meaning: "ホタルのように、生き物が自分で光り輝くこと。ロマンチックなイルミネーションです。" },
+            { word: "swarm", phonetic: "[swɔːrm]", translation: "（虫の）大群", meaning: "ハチやイナゴなどが大量に集まってブンブン飛び回っている状態。ちょっと怖い集団です。" },
+            { word: "social insect", phonetic: "[sóuʃəl ínsèkt]", translation: "社会性昆虫", meaning: "アリやハチのように、女王、働き手、兵隊といった役割分担をして、チームで生活する昆虫のこと。" },
+            { word: "hive", phonetic: "[haiv]", translation: "ミツバチの巣", meaning: "たくさんのハチが一緒に住んでいる家。中は六角形の部屋がいっぱいあります。" }
+        ];
 
-        // Image 3: Insects I
-        { word: "metamorphosis", phonetic: "[mètəmɔ́ːrfəsis]", translation: "変態", meaning: "劇的ビフォーアフター。芋虫が蝶になるような、成長して完全に姿が変わる変身のこと。" },
-        { word: "larva", phonetic: "[lɑ́ːrvə]", translation: "幼虫", meaning: "昆虫の子供時代。蝶でいう「アオムシ」の状態。（複数形は larvae）" },
-        { word: "pupa", phonetic: "[pjúːpə]", translation: "さなぎ", meaning: "幼虫が大人（成虫）になるための準備期間。動かないけど、中では体が作り変えられる大工事中です。" },
-        { word: "cocoon", phonetic: "[kəkúːn]", translation: "繭（まゆ）", meaning: "さなぎが自分を守るために作るシルクの寝袋。シルク（絹）はこの繭から取ります。" },
-        { word: "ecdysis", phonetic: "[ékdəsis]", translation: "脱皮", meaning: "体が大きくなって服がきつくなったから、古い皮を脱ぎ捨てること。脱ぐとひと回り大きくなります。" },
-        { word: "mimicry", phonetic: "[mímikri]", translation: "擬態（ぎたい）", meaning: "他の強い生き物や、周りの風景のモノマネをして身を守ること。「私、美味しい虫じゃないですよ〜」という演技。" },
-        { word: "camouflage", phonetic: "[kǽməflɑ̀ːʒ]", translation: "カモフラージュ / 保護色", meaning: "周りの色に溶け込んで見えなくすること。軍隊の迷彩服もこれが語源です。" },
-        { word: "antennae", phonetic: "[ænténiː]", translation: "触角", meaning: "頭についているアンテナ。これで匂いを嗅いだり、物に触れたりして周りの状況を探ります。" },
-
-        // Image 4: Insects II
-        { word: "pollinator", phonetic: "[pɑ́ləneìtər]", translation: "花粉媒介者", meaning: "ミツバチのように、花から花へ飛び回って花粉を運んでくれる「植物のキューピッド」役の生き物。" },
-        { word: "nectar", phonetic: "[néktər]", translation: "花蜜", meaning: "花が虫をおびき寄せるために用意した、あま〜いジュース。" },
-        { word: "exoskeleton", phonetic: "[èksouskélətn]", translation: "外骨格", meaning: "昆虫やカニが持っている「鎧（よろい）」。人間は骨が中にあるけど、彼らは骨（殻）を外側に着ています。" },
-        { word: "pheromone", phonetic: "[férəmòun]", translation: "フェロモン", meaning: "仲間同士で会話するための「匂いの手紙」。これで「こっちに餌があるよ！」とか「敵が来た！」と伝えます。" },
-        { word: "bioluminescence", phonetic: "[bàioulùːmənésns]", translation: "生物発光", meaning: "ホタルのように、生き物が自分で光り輝くこと。ロマンチックなイルミネーションです。" },
-        { word: "swarm", phonetic: "[swɔːrm]", translation: "（虫の）大群", meaning: "ハチやイナゴなどが大量に集まってブンブン飛び回っている状態。ちょっと怖い集団です。" },
-        { word: "social insect", phonetic: "[sóuʃəl ínsèkt]", translation: "社会性昆虫", meaning: "アリやハチのように、女王、働き手、兵隊といった役割分担をして、チームで生活する昆虫のこと。" },
-        { word: "hive", phonetic: "[haiv]", translation: "ミツバチの巣", meaning: "たくさんのハチが一緒に住んでいる家。中は六角形の部屋がいっぱいあります。" }
-    ];
-
-    /* =========================================
-       2. State & Logic
-       ========================================= */
-    
-    // Shuffle helper
-    function shuffle(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    // Deep copy to create a working list
-    let studyList = shuffle([...rawData]);
-    let currentCardIndex = 0;
-    
-    // DOM Elements
-    const cardScene = document.getElementById('cardScene');
-    const card = document.getElementById('card');
-    const wordDisplay = document.getElementById('wordDisplay');
-    const phoneticDisplay = document.getElementById('phoneticDisplay');
-    const translationDisplay = document.getElementById('translationDisplay');
-    const meaningDisplay = document.getElementById('meaningDisplay');
-    const speakerBtn = document.getElementById('speakerBtn');
-    
-    const btnNg = document.getElementById('btnNg');
-    const btnOk = document.getElementById('btnOk');
-    const controls = document.getElementById('controls');
-    
-    const progressContainer = document.getElementById('progressContainer');
-    const remainingCount = document.getElementById('remainingCount');
-    const progressBar = document.getElementById('progressBar');
-    
-    const completionScreen = document.getElementById('completionScreen');
-
-    /* =========================================
-       3. Functions
-       ========================================= */
-
-    function updateProgress() {
-        const total = rawData.length;
-        const current = studyList.length;
-        remainingCount.textContent = current;
-        
-        // Calculate progress based on how many are REMOVED (learned)
-        const learned = total - current;
-        const percentage = (learned / total) * 100;
-        progressBar.style.width = `${percentage}%`;
-    }
-
-    function renderCard() {
-        if (studyList.length === 0) {
-            showCompletion();
-            return;
-        }
-
-        // Reset Flip
-        card.classList.remove('is-flipped');
-
-        // Get current data
-        // We always take the first item of the shuffled list or random pick
-        // Here we stick to index 0 since we shuffle/rotate the array
-        const data = studyList[0];
-
-        // Slight delay to allow flip back animation if needed, but for instant feel:
-        setTimeout(() => {
-            wordDisplay.textContent = data.word;
-            phoneticDisplay.textContent = data.phonetic;
-            translationDisplay.textContent = data.translation;
-            meaningDisplay.innerHTML = data.meaning; // Allow HTML tags if any
-        }, 200);
-        
-        updateProgress();
-    }
-
-    function showCompletion() {
-        cardScene.classList.add('hidden');
-        controls.classList.add('hidden');
-        progressContainer.classList.add('hidden');
-        completionScreen.style.display = 'flex';
-    }
-
-    // --- Audio Logic ---
-    function speakWord() {
-        if (studyList.length === 0) return;
-        
-        const text = studyList[0].word;
-        const utterance = new SpeechSynthesisUtterance(text);
-        
-        // Voice Selection Logic
-        const voices = window.speechSynthesis.getVoices();
-        
-        // Priority: Google US English > Samantha > other en-US > en-GB
-        let selectedVoice = voices.find(v => v.name === 'Google US English');
-        if (!selectedVoice) {
-            selectedVoice = voices.find(v => v.name === 'Samantha');
-        }
-        if (!selectedVoice) {
-            selectedVoice = voices.find(v => v.lang === 'en-US');
-        }
-        if (!selectedVoice) {
-            selectedVoice = voices.find(v => v.lang.startsWith('en'));
-        }
-
-        if (selectedVoice) {
-            utterance.voice = selectedVoice;
-        }
-        
-        utterance.rate = 0.9; // Slightly slower for clarity
-        window.speechSynthesis.speak(utterance);
-    }
-
-    // Ensure voices are loaded (Chrome quirk)
-    window.speechSynthesis.onvoiceschanged = () => {
-        // Just triggers voice loading
-    };
-
-    /* =========================================
-       4. Event Listeners
-       ========================================= */
-
-    // Flip Card
-    cardScene.addEventListener('click', () => {
-        card.classList.toggle('is-flipped');
-    });
-
-    // Speak Button (Stop propagation to prevent flip)
-    speakerBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        speakWord();
-    });
-
-    // Button: NG (Rotates to end of queue)
-    btnNg.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        // Animation feedback? Maybe later.
-        // Move current item to the end of the list
-        const currentItem = studyList.shift();
-        studyList.push(currentItem);
-        
-        // Re-render
-        renderCard();
-    });
-
-    // Button: OK (Removes from list)
-    btnOk.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        // Remove current item
-        studyList.shift();
-        
-        // Check if done
-        renderCard();
-    });
-
-    /* =========================================
-       5. Initialization
-       ========================================= */
-    // Initial Render
-    renderCard();
-
-</script>
+        const app = new FlashcardApp(vocabulary);
+    </script>
 </body>
+
 </html>
