@@ -154,36 +154,61 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="assets/js/firebase-config.js"></script>
     <script>
-        const auth = firebase.auth();
+    const auth = firebase.auth();
+    const loadingEl = document.getElementById('loading');
 
-        // Check if already logged in
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                // Already logged in, redirect to dashboard
-                window.location.href = 'index.html';
-            }
-        });
+    // Check if already logged in
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        window.location.href = 'index.html';
+      }
+    });
 
-        function handleLogin() {
-            document.getElementById('loading').classList.add('active');
-
-            const provider = new firebase.auth.GoogleAuthProvider();
-
-            // Use redirect for all devices
-            auth.signInWithRedirect(provider);
+    // Handle redirect result on page load
+    auth.getRedirectResult()
+      .then((result) => {
+        if (result.user) {
+          window.location.href = 'index.html';
         }
+      })
+      .catch((error) => {
+        loadingEl.classList.remove('active');
+        console.error('Redirect error:', error);
+        alert('ログインエラー: ' + error.message);
+      });
 
-        // Handle redirect result
-        auth.getRedirectResult()
-            .then((result) => {
-                if (result.user) {
-                    window.location.href = 'index.html';
-                }
-            })
-            .catch((error) => {
-                document.getElementById('loading').classList.remove('active');
-                alert('ログインエラー: ' + error.message);
-            });
+    function handleLogin() {
+      loadingEl.classList.add('active');
+      
+      const provider = new firebase.auth.GoogleAuthProvider();
+      
+      // Try popup first (works better in some browsers)
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          window.location.href = 'index.html';
+        })
+        .catch((error) => {
+          console.warn('Popup failed, trying redirect:', error.code);
+          
+          // If popup fails, try redirect
+          if (error.code === 'auth/popup-blocked' || 
+              error.code === 'auth/popup-closed-by-user' ||
+              error.code === 'auth/cancelled-popup-request') {
+            auth.signInWithRedirect(provider);
+          } else {
+            loadingEl.classList.remove('active');
+            alert('ログインエラー: ' + error.message);
+          }
+        });
+      
+      // Safety timeout - hide loading after 30 seconds if nothing happens
+      setTimeout(() => {
+        if (loadingEl.classList.contains('active')) {
+          loadingEl.classList.remove('active');
+          alert('ログインがタイムアウトしました。もう一度お試しください。');
+        }
+      }, 30000);
+    }
     </script>
 
 </body>
