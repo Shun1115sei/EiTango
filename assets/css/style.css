@@ -991,20 +991,18 @@ button {
 
 @media (max-width: 480px) {
 
-  /* Strict Flexible Layout to fit 100dvh */
+  /* Allow scrolling on mobile */
   body {
-    height: 100dvh;
     min-height: 100dvh;
-    max-height: 100dvh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
-    padding: 2px 0 5px;
-    /* Minimal padding */
+    padding: 10px 0 120px;
+    /* Increased bottom padding for all buttons */
     box-sizing: border-box;
-    overflow: hidden;
-    /* Force no scroll */
+    overflow-y: auto;
+    /* Allow scrolling */
   }
 
   header {
