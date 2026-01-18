@@ -67,7 +67,9 @@ class FirebaseManager {
     }
 
     logout() {
-        this.auth.signOut();
+        if (confirm('ログアウトしますか？')) {
+            this.auth.signOut();
+        }
     }
 
     updateUI(isLoggedIn) {
