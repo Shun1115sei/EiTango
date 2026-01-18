@@ -48,20 +48,34 @@ class FirebaseManager {
     }
 
     login() {
+        if (this.isLoggingIn) return; // Prevent double clicks
+        this.isLoggingIn = true;
+
         const provider = new firebase.auth.GoogleAuthProvider();
 
-        // Simple mobile detection
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        // Robust mobile detection: UA or screen size
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+            (window.innerWidth <= 768);
 
         if (isMobile) {
-            // Use Redirect for mobile to avoid popup blockers
             this.auth.signInWithRedirect(provider);
         } else {
-            // Use Popup for desktop
-            this.auth.signInWithPopup(provider).catch((error) => {
-                console.error("Login failed:", error);
-                alert("Login failed: " + error.message);
-            });
+            this.auth.signInWithPopup(provider)
+                .then(() => {
+                    this.isLoggingIn = false;
+                })
+                .catch((error) => {
+                    this.isLoggingIn = false;
+                    console.warn("Popup login failed, falling back to redirect:", error);
+
+                    // Specific handling for popup blocks or conflicts
+                    if (error.code === 'auth/popup-blocked' || error.code === 'auth/cancelled-popup-request' || error.code === 'auth/popup-closed-by-user') {
+                        this.auth.signInWithRedirect(provider);
+                    } else {
+                        // Fallback to redirect anyway for "conflicting popup" or others
+                        this.auth.signInWithRedirect(provider);
+                    }
+                });
         }
     }
 
@@ -70,6 +84,7 @@ class FirebaseManager {
     }
 
     updateUI(isLoggedIn) {
+        this.isLoggingIn = false; // Reset flag on UI update
         const loginBtn = document.getElementById('login-btn');
         const userIcon = document.getElementById('user-icon');
 
