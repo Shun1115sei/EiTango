@@ -8,13 +8,26 @@ class FirebaseManager {
         if (typeof firebase !== 'undefined') {
             this.auth = firebase.auth();
             this.db = firebase.firestore();
-            this.initAuthListener();
 
-            // Check for redirect result (needed for mobile login)
-            this.auth.getRedirectResult().catch((error) => {
-                console.error("Redirect Login Failed:", error);
-                alert("Login Error: " + error.message);
-            });
+            // Set persistence to LOCAL explicitly
+            this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+                .then(() => {
+                    this.initAuthListener();
+
+                    // Check for redirect result
+                    return this.auth.getRedirectResult();
+                })
+                .then((result) => {
+                    if (result && result.user) {
+                        console.log("Redirect Login Success:", result.user.uid);
+                        this.user = result.user;
+                        this.updateUI(true);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Redirect Login Failed:", error);
+                    alert("Login Error: " + error.message);
+                });
         }
     }
 
