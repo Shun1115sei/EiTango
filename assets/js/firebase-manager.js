@@ -48,17 +48,22 @@ class FirebaseManager {
     }
 
     login() {
-        if (this.isLoggingIn) return; // Prevent double clicks
-        this.isLoggingIn = true;
+        console.log("Login button clicked, initiating redirect...");
+
+        // Removed double-click guard to prevent stuck state
+        // if (this.isLoggingIn) return; 
 
         const provider = new firebase.auth.GoogleAuthProvider();
 
-        // Force Redirect for ALL devices to ensure stability and avoid popup conflicts
-        this.auth.signInWithRedirect(provider).catch((error) => {
-            this.isLoggingIn = false;
-            console.error("Redirect Login Failed:", error);
-            alert("Login initialization failed: " + error.message);
-        });
+        // Force Redirect for ALL devices
+        this.auth.signInWithRedirect(provider)
+            .then(() => {
+                console.log("Redirecting...");
+            })
+            .catch((error) => {
+                console.error("Redirect Login Failed:", error);
+                alert("Login Error: " + error.message);
+            });
     }
 
     logout() {
