@@ -54,7 +54,11 @@ class FirebaseManager {
         const provider = new firebase.auth.GoogleAuthProvider();
 
         // Force Redirect for ALL devices to ensure stability and avoid popup conflicts
-        this.auth.signInWithRedirect(provider);
+        this.auth.signInWithRedirect(provider).catch((error) => {
+            this.isLoggingIn = false;
+            console.error("Redirect Login Failed:", error);
+            alert("Login initialization failed: " + error.message);
+        });
     }
 
     logout() {
