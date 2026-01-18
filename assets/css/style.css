@@ -107,6 +107,82 @@ h1 {
     padding: 5px 10px;
     font-size: 0.8rem;
   }
+
+  /* Fix header title truncation */
+  header {
+    padding: 0 10px;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+    padding-right: 60px;
+    /* Space for List button */
+    line-height: 1.3;
+  }
+
+  .status-bar {
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  /* Fix card container sizing */
+  .card-container {
+    width: 95%;
+    height: 350px;
+    margin-bottom: 15px;
+  }
+
+  /* Fix bottom controls - prevent overlap */
+  .controls {
+    flex-direction: column;
+    gap: 8px;
+    padding: 0 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .main-controls {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .main-controls .btn-action {
+    flex: 1;
+    padding: 12px 8px;
+    font-size: 0.9rem;
+  }
+
+  .secondary-controls {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 5px;
+  }
+
+  .secondary-controls button {
+    padding: 8px 12px;
+    font-size: 0.75rem;
+  }
+
+  /* Quiz FAB positioning */
+  .fab-quiz {
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+  }
+
+  /* Word list button positioning */
+  .btn-word-list {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+  }
 }
 
 /* Card Container */
