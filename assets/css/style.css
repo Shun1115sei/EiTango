@@ -1025,16 +1025,14 @@ button {
   }
 
   .card-container {
-    flex: 1 1 auto;
-    /* Grow and shrink to fill space */
+    flex: 0 0 auto;
+    /* Don't grow or shrink */
     width: 90%;
-    height: auto !important;
-    /* Override fixed height */
-    min-height: 0;
-    /* Allow shrinking */
-    margin: 5px 0;
+    height: 350px;
+    /* Fixed height for mobile */
+    min-height: 300px;
+    margin: 10px 0;
     display: flex;
-    /* Fixes 3D context in some browsers */
   }
 
   .card {
