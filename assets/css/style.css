@@ -34,10 +34,12 @@ body {
   min-height: 100vh;
   color: var(--text-main);
   overflow-x: hidden;
-  padding-bottom: 80px;
-  /* Space for bottom buttons */
-  padding-bottom: calc(80px + env(safe-area-inset-bottom));
-  /* iOS safe area */
+  overflow-y: auto;
+  /* Allow vertical scrolling */
+  padding-top: 20px;
+  padding-bottom: 120px;
+  /* Increased for bottom buttons + Home */
+  padding-bottom: calc(120px + env(safe-area-inset-bottom));
   box-sizing: border-box;
 }
 
