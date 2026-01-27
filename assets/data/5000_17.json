@@ -1,0 +1,212 @@
+[
+    {
+        "id": 1701,
+        "word": "principle",
+        "phonetic": "/prínsəpl/",
+        "translation": "(法・規制の基本となる) 原則",
+        "meaning": "-"
+    },
+    {
+        "id": 1702,
+        "word": "obligation",
+        "phonetic": "/ɑ̀bləgéiʃən/",
+        "translation": "(法的・道徳的) 義務",
+        "meaning": "-"
+    },
+    {
+        "id": 1703,
+        "word": "legal system",
+        "phonetic": "",
+        "translation": "法律制度",
+        "meaning": "合法的 (legal) な、違法な (illegal)"
+    },
+    {
+        "id": 1704,
+        "word": "Constitution",
+        "phonetic": "/kɑ̀nstətjúːʃən/",
+        "translation": "憲法",
+        "meaning": "小文字で始まる constitution は「構成、構造」という意味。"
+    },
+    {
+        "id": 1705,
+        "word": "legislation",
+        "phonetic": "/lèdʒisléiʃən/",
+        "translation": "立法行為",
+        "meaning": "-"
+    },
+    {
+        "id": 1706,
+        "word": "enact",
+        "phonetic": "/inǽkt/",
+        "translation": "(法) を制定する",
+        "meaning": "-"
+    },
+    {
+        "id": 1707,
+        "word": "institution",
+        "phonetic": "/ìnstətjúːʃən/",
+        "translation": "制度、制定",
+        "meaning": "一般的には「(大学、銀行のような特定の目的を持つ大規模な) 機関」という意味で使われる。"
+    },
+    {
+        "id": 1708,
+        "word": "provision",
+        "phonetic": "/prəvíʒən/",
+        "translation": "(法律関連文書の) 条項",
+        "meaning": "一般的には「供給、準備」という意味で使われる。 (関連) stipulation (規定)"
+    },
+    {
+        "id": 1709,
+        "word": "resolution",
+        "phonetic": "/rèzəlúːʃən/",
+        "translation": "決議案",
+        "meaning": "決議にかける議案。 (動) resolve (～を決議する)"
+    },
+    {
+        "id": 1710,
+        "word": "property right",
+        "phonetic": "",
+        "translation": "財産権",
+        "meaning": "-"
+    },
+    {
+        "id": 1711,
+        "word": "patent act",
+        "phonetic": "",
+        "translation": "特許法",
+        "meaning": "-"
+    },
+    {
+        "id": 1712,
+        "word": "license",
+        "phonetic": "/láisəns/",
+        "translation": "許可、免許",
+        "meaning": "-"
+    },
+    {
+        "id": 1713,
+        "word": "Justice Department",
+        "phonetic": "",
+        "translation": "司法省 (= Department of Justice)",
+        "meaning": "-"
+    },
+    {
+        "id": 1714,
+        "word": "judicial",
+        "phonetic": "/dʒuːdíʃəl/",
+        "translation": "司法の",
+        "meaning": "一般的には「公正な、公平な」という意味で使われる。"
+    },
+    {
+        "id": 1715,
+        "word": "jurisdiction",
+        "phonetic": "/dʒùəridíkʃən/",
+        "translation": "司法権",
+        "meaning": "裁判をすることができる国家の権利で、立法権、行政権とともに三権分立主義の1つ。"
+    },
+    {
+        "id": 1716,
+        "word": "court",
+        "phonetic": "/kɔːrt/",
+        "translation": "法廷",
+        "meaning": "(関連) Supreme Court (最高裁判所)"
+    },
+    {
+        "id": 1717,
+        "word": "attorney",
+        "phonetic": "/ətɔ́ːrni/",
+        "translation": "弁護士",
+        "meaning": "(関連) prosecutor (検事)、judge (裁判官)、jury (陪審)"
+    },
+    {
+        "id": 1718,
+        "word": "accuse",
+        "phonetic": "/əkjúːz/",
+        "translation": "～を告発する",
+        "meaning": "(名) accusation (告発)"
+    },
+    {
+        "id": 1719,
+        "word": "commit",
+        "phonetic": "/kəmít/",
+        "translation": "(罪・過失) を犯す",
+        "meaning": "-"
+    },
+    {
+        "id": 1720,
+        "word": "witness",
+        "phonetic": "/wítnis/",
+        "translation": "証人",
+        "meaning": "-"
+    },
+    {
+        "id": 1721,
+        "word": "guilt",
+        "phonetic": "/gilt/",
+        "translation": "有罪",
+        "meaning": "(形) guilty (有罪の)、(関連) innocent (無罪の)"
+    },
+    {
+        "id": 1722,
+        "word": "sentence",
+        "phonetic": "/séntəns/",
+        "translation": "(刑の) 宣告",
+        "meaning": "-"
+    },
+    {
+        "id": 1723,
+        "word": "penalty",
+        "phonetic": "/pénəlti/",
+        "translation": "処罰",
+        "meaning": "-"
+    },
+    {
+        "id": 1724,
+        "word": "fine",
+        "phonetic": "/fain/",
+        "translation": "罰金",
+        "meaning": "-"
+    },
+    {
+        "id": 1725,
+        "word": "investigation",
+        "phonetic": "/invèstəgéiʃən/",
+        "translation": "(犯罪・状況などの) 捜査",
+        "meaning": "-"
+    },
+    {
+        "id": 1726,
+        "word": "victim",
+        "phonetic": "/víktim/",
+        "translation": "(犯罪・事故などの) 被害者",
+        "meaning": "-"
+    },
+    {
+        "id": 1727,
+        "word": "theft",
+        "phonetic": "/θeft/",
+        "translation": "窃盗",
+        "meaning": "(関連) burglary (押込強盗)"
+    },
+    {
+        "id": 1728,
+        "word": "forgery",
+        "phonetic": "/fɔ́ːrdʒəri/",
+        "translation": "偽造 (罪)",
+        "meaning": "(動) forge (～を偽造する)、(関連) fraud (詐欺)"
+    },
+    {
+        "id": 1729,
+        "word": "delinquency",
+        "phonetic": "/dilíŋkwənsi/",
+        "translation": "(特に若者の) 非行",
+        "meaning": "(関連) juvenile delinquency (少年犯罪)"
+    },
+    {
+        "id": 1730,
+        "word": "criminology",
+        "phonetic": "/krìmənɑ́lədʒi/",
+        "translation": "犯罪学",
+        "meaning": "犯人や犯罪の原因とその対策などを研究する学問。(関連) criminologist (犯罪学者)"
+    }
+]
